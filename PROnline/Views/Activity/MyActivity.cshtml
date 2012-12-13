@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PROnline.Models.Activities.Activity>
+@using PROnline.Models;
+
+@{
+    ViewBag.Title = "我的活动";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="itemtable" >
+    <thead>
+    <tr>
+        <th>
+            活动主题
+        </th>
+        <th>
+            状态
+        </th>
+        <th>
+            未通过原因
+        </th>
+        <th>
+            发布日期
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.ActionLink(item.ActivityName, "Details", new { id = item.ActivityID }, new { target = "_blank" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VerifyState.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cause)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>            
+            @if (item.VerifyStateId == VerifyState.NO)
+            {
+                @Html.ActionLink("修改", "Edit", new { id = item.ActivityID }) 
+                <span>|</span>
+                @Html.ActionLink("删除", "Delete", new { id = item.ActivityID })
+                <span>|</span>
+                @Html.ActionLink("提交审核", "Submit", new { id = item.ActivityID });
+            }                                                                            
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table(ViewBag, "itemtable", "/Activity/MyActivity")

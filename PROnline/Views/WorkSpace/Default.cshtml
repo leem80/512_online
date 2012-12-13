@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "我的工作台";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/workspace.css")" />
+}
+
+<div class="workspace-panel">
+@{Html.RenderAction("Top", "Letter");}
+</div>
+
+
+<div class="workspace-panel">
+@{Html.RenderAction("Top", "FavoriteResource");}
+</div>
+

@@ -1,0 +1,34 @@
+﻿@model PROnline.Models.Activities.ActivityContribute
+
+@{
+    ViewBag.Title = "风采投稿详情";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<fieldset>
+
+    <div class="display-label">投稿主题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">投稿人</div>
+    <div class="display-field">
+        <span>@ViewBag.name</span>
+    </div>
+
+    <div class="display-label">投稿日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+    <div class="display-label">内容</div>
+    <div class="display-field">
+        @Html.Raw(@Model.Content)
+    </div>
+</fieldset>
+
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>
+

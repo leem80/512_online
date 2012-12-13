@@ -1,0 +1,24 @@
+﻿@model PROnline.Models.Guides.GuideType
+@using PROnline.Models.Guides;
+
+@{
+    ViewBag.Title = ViewBag.typename;
+    Layout = "~/Views/Shared/Normal/_List.cshtml";
+}
+
+<!--左侧菜单-->
+<ul id="admin_menu">
+@section menu {
+    @foreach (var type in ViewBag.typelist as List<GuideType>)
+    {        
+        <li>@Html.ActionLink(type.TypeName, "Browse", "GuideType", new { id = type.GuideTypeID }, null)</li>       
+    }
+}
+
+</ul>
+        <div class="content-list">
+            @if (Model != null)
+            {
+                @Html.Raw(Model.Introduction)
+            }
+        </div>

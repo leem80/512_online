@@ -1,0 +1,45 @@
+﻿@model PROnline.Models.Teams.TeamLeader
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TeamLeader</legend>
+
+    <div class="display-label">TeamID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamID)
+    </div>
+
+    <div class="display-label">Volunteer</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Volunteer.PoliticalExperience)
+    </div>
+
+    <div class="display-label">State</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">JoinDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JoinDate)
+    </div>
+
+    <div class="display-label">ChangeCause</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ChangeCause)
+    </div>
+
+    <div class="display-label">ChangeDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ChangeDate)
+    </div>
+</fieldset>
+<p class="btn">
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TeamLeaderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,84 @@
+﻿@model PROnline.Models.Teams.Team
+
+@{
+    ViewBag.Title = "创建服务小组";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+
+@{
+    if (ViewBag.isShow == true)
+    {
+        using (Html.BeginForm())
+        {    
+            @Html.ValidationSummary(true)
+            <fieldset>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Type)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("Type", new SelectList(new List<String> { "学业辅导", "心理辅导" }))
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("工作站")
+            </div>
+            <div class="editor-field">
+                @{
+                List<SelectListItem> items = new List<SelectListItem>();
+                foreach (var item in ViewBag.list)
+                {
+                    items.Add(new SelectListItem { Text = item.WorkStationName, Value = Convert.ToString(item.WorkStationID) });
+                }
+
+                    @Html.DropDownList("WorkStationID", items)
+                }
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.TeamName)
+            </div>
+            <div class="editor-field select" >
+                @Html.EditorFor(model => model.TeamName)
+                @Html.ValidationMessageFor(model => model.TeamName)
+            </div>
+            <div class="editor-label">
+                @Html.Label("小组长")
+            </div>
+            <div class="editor-label">
+                @{Html.RenderAction("Select", "Users", new { selectType = "radio", filter = "type=selTeamLeader", userType = new[] { "team_leader" } });}
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Introduction)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Introduction)
+                @Html.ValidationMessageFor(model => model.Introduction)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Comment)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Comment)
+                @Html.ValidationMessageFor(model => model.Comment)
+            </div>
+
+            <p class="btn">
+                <input type="submit" value="创建" />|@Html.ActionLink("返回", "Index")
+            </p>
+        </fieldset>
+        }
+    }
+    else
+    {
+        <p class="btn">
+            @Html.ActionLink("尚未创建工作站，请先创建工作站再创建小组！点击创建工作站", "Create", "WorkStation", null, null)
+        </p>
+    }
+}

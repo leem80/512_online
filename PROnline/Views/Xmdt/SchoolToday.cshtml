@@ -1,0 +1,57 @@
+﻿@model PROnline.Models.Users.School
+
+@{
+    ViewBag.Title = "今日辅导信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th style="width:100px">
+            学生编号
+        </th>
+        <th >
+            项目学校
+        </th>
+        <th style="width:160px">今日辅导</th>
+        <th style="width:80px">辅导日程</th>
+        <th style="width:80px">历史记录</th>
+        <th style="width:140px">心理辅导实际时间</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model.Pairs) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.School.SchoolName)
+        </td>
+        <td>
+        @if(item.TodayAppointment!=null){
+            @item.TodayAppointment.StartDate.ToString("HH:mm:ss")@:-
+            @item.TodayAppointment.EndDate.ToString("HH:mm:ss")
+            }
+        </td>
+       <td> <a href="/Xmdt/StuCal/@item.StudentID">查看日程</a></td>
+       <td>
+            <a href="/Xmdt/StuAHistroy/@item.StudentID">查看历史</a>
+       </td>
+       <td>
+        @if(item.TodayAppointment!=null){
+       
+            <span>@item.TodayAppointment.totalMinitues</span>
+         }else{
+              <span>无</span> 
+         }
+       </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+<div class="btn">
+<a href="/Xmdt/TodayService">返回</a>
+</div>

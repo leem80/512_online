@@ -1,0 +1,34 @@
+﻿@model IEnumerable<PROnline.Models.Service.Pairs>
+
+@{
+    ViewBag.Title = "配对详情";
+}
+
+<table>
+    <tr>
+        <th>
+            学生
+        </th>
+        <th>
+            志愿者
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PairsID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PairsID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PairsID })
+        </td>
+    </tr>
+}
+
+</table>

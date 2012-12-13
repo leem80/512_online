@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PROnline.Models.Resources.Resource>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="head">
+<h3>最新资源 </h3>
+<strong>@Html.ActionLink("更多>>","List","Resources")</strong>
+</div>
+<p>
+<ul>
+@foreach (var item in Model)
+{
+    <li>
+    <span class="title">@Html.ActionLink(Utils.title(item.Title), "Show", "Resources", new { id=@item.ResourceID},null)</span>
+    <span class="date">@Html.DisplayFor(it=>item.CreateDate)</span></li>
+
+}
+</ul>
+</p>
+

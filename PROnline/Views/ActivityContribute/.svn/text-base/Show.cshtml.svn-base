@@ -1,0 +1,31 @@
+﻿@model PROnline.Models.Activities.ActivityContribute
+
+@{
+    ViewBag.Title = "风采详情";
+    Layout = "~/Views/Shared/Normal/_Show.cshtml";
+}
+
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/app/resource/resource.css")" />
+}
+
+<div class="clear"></div>
+<div class="grid_3 more" >
+    <div class="container">
+     @{Html.RenderAction("Relate", "Slider");}
+    </div>
+</div>
+
+<div class="grid_9">
+<div class="content-section">
+<h3>@Html.Raw(@Model.Title)</h3>
+<p class="ref">
+作者:@ViewBag.RealName | 发布日期:@Html.DisplayFor(modelItem=>modelItem.CreateDate) | 
+<span><a href="@Request.UrlReferrer">返回</a></span>
+</p>
+<hr/>
+<p>
+    @Html.Raw(@Model.Content)
+</p>
+</div>
+</div>

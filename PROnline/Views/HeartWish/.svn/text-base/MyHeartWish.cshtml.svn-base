@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PROnline.Models.HeartWishes.HeartWish>
+           
+@using PROnline.Models.HeartWishes;
+
+@{
+    ViewBag.Title = "我的心声";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable" >
+    <thead>
+        <tr>
+            <th style="width:80px">
+                心声类型
+            </th>
+            <th>
+                心声
+            </th>
+            <th style="width:80px">
+                状态
+            </th>
+            <th style="width:80px">
+                回复数
+            </th>
+            <th style="width:80px">
+                发表日期
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeartWishType.TypeName)
+            </td>
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.HeartWishID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VerifyingState)
+            </td>
+            <td>
+                @{  int count = 0;
+                    if (item.ReplyList != null)
+                    {
+                        count=item.ReplyList.Where(r => r.VerifyingState == "通过").Count();
+
+                    }
+                }
+                @Html.DisplayFor(modelItem => count)
+            </td>
+            <td>
+                @item.CreateDate.ToString("yyyy-MM-dd")
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Tools.table("datatable")

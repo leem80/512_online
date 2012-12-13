@@ -1,0 +1,56 @@
+﻿@model PROnline.Models.Donation.DonationItem
+@using PROnline.Src;
+@{
+    ViewBag.Title = "执行捐助";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@section head{
+<script type="text/javascript">
+    function Check() {
+        debugger;
+        if ($("#donator .selbox").size()>0) {
+            return true;
+        }
+        return false;
+    }
+</script>
+}
+
+<!--using (Html.BeginForm())
+{-->
+<form action="/DonationItem/Execute?type=success" method="post" onsubmit="return Check();">
+<fieldset>
+
+    @Html.HiddenFor(model => model.DonationItemID)
+
+    <div class="display-label">捐助项名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">捐助内容</div>
+    <div class="display-field">
+         @Html.DisplayFor(model => model.Content)
+    </div>
+
+    <div class="display-label">
+        受助对象
+    </div>
+    <div class="display-field">
+        @{
+            String allName = ViewBag.allName2;
+        }
+        <span>@allName</span>
+    </div>
+    <div class="display-label">爱心人士</div>
+    <div class="display-field">
+    @{Html.RenderAction("Select", "Users", new { selectType = "checkbox", filter = "type=selDonator", userType = new[] { "donator" } });}
+    @Html.ValidationMessage("DonatorIsNull")
+    </div>
+</fieldset>
+    <p class="btn">
+        <input type="submit" value="确认" /> |
+        @Html.ActionLink("返回", "Statistic")
+    </p>
+</form>

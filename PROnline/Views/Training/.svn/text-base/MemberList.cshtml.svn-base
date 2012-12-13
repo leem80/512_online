@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.TrainingVolunteer>
+
+@{
+    ViewBag.Title = "培训反馈志愿者列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="infoTable">
+    <thead><tr><th><td>@ViewBag.info</td></th></tr></thead>
+    <tbody><tr></tr><tr></tr></tbody>
+</table>
+@Tools.table("infoTable")
+
+<table id="trainingtable" >
+    <thead>
+    <tr>
+        <th>
+            志愿者姓名
+        </th>
+    </tr>
+    </thead>
+    <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Volunteer.User.RealName, "Details", "TrainingFeedback", new { id = item.TrainingID, vid = item.VolunteerID }, null);
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Tools.table(@ViewBag, "trainingtable", "/Training/MemberList")
+
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>

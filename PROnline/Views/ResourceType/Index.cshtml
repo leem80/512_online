@@ -1,0 +1,97 @@
+﻿@model IEnumerable<PROnline.Models.Resources.ResourceType>
+
+@{
+    ViewBag.Title = "资源类型列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+@section head{
+<style>
+    #codeBar{height:25px;border-bottom:2px solid #aaaaaa;line-height:25px;font-size:14px;position:static}
+    #codeBarFloat{position:absolute;text:align:center}
+    #codeBar span {float:left;color:#ff0000}
+    .code_nav{float:left;position:relative;}
+    .code_nav ul{background-color:#ffffff;z-index:999;list-style:none;padding:20px;margin:0px;padding-top:5px;
+                 border-left:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:3px solid #dddddd}
+    .code_nav li{padding:0px;margin:0px;}
+    .nav_title{text-align:center;padding-right:5px;padding-left:5px}
+</style>
+<script type="text/javascript">
+    $(function () {
+        $(".code_nav ul").hide();
+        $(".code_nav a")
+        .click(function () {
+            $(this).parents(".code_nav").children("ul").toggle();
+        })
+    })
+</script>
+<script src="@Url.Content("~/Content/tips.js")" type="text/javascript"></script>
+}
+
+<p class="btn">
+    @Tools.ActionLink("resourceType_add", @Html.ActionLink("添加", "Create", new { ParentId = ViewBag.ParentId }))
+</p>
+<div id="codeBar">
+<div id="codeBarFloat">
+    <span>类型导航：</span>
+    @foreach (var t in ViewBag.NavData)
+    {
+        <div  class="code_nav">
+
+        <div class="nav_title">|<a href="#">@t.Current.TypeName</a></div>
+        <ul >
+        @foreach (var x in t.Sibling)
+        {
+            <li>
+              @{
+                String name = x.TypeName;
+                String id = x.Id.ToString();
+                 @Html.ActionLink(@name, "Index", new { ParentId = @id });
+              }
+            </li>
+         }
+         </ul>
+         </div>
+
+     }
+</div>
+</div>
+<table id="type_table">
+<thead>
+    <tr>
+        <th>
+            名称
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        @{
+            String title= "分类简介:" + item.Introduction;            
+            <td class="tips" title="@title">
+                <!--Html.ActionLink(@item.TypeName, "Index", new { ParentId = @item.Id })-->
+                @Html.ActionLink(item.TypeName, "Details", new { id = @item.Id })
+            </td>
+        }       
+        <td>
+            @Html.ActionLink("修改", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("子目录", "Index", new { ParentId = @item.Id }) 
+            <!--Tools.ActionLink("edit", @Html.ActionLink("删除", "Delete", new { id = item.Id }))-->
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("type_table")
+@{
+    if (ViewBag.isShow)
+    {
+        <p class="btn">
+            @Html.ActionLink("返回", "Index")
+        </p>
+    }
+}

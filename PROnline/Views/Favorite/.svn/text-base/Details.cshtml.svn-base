@@ -1,0 +1,35 @@
+﻿@model PROnline.Models.Resources.Favorite
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+@section menu{
+    @Tools.menu("workspace")
+}
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Favorite</legend>
+
+    <div class="display-label">FavoriteName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FavoriteName)
+    </div>
+
+    <div class="display-label">Commnet</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Commnet)
+    </div>
+
+    <div class="display-label">CreateDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.FavoriteID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

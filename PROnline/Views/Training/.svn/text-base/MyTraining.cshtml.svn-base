@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.Training>
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "我的培训";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            培训主题
+        </th>
+        <th>
+            培训地点
+        </th>
+        <th>
+            培训时间
+        </th>
+        @{
+            if (ViewBag.userType == UserType.SUPERVISOR) 
+            {
+                <th></th>
+            }
+        }
+    </tr>
+</thead>
+<tfoot><tr><td colspan="3"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", new { id = item.TrainingID, type="detail" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                    @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                @{
+                    if (ViewBag.userType == UserType.SUPERVISOR) 
+                    {
+                        <td>
+                            @Html.ActionLink("签到", "Details", new { id = item.TrainingID, type = "attend" })
+                        </td>
+                    }
+                }                
+            </tr>
+        }
+    }
+
+</tbody>
+</table>
+@Tools.table(ViewBag, "datatable", "/Training/MyTraining")
+

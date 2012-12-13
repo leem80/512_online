@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "趣味动画";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = {"芭芘之梦幻仙境",
+                            "芭芘之魔法彩虹",
+                            "芭芘之森林公主",
+                            "芭芘之长发公主",
+                            "芭芘之蝴蝶仙子",
+                            "芭芘之花仙子",
+                            "芭比之天鹅湖",
+                            "芭芘之人鱼公主",
+                            "芭芘之真假公主",
+                            "芭芘之十二芭蕾舞公主",
+                            "芭芘奇幻日记",
+                            "芭芘之梦幻飞马之旅",
+                            "芭芘之圣诞欢歌",
+                            "芭芘与胡桃夹子的梦幻之旅",
+                            "迪士尼之小美人鱼",
+                            "迪士尼之小美人鱼2",
+                            "迪士尼之小美人鱼3",
+                            "迪士尼之公主与青蛙",
+                            "迪士尼之狮子王II",
+                            "迪士尼之狐狸与猎狗",
+                            "迪士尼之公主故事第一集",
+                            "迪士尼之公主故事第二集",
+                            "迪士尼之阿拉丁",
+                            "迪士尼之小鹿斑比",
+                            "迪士尼之魔法奇缘",
+                            "迪士尼之奇妙仙子与失落的宝藏",
+                            "蜡笔小新",
+                            "美猴王",
+                            "宝贝熊鲁柏",
+                            "美女与野兽",
+                            "奥特曼",
+                            "国王与小鸟",
+                            "吉诺米欧与朱丽叶",
+                            "喜羊羊与灰太狼",
+                            "凯蒂猫",
+                            "夏洛特的网",
+                            "岸上的波妞",
+                            "河童",
+                            "千与千寻",
+                            "借东西的小人阿莉埃蒂",
+                            "龙猫",
+                            "冰河世纪1",
+                            "冰河世纪2",
+                            "海贼王",
+                            "宫崎骏作品",
+                            "名侦探柯南",
+                            "火影忍者",
+                            "SNOOPY",
+                            "WHISPER  OF THE HEART",
+                            "PRINCESS MONONOKE",
+                            "FIREFLIES",
+                            "MY NEIGNBOURS THE YAMADAS",
+                            "LITTLE ORSE PRINCE",
+                            "Robots",
+                            "HOWL’S  MOVING CASTLE"               
+            };
+            
+            int i = 1;
+            foreach(String str in names)
+            {
+                String content = "/content/res/";
+                String temp = String.Format("{0:000}", i);
+                String path = content + "ACM-" + temp + "-" + str + ".wmv";
+                <tr>
+                    <td>
+                        <a href="@path">@str</a>
+                    </td>
+                </tr>
+                i++;
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+

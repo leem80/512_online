@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PROnline.Models.Users.Supervisor>
+
+@{
+    ViewBag.Title = "查询";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+@section head{
+<script type="text/javascript">
+    $(function () {
+        var selectType = "@ViewBag.selectType";
+        $(".uid").click(function () {
+            var datax = []
+            var user = {}
+            if (selectType = "checkbox") {
+                $(".uid").each(function () {
+                    if ($(this).attr("checked")) {
+                        user.id = $(this).attr("value");
+                        user.username = $(this).attr("username");
+                        user.usertype = $(this).attr("usertype");
+                        datax.push(user);
+                    }
+
+                })
+            }
+            window.parent.userCheck = datax;
+        })
+
+    })
+    
+</script>
+
+}
+
+<style>
+   body{overflow-x:hidden}
+</style>
+<table id="supervisortable">
+<thead>
+    <tr>
+        <th></th>
+        <th>
+            用户名
+        </th>
+        <th>
+            咨询师等级
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="@ViewBag.selectType" name="uid" class="uid" value="@item.SupervisorID" username="@item.User.UserName" usertype="@item.User.UserType"/>
+        </td>
+        <td>
+            @item.User.RealName
+        </td>
+        <td>
+            @item.PDegree
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("supervisortable")
+

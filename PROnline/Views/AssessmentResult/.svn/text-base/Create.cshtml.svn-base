@@ -1,0 +1,101 @@
+﻿@model PROnline.Models.Assessments.AssessmentResult
+@using PROnline.Models.Assessments;
+@{
+    ViewBag.Title = "新建心理健康状况评估";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        
+<table id="datatable">
+<thead>
+            <tr>
+                <th>
+                    题目
+                </th>
+
+                <th>
+                    无
+                </th>
+
+                <th>
+                    偶尔
+                </th>
+
+                <th>
+                    时有
+                </th>
+
+                <th>
+                    经常
+                </th>
+
+                <th>
+                    总是
+                </th>
+                <th></th>
+           </tr>
+           </thead>
+<tbody>
+      @{int i = 0; string prefx = "ResultOptionList[";}
+      @foreach (var item in ViewBag.list as List<AssessmentQuestion>)
+      {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+
+        @foreach (AssessmentOption option in item.AssessmentOptionList)
+        {
+         <td>
+           @Html.RadioButton(prefx + i + "].AssessmentOptionID", option.AssessmentOptionID)
+           @Html.DisplayFor(modelItem => option.OptionValue)
+        </td>
+        }
+    
+        @{i++;}
+   </tr>
+      }
+       @Html.Hidden("optioncount", i)
+</tbody>
+</table>
+@Tools.table("datatable")
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Conclusion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Conclusion)
+            @Html.ValidationMessageFor(model => model.Conclusion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Advice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Advice)
+            @Html.ValidationMessageFor(model => model.Advice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Action)
+        </div>
+         <div class="editor-field">
+            @Html.DropDownList("Action", new SelectList(new List<String> { "继续治疗", "治愈", "转院" }))
+        </div>
+
+        <p>
+            <input type="submit" value="新建" />
+        </p>
+
+        <p class="btn">
+            @Html.ActionLink("返回", "SchoolNavigation", new { SchoolID = ViewBag.schoolID, type = "psychological" }, null)
+        </p>
+    </fieldset>
+}

@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Relate";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+ @{Html.RenderAction("Top", "Resources");}
+ @{Html.RenderAction("Top", "ActivityContribute");}
+ @{Html.RenderAction("Top", "HeartWish");}
+ @{Html.RenderAction("Top", "DonationItem");}

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PROnline.Models.Notices.NoticeType>
+@using PROnline.Models.Notices;
+
+@{
+    ViewBag.Title = "公告类型列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("新建公告类型", "Create")
+    @Html.ActionLink("发布公告", "Create","Notice")
+</p>
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th  style="width:200px">
+            公告类型名称
+        </th>
+        <th>
+            介绍
+        </th>
+        <th style="width:100px">
+            公告数
+        </th>
+        <th style="width:100px">操作</th>
+    </tr>
+ </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.TypeName, "Details", new { id = item.NoticeTypeID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Introduction)
+        </td>
+        <td>
+         @{
+              int count=0;
+              if (item.NoticeList != null)
+              {
+                  foreach (Notice notice in item.NoticeList)
+                  {
+                      if (notice.isDeleted == false)
+                      {
+                          count++;
+                      }
+                  }
+              }
+              
+                 }
+            @Html.DisplayFor(modelItem => count)
+        </td>
+        <td>
+            @Html.ActionLink("修改", "Edit", new { id=item.NoticeTypeID }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.NoticeTypeID })
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")

@@ -1,0 +1,40 @@
+﻿@model PROnline.Models.Resources.ResourceType
+
+@{
+    ViewBag.Title = "添加资源类型";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TypeName)
+        </div>
+        <!--p50 表示宽度设置为50%,p100代表100%-->
+        <div class="editor-field p50">
+            <input type="hidden" name="ParentId" value="@ViewBag.ParentId"/>
+            @Html.EditorFor(model => model.TypeName)
+            @Html.ValidationMessageFor(model => model.TypeName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Comment)
+            @Html.ValidationMessageFor(model => model.Comment)
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="保存" />|<a href="@Request.UrlReferrer">返回列表</a>
+        </p>
+}
+

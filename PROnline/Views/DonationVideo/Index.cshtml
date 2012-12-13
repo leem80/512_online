@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationVideo>
+
+@{
+    ViewBag.Title = "捐助视讯审核列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            捐助项
+        </th>
+        <th>
+            捐助学生
+        </th>
+        <th>
+            审核
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonationStudent.DonationItem.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonationStudent.Student.User.RealName)
+        </td>
+        <td>
+             @Html.ActionLink("审核", "Edit", new { id = item.DonationVideoID })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(@ViewBag, "datatable", "/DonationVideo/Index")

@@ -1,0 +1,74 @@
+﻿@model PROnline.Models.Trainings.TrainingFeedback
+
+@{
+    ViewBag.Title = "填写培训反馈表";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>培训反馈表</legend>
+        <!--input type="hidden" name="userID" value="@ViewBag.userID"/--> 
+        <input type="hidden" name="trainingID" value="@ViewBag.trainingID" />
+
+        <div class="editor-label">
+            @Html.Label("志愿者姓名")
+        </div>
+        <div class="editor-field">
+            @ViewBag.name
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("培训时间")
+        </div>
+        <div class="editor-field">
+            @ViewBag.trainingTime
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("自身收获")
+        </div>
+        <div class="editor-field">
+           <p>
+               @Html.RadioButton("selfGains", "收获很大")
+               <span>收获很大</span>
+           </p>
+           <p>
+               @Html.RadioButton("selfGains", "收获较大")
+               <span>收获较大</span>
+           </p>
+           <p>
+               @Html.RadioButton("selfGains", "有些收获", true)
+               <span>有些收获</span>
+           </p>
+           <p>
+               @Html.RadioButton("selfGains", "收获一般")
+               <span>收获一般</span>
+           </p>
+           <p>
+               @Html.RadioButton("selfGains", "没有收获")
+               <span>没有收获</span>
+           </p>
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("培训建议")
+        </div>
+        <div class="editor-field">
+            @Html.TextArea("trainingAdvice")
+        </div>
+
+        <p>
+            <input type="submit" value="提交" />
+        </p>
+    </fieldset>
+}
+
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>
+

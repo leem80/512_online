@@ -1,0 +1,117 @@
+﻿@model PROnline.Models.Teams.Team
+
+@{
+    if(ViewBag.type == "change")
+    {
+        ViewBag.Title = "更换小组长";
+    }
+    else
+    {
+        ViewBag.Title = "编辑服务小组";
+    }
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.Hidden("edit_type", ViewBag.type as String)
+
+        @Html.Hidden("old_teamleader_volunteerID", ViewBag.tempGuid as String)
+
+        @Html.HiddenFor(model => model.TeamID)
+
+        @if (ViewBag.type == "change")
+        {
+            <input type="hidden" name="TeamName" value="@Model.TeamName" />
+        }
+
+    @if (ViewBag.type == "info")
+    {
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+        <select name="Type">
+            @{
+        if ("学业辅导" == Model.Type)
+        {
+                    <option value="学业辅导" selected="selected">学业辅导</option>
+                    <option value="心理辅导">心理辅导</option>
+        }
+        else if ("心理辅导" == Model.Type)
+        {
+                    <option value="学业辅导">学业辅导</option>
+                    <option value="心理辅导" selected="selected">心理辅导</option>
+        }                
+            }
+        </select>
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WorkStation.WorkStationName)
+        </div>
+        <div class="editor-field">
+            @{
+        List<SelectListItem> items = new List<SelectListItem>();
+        foreach (var item in ViewBag.list)
+        {
+            items.Add(new SelectListItem { Text = item.WorkStationName, Value = Convert.ToString(item.WorkStationID) });
+        }
+            
+                @Html.DropDownList("WorkStationID", items)
+            }
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TeamName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TeamName)
+            @Html.ValidationMessageFor(model => model.TeamName)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Comment)
+            @Html.ValidationMessageFor(model => model.Comment)
+        </div>
+        
+    }
+    else if (ViewBag.type == "change")
+    {
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TeamName)
+        </div>
+        <div class="editor-field">
+            @Model.TeamName
+        </div>
+        
+        <div class="editor-label">
+            @Html.Label("小组长")
+        </div>
+        <div class="editor-label">
+            @{Html.RenderAction("Select", "Users", new { selectType = "radio", filter = "type=selTeamLeader", userType = new[] { "team_leader" } });}
+        </div>
+    }
+    <p class="btn">
+        <input type="submit" value="保存" /> | @Html.ActionLink("返回", "Index")
+    </p>
+    </fieldset>
+}

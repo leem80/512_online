@@ -1,0 +1,53 @@
+﻿@model PROnline.Models.Assessments.AssessmentOption
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>AssessmentOption</legend>
+
+    <div class="display-label">OptionTitle</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OptionTitle)
+    </div>
+
+    <div class="display-label">OptionValue</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OptionValue)
+    </div>
+
+    <div class="display-label">CreatorID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatorID)
+    </div>
+
+    <div class="display-label">CreateDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+    <div class="display-label">ModifierID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifierID)
+    </div>
+
+    <div class="display-label">ModifyDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ModifyDate)
+    </div>
+
+    <div class="display-label">isDeleted</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.isDeleted)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

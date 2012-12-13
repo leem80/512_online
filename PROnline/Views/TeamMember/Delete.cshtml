@@ -1,0 +1,29 @@
+﻿@model PROnline.Models.Teams.TeamMember
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_2Section.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>TeamMember</legend>
+
+    <div class="display-label">Level</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Level)
+    </div>
+
+    <div class="display-label">Declaration</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Declaration)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

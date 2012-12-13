@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PROnline.Models.Activities.Activity>
+@using PROnline.Models;
+
+@{
+    ViewBag.Title = "我参与的活动";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="itemtable" >
+    <thead>
+    <tr>
+        <th>
+            活动时间
+        </th>
+        <th>
+            活动地点
+        </th>
+        <th>
+            活动主题
+        </th>
+        <th>
+            参与人数
+        </th>
+        <th>
+            负责人
+        </th>
+        <th>
+            联系方式
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <!--td>
+            @Html.ActionLink(item.ActivityName, "Details", new { id = item.ActivityID }, new { target = "_blank" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td-->
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityAddr)
+        </td>
+        <td>
+            @Html.ActionLink(item.ActivityName, "Details", new { id = item.ActivityID })
+        </td>
+        <td>
+            <span>志愿者人数：</span>
+            @Html.DisplayFor(modelItem => item.VolunteerCount)
+            <span>人，学生人数：</span>
+            @Html.DisplayFor(modelItem => item.StudentCount)
+            <span>人</span>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonInCharge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table(ViewBag, "itemtable", "/Activity/MyJoinActivity")

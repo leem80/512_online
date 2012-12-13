@@ -1,0 +1,76 @@
+﻿@model PROnline.Models.Users.Student
+
+<fieldset>
+
+    <p class="btn">
+        @Html.ActionLink("修改个人信息", "Edit", new { id = Model.StudentID })
+    </p>
+
+    <div class="display-label">学校</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Teacher.School.SchoolName)
+    </div>
+
+    <div class="display-label">出生日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">民族</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.People)
+    </div>
+
+    <div class="display-label">是否担任班干部</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Career)
+    </div>
+
+    <div class="display-label">家庭人口数</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeNum)
+    </div>
+
+    <div class="display-label">个人特长</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hobby)
+    </div>
+
+    <div class="display-label">联系电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+
+    <div class="display-label">家里是否具备上网条件</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CanSurf)
+    </div>
+
+    <div class="display-label">个人受伤情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hurt)
+    </div>
+
+    <div class="display-label">亲朋亡故情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Die)
+    </div>
+
+    <div class="display-label">家庭财产损失情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Lose)
+    </div>
+
+    <div class="display-label">是否留守</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAlone)
+    </div>
+
+    <div class="btn">
+        @Html.ActionLink("心理测评记录", "Index", "AssessmentResult", new { StudentID = Model.StudentID }, new { target = "_blank" })|
+        @Html.ActionLink("配对记录", "Index", "AssessmentResult", new { StudentID = Model.StudentID }, new { target = "_blank" })|
+        <a href="@Request.UrlReferrer">返回</a>
+    </div>
+
+
+</fieldset>

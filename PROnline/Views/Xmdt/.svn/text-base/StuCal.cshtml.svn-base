@@ -1,0 +1,64 @@
+﻿@model PROnline.Models.Service.PairAppointment
+
+@{
+    ViewBag.Title = "辅导历史信息";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+@section head{
+    <style>
+        .caldiv{float:left;width:40%}
+        .calData{float:left;width:60%} 
+    </style>
+}
+<div class="caldiv">
+    <div class="cal" ></div>
+    <script>
+        $(".cal").datepicker({
+        defaultDate:new Date("@ViewBag.date.ToString("yyyy-MM-dd")"),
+        dateFormat:"yy-mm-dd",
+        onSelect:function(dateText,inst){
+            window.location="/Xmdt/StuCal?id=@Model.Pairs.Student.StudentID&datex="+dateText
+        }
+        
+        });
+
+    </script>
+</div>
+<div class="calData">
+<table id="datatable" >
+<thead>
+    <tr>
+        <th style="width:100px">
+            辅导时段
+        </th>
+        <th style="width:160px">变动控制</th>
+        <th style="width:80px">志愿者编号</th>
+        <th style="width:140px">督导老师编号</th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+    <tr>
+        <td>
+            @Model.StartDate.ToString("HH:mm:ss")
+            -
+            @Model.EndDate.ToString("HH:mm:ss")
+        </td>
+        <td>
+
+        </td>
+       <td>
+            @Model.Pairs.Volunteer.User.UserName
+       </td>
+       <td>
+            @Model.Pairs.Supervisor.User.UserName
+       </td>
+    </tr>
+</tbody>
+</table>
+@Tools.table("datatable")
+<div class="btn">
+<a href="/Xmdt/SchoolToday/@ViewBag.Student.SchoolID">返回</a>
+</div>
+</div>
+<div class="clear"></div>

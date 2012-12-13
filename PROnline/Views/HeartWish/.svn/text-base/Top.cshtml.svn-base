@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PROnline.Models.HeartWishes.HeartWish>
+
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<!--首页用来显示最新公告-->
+
+<div class="head">
+<h3>最新心声 </h3>
+<strong>@Html.ActionLink("更多>>", "HeartWishBrowse", "HeartWish")</strong>
+</div>
+<p>
+
+<ul class="content-list">
+@foreach (var item in Model)
+{
+    <li>
+        @Html.ActionLink(Utils.title(item.Title), "Show", "HeartWish", new { id = @item.HeartWishID }, new { target = "_blank" })
+    <span>
+        @Html.DisplayFor(modelItem => item.HeartWishType.TypeName)
+    </span>
+    </li>
+}
+</ul>
+</p>
+
+

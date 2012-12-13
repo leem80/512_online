@@ -1,0 +1,121 @@
+﻿@model IEnumerable<PROnline.Models.Users.ClassImportModel>
+
+@{
+    ViewBag.Title = "是否导入";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+    int errorCount = 0;
+}
+@section head{
+<style>
+    .alert
+    {
+        border:1px solid #FFC78F;
+        background-color:#FFF0E0;
+        padding:10px;
+        font-weight:bold;
+        font-size:9px;
+        margin:5px 0px;
+    }
+    
+    .alert .success
+    {
+        padding:2px;
+        background:url("/Content/icon/16/accept.png") no-repeat;
+        padding-left:20px;
+        color:#009933;
+    }
+    
+        .alert .failure
+    {
+        padding:2px;
+        background:url("/Content/icon/16/exclamation.png") no-repeat;
+        padding-left:20px;
+        color:#ff0000;
+    }
+    
+</style>
+}
+<form action="/Users/ImportClass" method="POST">
+<div class="alert">
+    @foreach (var temp in @ViewBag.result)
+    {
+        if(temp.Status == "failure") { errorCount++; }
+        <div class="@temp.Status">
+        <span>@temp.Description！</span>
+        </div>
+    }   
+</div>
+
+<input type="hidden" name="TeacherID" value="@ViewBag.TeacherID" />
+<input type="hidden" name="SchoolID" value="@ViewBag.SchoolID" />
+<input type="hidden" name="type" value="@ViewBag.type" />
+<table id="tableList">
+<thead>
+    <tr>
+        <th>
+            姓名
+        </th>
+        <th>
+            性别
+        </th>
+        <th>
+            生日
+        </th>
+        <th>
+            登录名
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.HiddenFor(modelItem => item.People)
+            @Html.HiddenFor(modelItem => item.CanSurf)
+            @Html.HiddenFor(modelItem => item.Career)
+            @Html.HiddenFor(modelItem => item.Chemistry)
+            @Html.HiddenFor(modelItem => item.Chinese)
+            @Html.HiddenFor(modelItem => item.Die)
+            @Html.HiddenFor(modelItem => item.Dl)
+            @Html.HiddenFor(modelItem => item.DayOfWeek)
+            @Html.HiddenFor(modelItem => item.English)
+            @Html.HiddenFor(modelItem => item.Hobby)
+            @Html.HiddenFor(modelItem => item.HomeNum)
+            @Html.HiddenFor(modelItem => item.Hurt)
+            @Html.HiddenFor(modelItem => item.Lose)
+            @Html.HiddenFor(modelItem => item.IsAlone)
+            @Html.HiddenFor(modelItem => item.Ls)
+            @Html.HiddenFor(modelItem => item.Math)
+            @Html.HiddenFor(modelItem => item.Physics)
+            @Html.HiddenFor(modelItem => item.SurfTime)
+            @Html.HiddenFor(modelItem => item.Sw)
+            @Html.HiddenFor(modelItem => item.Telephone)
+            @Html.EditorFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.EditorFor(modelItem => item.Sex)
+        </td>
+        <td>
+            @Html.EditorFor(modelItem => item.BirthDay)
+        </td>
+        <td>
+            @Html.EditorFor(modelItem => item.UserName)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("tableList")
+@if (errorCount == 0)
+{
+<div class="btn"><button type="submit">确认导入</button>|<a href="@Request.UrlReferrer">返回</a></div>
+}
+else
+{
+<div class="btn"><a href="@Request.UrlReferrer">返回</a></div>
+}
+</form>

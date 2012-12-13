@@ -1,0 +1,34 @@
+﻿@model PROnline.Models.Users.Role
+
+@{
+    ViewBag.Title = "角色删除";
+    Layout = "~/Views/Shared/_2Section.cshtml";
+
+    }
+<h3>你是否要删除改角色？</h3>
+@using (Html.BeginForm()) {
+<fieldset>
+    <legend>Role</legend>
+
+    <div class="display-label">角色ID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Id)
+    </div>
+
+    <div class="display-label"></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Note)
+    </div>
+
+    <div class="display-label">创建日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+</fieldset>
+    <p>
+        @if(@Model.CanDelete){
+        <input type="submit" value="删除" />@:|
+        }
+        @Html.ActionLink("返回列表", "Index")
+    </p>
+}

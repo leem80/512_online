@@ -1,0 +1,49 @@
+﻿@model PROnline.Models.Letters.Letter
+
+@{
+    ViewBag.Title = "发送站内信";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@section head
+{   
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/mapapi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/wbox.js")" type="text/javascript"></script>
+<link href="../../Content//wbox/wbox.css" rel="stylesheet" type="text/css" />
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>站内信</legend>
+        @{
+            String sID = ViewBag.sID;
+            String rID = ViewBag.rID;
+            @Html.Hidden(sID)
+            @Html.Hidden(rID)
+        }
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+        
+        <p class="btn">
+            <input class="wBox_close" type="submit" value="发送" /> |
+            <a class="wBox_close" href="javascript:void(0);">关闭</a>
+        </p>
+    </fieldset>
+}

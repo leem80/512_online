@@ -1,0 +1,6 @@
+﻿@{
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+<script type="text/javascript">
+    window.parent.CKEDITOR.tools.callFunction(@ViewBag.CallBack,"@ViewBag.FilePath","");
+</script>

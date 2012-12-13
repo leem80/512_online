@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PROnline.Models.Users.User>
+
+
+@{
+    Layout = "~/Views/Shared/_3Section.cshtml";
+}
+
+@section menu{@Tools.menu("users", 0, 1, "manage_menu", "")}
+@section nav{@Tools.nav("users",true)}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th >
+            用户名
+        </th>
+        <th style="width:100px">
+            创建日期
+        </th>
+        <th style="width:200px">#</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.ActionLink("删除", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+

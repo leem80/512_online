@@ -1,0 +1,166 @@
+﻿@model PROnline.Models.Users.Volunteer
+         
+@{
+    if (ViewBag.type == "show")
+    {
+        ViewBag.Title = "个人信息";
+        Layout = "~/Views/Shared/Space/_Edit.cshtml";
+    }
+}
+
+<fieldset>          
+    <p class="btn">
+        @Html.ActionLink("修改个人信息", "Edit", new { id = Model.VolunteerID })
+        @Html.ActionLink("修改密码", "ChangePassword", "Users", new { id = Model.User.Id }, null)
+    </p>
+
+    <div class="display-label">用户名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+
+    <div class="display-label">真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+    <div class="display-label">性别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sex)
+    </div>
+
+    <div class="display-label">民族</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nationality)
+    </div>
+
+    <div class="display-label">出生日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">所在地</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeTown)
+    </div>
+
+    <div class="display-label">政治面貌</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PoliticalExperience)
+    </div>
+
+    <div class="display-label">固定电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telepone)
+    </div>
+
+    <div class="display-label">移动电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileTelephone)
+    </div>
+
+    <div class="display-label">EMail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EMail)
+    </div>
+
+    <div class="display-label">QQ</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QQ)
+    </div>
+
+    <!--div class="display-label">培训类型</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TrainingType)
+    </div-->
+
+    <div class="display-label">是否是在校大学生</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsStudent)
+    </div>
+
+    <div class="display-label">毕业（所在）院校</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.University)
+    </div>
+
+    <div class="display-label">学历</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Degree)
+    </div>
+
+    <div class="display-label">专业</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Major)
+    </div>
+
+    <div class="display-label">年级（在校大学生)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Grade)
+    </div>
+
+    <div class="display-label">职业（非在校大学生）</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Career)
+    </div>
+
+    <div class="display-label">是否参加过类似活动</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsExperenced)
+    </div>
+
+    <div class="display-label">相关经历</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Experence)
+    </div>
+
+    <!--div class="display-label">心理咨询师级别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PDegree)
+    </div>
+
+    <div class="display-label">心理帮助的看法</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Insight)
+    </div-->
+
+    <div class="display-label">教育背景或接受过的相关培训情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Introduction)
+    </div>
+
+    <div class="display-label">固定上网时间</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DayOfWeek)
+    </div>
+
+    <div class="display-label">爱心时间</div>
+    <div class="display-field">
+        @ViewBag.serverTime
+    </div>
+
+    <div class="display-label">成为志愿者的动机</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Motive)
+    </div>
+
+    <div class="display-label">擅长领域</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GoodAtField)
+    </div>
+
+    <div class="display-label">座右铭</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Motto)
+    </div>
+
+</fieldset>
+
+@{
+    if (ViewBag.type == "show")
+    {
+        <p class="btn">
+            <a href="@Request.UrlReferrer">返回</a>
+        </p>
+    }
+}

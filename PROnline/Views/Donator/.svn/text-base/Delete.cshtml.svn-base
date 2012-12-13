@@ -1,0 +1,27 @@
+﻿@model PROnline.Models.Users.Donator
+
+@{
+    ViewBag.Title = "删除爱心人士";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认删除?</h3>
+<fieldset>
+
+    <div class="display-label">用户名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+
+    <div class="display-label">真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

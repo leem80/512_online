@@ -1,0 +1,74 @@
+﻿@model PROnline.Models.Service.Pairs
+@using PROnline.Controllers.Service;
+
+@{
+    ViewBag.Title = "配对详情";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+    <div class="display-label">学生</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Student.User.RealName)
+    </div>
+
+    <div class="display-label">志愿者</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Volunteer.User.RealName)
+    </div>
+
+    <div class="display-label">督导专家</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Supervisor.User.RealName)
+    </div>
+
+    <div class="display-label">开始日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+    </div>
+
+    <div class="display-label">结束日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+
+    <div class="display-label">服务安排</div>
+
+<table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            开始时间
+        </th>
+        <th>
+            结束时间
+        </th>
+        <th>
+            删除
+        </th>
+    </tr>
+ </thead>
+    <tbody>
+@foreach (var item in Model.AppointmentList.OrderBy(a => a.StartDate))
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.ActionLink("删除", "Delete", "PairAppointment", new { id = item.PairAppointmentID }, null)
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+
+@Tools.table("datatable")
+
+<p class="btn">
+    @Html.ActionLink("返回", "SchoolNavigation", new { SchoolID = ViewBag.SchoolID })
+</p>
+

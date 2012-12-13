@@ -1,0 +1,50 @@
+﻿@model  IEnumerable<PROnline.Models.Donation.DonationItem>
+@{
+    ViewBag.Title = "联谊统计表";
+    Layout = "~/Views/Shared//Space/_Detail.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th style="width:100px">
+            捐助时间
+        </th>
+        <th >
+            受助对象编号
+        </th>
+        <th style="width:160px">捐助人编号</th>
+        <th style="width:80px">捐助项名称</th>
+        <th style="width:80px">捐助条目</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate.ToString("yyyy-MM-dd"))
+        </td>
+        <td>
+            @foreach (var stu in item.DonationStudentList)
+            {
+                <span>【@stu.Student.User.UserName】</span>
+            }
+        </td>
+            @foreach (var stu in item.DonatorList)
+            {
+                <span>【@stu.User.UserName】</span>
+            }
+        <td>
+
+        </td>
+       <td> 
+            @Html.DisplayFor(modelItem => item.Content)
+       </td>
+
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+
+

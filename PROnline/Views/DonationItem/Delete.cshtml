@@ -1,0 +1,32 @@
+﻿@model PROnline.Models.Donation.DonationItem
+
+@{
+    ViewBag.Title = "删除捐助条目";
+    Layout = "~/Views/Shared/Normal/_Detail.cshtml";
+}
+
+@section menu{
+    @Tools.menu("workspace")
+}
+
+<h3>确认删除?</h3>
+<fieldset>
+
+
+    <div class="display-label">标题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">内容</div>
+    <div class="display-field">
+        @Html.Raw(Model.Content)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "MyCheckedDonation")
+    </p>
+}

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "公用视讯平台";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+ <table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            公共房间
+        </th>
+        <th>
+            启动视讯平台
+        </th>
+    </tr>
+    </thead>
+
+<tbody>
+   @{
+       List<String> publicroomlist = ViewBag.publicroomlist as List<String>;
+      for(int i=0;i<publicroomlist.Count;i++)
+      {
+          int a = i + 1;
+        <tr>
+         <td>
+         公共房间 @a
+         </td>
+         <td>
+         <a href="@publicroomlist[i]" target="_blank">启动视讯平台</a>
+         </td>
+     </tr>
+      }
+   }
+ 
+</tbody>
+</table>
+@Tools.table("datatable")

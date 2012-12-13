@@ -1,0 +1,133 @@
+﻿@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "Query";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<script type="text/javascript">
+
+
+    $(function () {
+        var selectType = "@ViewBag.selectType";
+        $("#selectAll").click(function () {
+            if ($(this).attr("checked")) {
+                datax = [];
+                $(".uid").each(function () {
+                    $(this).attr("checked", true);
+                    var user = {};
+                    user.id = $(this).attr("value");
+                    user.username = $(this).attr("username");
+                    user.usertype = $(this).attr("usertype");
+                    datax.push(user);
+                })
+                window.parent.userCheck = datax;
+            } else {
+                $(".uid").each(function () { $(this).attr("checked", false) });
+                window.parent.userCheck = [];
+            }
+
+        })
+
+
+
+
+        $(".uid").click(function () {
+            var datax = []
+            if (selectType == "checkbox") {
+                $(".uid").each(function () {
+                    if ($(this).attr("checked")) {
+                        var user = {};
+                        user.id = $(this).attr("value");
+                        user.username = $(this).attr("username");
+                        user.usertype = $(this).attr("usertype");
+                        datax.push(user);
+                    }
+
+                })
+            } else if(selectType == "radio"){
+                var user = {};
+                user.id = $(this).attr("value");
+                user.username = $(this).attr("username");
+                user.usertype = $(this).attr("usertype");
+                datax.push(user);
+            }
+            window.parent.userCheck = datax;
+        })
+
+    })
+    
+</script>
+
+}
+
+<style>
+   body{overflow-x:hidden}
+</style>
+
+<table id="datatable">
+<thead>
+    <tr>
+        <th> 
+        @if (ViewBag.selectType == "checkbox")
+        {
+            <input type="checkbox" id="selectAll" />@:全选
+        }
+        </th>
+        <th>
+            用户名
+        </th>
+        <th>
+            真实姓名
+        </th>
+        <th>
+        </th>
+    </tr>
+</thead>
+<tbody>
+@if (ViewBag.list != null)
+{
+    foreach (var item in ViewBag.list)
+    {
+        <tr>
+            <td>
+                @if (item.User.UserType.Id == UserType.SUPERVISOR)
+                {
+                    Supervisor s = item as Supervisor;
+                    <input type="@ViewBag.selectType" name="uid" class="uid" value="@s.SupervisorID" username="@item.User.RealName" usertype="@item.User.UserType.Id"/>
+                }
+                else if (item.User.UserType.Id == UserType.VOLUNTEER)
+                {
+                    Volunteer v = item as Volunteer;
+                    <input type="@ViewBag.selectType" name="uid" class="uid" value="@v.VolunteerID" username="@item.User.RealName" usertype="@item.User.UserType.Id"/>
+                }
+                else if (item.User.UserType.Id == UserType.STUDENT)
+                {
+                    Student stu = item as Student;
+                    <input type="@ViewBag.selectType" name="uid" class="uid" value="@stu.StudentID" username="@item.User.RealName" usertype="@item.User.UserType.Id"/>
+                }
+                else if (item.User.UserType.Id == UserType.TEAM_LEADER)
+                {
+                    Volunteer v = item as Volunteer;
+                    <input type="@ViewBag.selectType" name="uid" class="uid" value="@v.VolunteerID" username="@item.User.RealName" usertype="@item.User.UserType.Id"/>
+                }
+            </td>
+            <td>
+                @item.User.UserName
+            </td>
+            <td>
+                @item.User.RealName
+            </td>
+            <!--@if (item.User.UserType.Id != UserType.STUDENT)
+                {
+                <td>
+                    @item.PDegree
+                </td>
+                }-->
+        </tr>
+    }
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+

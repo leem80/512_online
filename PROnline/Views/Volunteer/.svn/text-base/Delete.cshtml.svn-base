@@ -1,0 +1,29 @@
+﻿@model PROnline.Models.Users.Volunteer
+
+@{
+    ViewBag.Title = "删除志愿者";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+
+<h3>确认删除</h3>
+<fieldset>
+
+    <div class="display-label">用户名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+
+    <div class="display-label">真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        <a href="@Request.UrlReferrer">返回</a>
+    </p>
+}

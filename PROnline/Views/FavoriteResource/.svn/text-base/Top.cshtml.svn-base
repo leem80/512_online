@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PROnline.Models.Resources.FavoriteResource>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="head">
+<h3>最新收藏 </h3>
+<strong>@Html.ActionLink("更多>>","Index","Favorite")</strong>
+</div>
+<p>
+<ul>
+@foreach (var item in Model)
+{
+    <li>
+    <span class="title"><a href="@item.Url" target="_blank" >@item.Title</a></span>
+    <span class="date">@Html.DisplayFor(it => item.CreateDate)</span></li>
+
+}   
+</ul>
+</p>
+

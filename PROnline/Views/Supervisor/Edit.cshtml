@@ -1,0 +1,150 @@
+﻿@model PROnline.Models.Users.Supervisor
+
+@{
+    ViewBag.Title = "编辑督导";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        @Html.HiddenFor(model => model.SupervisorID)
+        @Html.HiddenFor(model => model.User.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User.RealName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User.RealName)
+            @Html.ValidationMessageFor(model => model.User.RealName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sex)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Sex", new SelectList(new List<String> { "男", "女" }))
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Birthday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Birthday)
+            <script type="text/javascript">
+                $("#Birthday").attr("readonly", "readonly")
+            </script>
+            @Tools.DateBox("Birthday")
+            @Html.ValidationMessageFor(model => model.Birthday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTown)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeTown)
+            @Html.ValidationMessageFor(model => model.HomeTown)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nationality)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Nationality", new SelectList(new List<String> { "汉族", "壮族", "满族", "回族", "苗族", "维吾尔族", "土家族", "彝族", "蒙古族", "藏族", "布依族", "侗族", "瑶族", "朝鲜族", "白族", "哈尼族", "哈萨克族", "黎族", "傣族", "畲族", "傈僳族", "仡佬族", "东乡族", "拉祜族", "水族", "佤族", "纳西族", "羌族", "土族" }))
+            @Html.ValidationMessageFor(model => model.Nationality)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PoliticalExperience)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PoliticalExperience", new SelectList(new List<String> { "团员", "党员", "群众" }))
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telepone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telepone)
+            @Html.ValidationMessageFor(model => model.Telepone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MobileTelephone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MobileTelephone)
+            @Html.ValidationMessageFor(model => model.MobileTelephone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EMail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EMail)
+            @Html.ValidationMessageFor(model => model.EMail)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.QQ)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QQ)
+            @Html.ValidationMessageFor(model => model.QQ)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.University)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.University)
+            @Html.ValidationMessageFor(model => model.University)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Degree)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Degree)
+            @Html.ValidationMessageFor(model => model.Degree)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Major)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Major)
+            @Html.ValidationMessageFor(model => model.Major)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Career)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Career)
+            @Html.ValidationMessageFor(model => model.Career)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PDegree)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PDegree", new SelectList(new List<String> { "二级", "三级" }))
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="保存" />|<a href="@Request.UrlReferrer">返回</a>
+        </p>
+    </fieldset>
+}

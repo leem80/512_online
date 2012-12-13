@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Empty.cshtml";
+    
+}
+@using PROnline.Models.Users;
+@{
+    String MsgCount = ViewBag.MsgCount;
+}
+@if (Session["user"] != null){
+<img  src="/Content/icon/16/align_none.png"/>
+    @Html.ActionLink("消息盒子" + "(" + MsgCount + ")", "Index", "WorkSpace", new { g = "myLetter" }, null)@:&nbsp;|
+}
+
+@if (Session["user"] == null)
+{
+    @Html.ActionLink("登录", "Login", "Account")
+    <span>|</span>
+    @Html.ActionLink("注册", "Login", "Account")
+}
+else
+{
+    User usr = (User)Session["user"];
+    <img  src="/Content/icon/16/user.png"/>
+    <span>@usr.UserName</span>
+    @Html.ActionLink("注销", "Logout", "Account")
+}
+
+| @Html.ActionLink("新手导航", "GuideTypeBrowse", "GuideType", null, null)

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationItem>
+@using PROnline.Models;
+@{
+    ViewBag.Title = "捐助项审核列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+
+}
+<table id="itemtable">
+    <thead>
+        <tr>
+            <th>
+                捐助项名称
+            </th>
+            <th>
+                提交人
+            </th>
+            <th style="width: 100px;">
+                状态
+            </th>
+            <th style="width: 150px;">
+                提交日期
+            </th>
+            <th style="width: 100px;">
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="navbar">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", new { id = item.DonationItemID })
+                </td>
+                <td>
+                    @{
+                        String AdminName = ViewBag.dic2[item.DonationItemID];
+                        }
+                    <span>@AdminName</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VerifyStateId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @if (item.VerifyStateId == "已提交")
+                    {
+                        @Html.ActionLink("通过", "Verify", new { id = item.DonationItemID, type = "pass" });
+                        <label>
+                            |</label>
+                        @Html.ActionLink("不通过", "Verify", new { id = item.DonationItemID, type = "notpass" }) ;
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Tools.table(ViewBag, "itemtable", "/DonationItem/Index")

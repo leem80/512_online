@@ -1,0 +1,255 @@
+﻿@model PROnline.Models.Users.Supervisor
+
+@{
+    ViewBag.Title = "督导专家注册";
+    <!--Layout = "~/Views/Shared/Manage/_Edit.cshtml"-->
+    Layout = "~/Views/Shared/Normal/_EditFull.cshtml";
+}
+
+@section head{
+
+    <link rel="Stylesheet" href="@Url.Content("~/Content/logon.css")" />
+}
+
+<div class="grid_12 logon">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>督导专家注册</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User.UserName)
+            @Html.ValidationMessageFor(model => model.User.UserName)
+            @Html.ValidationMessage("UserNameError")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User.RealName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User.RealName)
+            @Html.ValidationMessageFor(model => model.User.RealName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirtPassword)
+        </div>
+
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.FirtPassword)
+            @Html.ValidationMessageFor(model => model.FirtPassword)
+            @Html.ValidationMessage("PWTooShort")
+            @Html.ValidationMessage("PWTooLong")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmPassword)
+        </div>
+
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>其他信息</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sex)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Sex", new SelectList(new List<String> { "男", "女" }))
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Birthday)
+        </div>
+        <div class="editor-field">
+            
+            <select name="YYYY" onchange="YYYYDD(this.value)" id="year">
+                <option value="" selected="selected">请选择 年</option>
+            </select>
+            <select name="MM" onchange="MMDD(this.value)" id="month">
+                <option value="" selected="selected">请选择 月</option>
+            </select>
+            <select name="DD" id="day">
+                <option value="" selected="selected">请选择 日</option>
+            </select>
+             @Html.ValidationMessageFor(model => model.Birthday)
+             @Html.ValidationMessage("BirthdayError")
+        </div>
+
+        <!--年、月、日级联选择-->
+       <script type="text/javascript">
+           var year = document.getElementById("year");
+           var month = document.getElementById("month");
+           var day = document.getElementById("day");
+
+           function YYYYMMDDstart() {
+                MonHead = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+                //先给年下拉框赋内容
+                var y = new Date().getFullYear();
+               
+                for (var i = (y - 60); i < (y -15); i++) //以今年为准
+                    year.options.add(new Option(" " + i + " 年", i));
+
+                //赋月份的下拉框
+                for (var i = 1; i < 13; i++)
+                    month.options.add(new Option(" " + i + " 月", i));
+
+                year.value = y;
+                //month.value = new Date().getMonth() + 1;
+                var n = MonHead[new Date().getMonth()];
+                if (new Date().getMonth() == 1 && IsPinYear(YYYYvalue)) n++;
+                writeDay(n); //赋日期下拉框
+                //day.value = new Date().getDate();
+            }
+            if (document.attachEvent)
+                window.attachEvent("onload", YYYYMMDDstart);
+            else
+                window.addEventListener('load', YYYYMMDDstart, false);
+            function YYYYDD(str) //年发生变化时日期发生变化(主要是判断闰平年)
+            {
+                var MMvalue = month.options[month.selectedIndex].value;
+                if (MMvalue == "") { var e = day; optionsClear(e); return; }
+                var n = MonHead[MMvalue - 1];
+                if (MMvalue == 2 && IsPinYear(str)) n++;
+                writeDay(n)
+            }
+            function MMDD(str)  //月发生变化时日期联动
+            {
+                var YYYYvalue = year.options[year.selectedIndex].value;
+                if (YYYYvalue == "") { var e = day; optionsClear(e); return; }
+                var n = MonHead[str - 1];
+                if (str == 2 && IsPinYear(YYYYvalue)) n++;
+                writeDay(n)
+            }
+            function writeDay(n)  //据条件写日期的下拉框
+            {
+                var e = day; optionsClear(e);
+                for (var i = 1; i < (n + 1); i++)
+                    e.options.add(new Option(" " + i + " 日", i));
+            }
+            function IsPinYear(year)//判断是否闰平年
+            {
+                return (0 == year % 4 && (year % 100 != 0 || year % 400 == 0));
+            }
+            function optionsClear(e) {
+                e.options.length = 1;
+            }
+
+        </script>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nationality)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Nationality", new SelectList(new List<String> { "汉族", "壮族", "满族", "回族", "苗族", "维吾尔族", "土家族", "彝族", "蒙古族", "藏族", "布依族", "侗族", "瑶族", "朝鲜族", "白族", "哈尼族", "哈萨克族", "黎族", "傣族", "畲族", "傈僳族", "仡佬族", "东乡族", "拉祜族", "水族", "佤族", "纳西族", "羌族", "土族" }))
+            @Html.ValidationMessageFor(model => model.Nationality)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTown)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeTown)
+            @Html.ValidationMessageFor(model => model.HomeTown)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PoliticalExperience)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PoliticalExperience", new SelectList(new List<String> { "团员", "党员", "群众" }))
+        </div>
+
+        <div class="editor-label">
+           @Html.LabelFor(model => model.PDegree)
+        </div>
+        <div class="editor-field">
+           @Html.DropDownList("PDegree", new SelectList(new List<String> { "二级", "三级" }))
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telepone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telepone)
+            @Html.ValidationMessageFor(model => model.Telepone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MobileTelephone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MobileTelephone)
+            @Html.ValidationMessageFor(model => model.MobileTelephone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EMail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EMail)
+            @Html.ValidationMessageFor(model => model.EMail)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.QQ)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QQ)
+            @Html.ValidationMessageFor(model => model.QQ)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.University)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.University)
+            @Html.ValidationMessageFor(model => model.University)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Degree)
+        </div>
+        <div class="editor-field">
+          @Html.DropDownList("Degree", new SelectList(new List<String> { "大专", "本科", "硕士", "博士" }))
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Major)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Major)
+            @Html.ValidationMessageFor(model => model.Major)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Career)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Career)
+            @Html.ValidationMessageFor(model => model.Career)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="注册"  onclick="setValue()"/>
+            @Html.ActionLink("返回", "Index", "Home")
+        </p>
+    </fieldset>
+}
+</div>
+

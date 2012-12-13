@@ -1,0 +1,93 @@
+﻿@model PROnline.Models.Users.Supervisor
+
+<fieldset>
+    <div class="display-label">
+        用户名 </div>   
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+    <div class="display-label">
+        真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+    <div class="display-label">
+        性别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sex)
+    </div>
+    <div class="display-label">
+        民族</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nationality)
+    </div>
+    <div class="display-label">
+        所在地</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeTown)
+    </div>
+    <div class="display-label">
+        生日</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+    <div class="display-label">
+        政治面貌</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PoliticalExperience)
+    </div>
+    <div class="display-label">
+        固定电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telepone)
+    </div>
+    <div class="display-label">
+        移动电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileTelephone)
+    </div>
+    <div class="display-label">
+        EMail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EMail)
+    </div>
+    <div class="display-label">
+        QQ</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QQ)
+    </div>
+    <div class="display-label">
+        毕业院校</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.University)
+    </div>
+    <div class="display-label">
+        学历</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Degree)
+    </div>
+    <div class="display-label">
+        专业</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Major)
+    </div>
+    <div class="display-label">
+        职业</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Career)
+    </div>
+    <div class="display-label">
+        自我介绍</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Introduction)
+    </div>
+    <div class="display-label">
+        心理咨询师级别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PDegree)
+    </div>
+</fieldset>
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>
+

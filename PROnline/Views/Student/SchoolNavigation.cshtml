@@ -1,0 +1,58 @@
+﻿@model PROnline.Models.Users.School
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title="学生管理";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<!--传回学校ID-->
+@using (Html.BeginForm("SchoolNavigation","Student",FormMethod.Get)) {
+    @Html.ValidationSummary(true)
+        <div class="editor-label p50">
+            @Html.LabelFor(model => model.SchoolName)
+            @Html.DropDownList("SchoolID", ViewBag.SchoolDropDownList as SelectList)
+            <button type="submit">选择学校</button>
+        </div>
+    }
+
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            班主任
+        </th>
+        <th>
+            学生
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+     </thead>
+    <tbody>
+    <!--列出学校、班主任、学生-->
+@if(Model!=null){
+
+    foreach (var student in Model.Students as List<Student>)
+    {
+        if (student.User.isDeleted == false)
+        {
+            <tr>            
+                <td></td>
+                <td>
+                    @Html.ActionLink(student.User.RealName, "Details", "Student", new { id = student.StudentID }, null) 
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new { id = student.StudentID }) |
+                    @Html.ActionLink("删除", "Delete", new { id = student.StudentID })
+                </td>
+             </tr>       
+        }
+    } 
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")
+

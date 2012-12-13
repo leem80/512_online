@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PROnline.Models.Users.School>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+<style>
+    .xmdt .head{margin:2px;border:1px solid #dddddd;background-color:#eeeeee;color:#999999;padding-left:5px;}
+    .xmdt{border:#dddddd 1px solid ;height:270px;background-color:#fff;margin-bottom:5px;padding:10px}
+    .team{float:left;width:10%}
+    .team ul{list-style:none;margin:0px;padding:5px;border-left:3px solid #dddddd}
+    .team last{border:0px}
+    .team strong a{color:#00994D;padding-left:27px;background:url('/Content/img/school.png') no-repeat;font-size:12px;display:block;height:25px;line-height:25px}
+    .team li{padding:0px;margin:0px;line-height:30px;font-size:12px;font-weight:bold }
+    .team img{width:24px;height:24px;margin-right:3px}
+</style>
+<div class="xmdt">
+<div class="head">
+今日辅导
+</div>
+<p>
+
+@foreach(var school in Model ){
+    <div class="team">
+    <strong><a href="/Pair/NavSchool/@school.SchoolID">@school.SchoolName</a></strong>
+    <ul class="dt">
+    @foreach (var pair in @school.Pairs)
+    {
+        <li><img src="/Content/img/team.png" /><a href="#" class="tips" rel="/Pair/Tips/@pair.PairsID">小组</a></li>
+    }
+    </ul>
+    </div>
+}
+</p>
+</div>
+

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "后台管理";
+    Layout = "~/Views/Shared/Manage/_Main.cshtml";
+}
+@section menu{
+
+@Tools.menu("manage",0,5,"lm","manage")
+
+
+}
+@section head{
+
+<script type="text/javascript">
+    $(function () {
+        $("#lm a[href=''] ~ul").hide();
+        $("#lm a[href='']").click(function (event) {
+            $("#lm a[href=''] ~ul").slideUp();
+            $(this).siblings("ul").slideDown();
+            event.preventDefault();
+        })
+
+    })
+
+</script>
+}
+<iframe id="manage" name="manage" width="100%" scrolling="no"  frameborder="0" >
+
+</iframe>

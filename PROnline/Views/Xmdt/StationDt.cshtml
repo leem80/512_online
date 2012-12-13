@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PROnline.Models.WorkStations.WorkStation>
+
+@{
+    ViewBag.Title = "学生辅导信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th style="width:130px">
+            志愿者工作站名称
+        </th>
+        <th >
+            志愿者小组列表
+        </th>
+        <th style="width:100px">志愿者参与人数</th>
+        <th style="width:140px">心理辅导实际时间</th>
+        <th style="width:100px">今日辅导</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkStationName)
+        </td>
+        <td>
+            @foreach (var team in item.Teams)
+            {
+                <span>@team.TeamName</span>@:.
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vcount)
+        </td>
+       <td> @Html.DisplayFor(modelItem => item.TotalServiceTime)</td>
+       <td>
+            @if (item.PcountToday > 0)
+            {
+                <a href="/Xmdt/StationToday/@item.WorkStationID">有</a>
+            }
+            else
+            {
+                <a >无</a>
+            }
+       </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")

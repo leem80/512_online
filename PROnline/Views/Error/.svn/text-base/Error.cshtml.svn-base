@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = ViewBag.Head;
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<div style="line-height:100px;">
+   <span>@ViewBag.Error</span></div><div class="btn">
+<a href="@Request.UrlReferrer">返回</a>
+</div>

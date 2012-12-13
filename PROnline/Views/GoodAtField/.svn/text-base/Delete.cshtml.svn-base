@@ -1,0 +1,23 @@
+﻿@model PROnline.Models.Users.GoodAtField
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>GoodAtField</legend>
+
+    <div class="display-label">Field</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Field)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

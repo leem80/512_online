@@ -1,0 +1,33 @@
+﻿@model PROnline.Models.Donation.DonationType
+
+@{
+    ViewBag.Title = "添加捐助类型";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>DonationType</legend>
+         <input name="DonationTypeID" type="hidden" value="00000000-0000-0000-0000-000000000000" />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TypeName)
+        </div>
+        <div class="editor-field p50">
+            @Html.EditorFor(model => model.TypeName)
+            @Html.ValidationMessageFor(model => model.TypeName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)         
+        </div>
+
+        <p>
+            <input type="submit" value="添加" />|@Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+

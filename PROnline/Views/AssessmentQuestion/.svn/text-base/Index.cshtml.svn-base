@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PROnline.Models.Assessments.AssessmentQuestion>
+           
+@using PROnline.Models.Assessments;
+
+@{
+    ViewBag.Title = "心理测评题目列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<p class="btn">
+    @Tools.ActionLink("assessmentQuestion_add", @Html.ActionLink("新建", "Create"))
+</p>
+
+ <table id="datatable" >
+    <thead>
+    <tr>
+        <th>
+            题目
+        </th>
+        <th>
+            无
+        </th>
+
+        <th>
+            偶尔
+        </th>
+
+        <th>
+            时有
+        </th>
+
+        <th>
+            经常
+        </th>
+
+        <th>
+            总是
+        </th>
+
+        <th>
+            操作
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model)
+      {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+
+        @foreach (AssessmentOption option in item.AssessmentOptionList.OrderBy(t=>t.Index))
+        {
+         <td>      
+           @Html.DisplayFor(modelItem => option.OptionValue)
+        </td>
+        }
+        <td>
+            @Html.ActionLink("删除", "Delete", new { id = item.AssessmentQuestionID })
+        </td>
+   </tr>
+      }
+
+</tbody>
+</table>
+@Tools.table("datatable")
+

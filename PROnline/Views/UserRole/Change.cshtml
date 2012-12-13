@@ -1,0 +1,63 @@
+﻿@model PROnline.Models.Users.Administrator
+
+@{
+    ViewBag.Title = "更改角色";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<fieldset>
+    <legend>Administrator</legend>
+
+    <input type="hidden" name="UserId" value="@Model.User.Id" />
+
+
+    <div class="display-label">真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+    <div class="display-label">出生日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">性别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+
+    <div class="display-label">移动电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileTelephone)
+    </div>
+
+    <div class="display-label">地址</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">原角色</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Role.Note)
+    </div>
+
+    <div class="display-label">更换为角色</div>
+    <div class="display-field">
+        @{List<SelectListItem> data = (List<SelectListItem>)ViewBag.roles;}
+        @Html.DropDownList("RoleId",data)
+    </div>
+
+
+</fieldset>
+<p>
+    <input type="submit"  value="保存"/>|
+    @Html.ActionLink("返回", "Index")
+</p>
+}

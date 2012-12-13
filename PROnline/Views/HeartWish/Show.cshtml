@@ -1,0 +1,72 @@
+﻿@model PROnline.Models.HeartWishes.HeartWish
+@using PROnline.Models.HeartWishes;
+@{
+    ViewBag.Title = "心声:" + Model.Title;
+    Layout = "~/Views/Shared/Normal/_Show.cshtml";
+}
+
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/app/resource/resource.css")" />
+}
+<div class="grid_3 more" >
+    <div class="container">
+     @{Html.RenderAction("Relate", "Slider");}
+    </div>
+</div>
+
+<div class="grid_9">
+<div class="content-section">
+<h3>@Html.Raw(@Model.Title)</h3>
+<div  class="ref">发布日期:@Model.CreateDate.ToString("yyyy-MM-dd")</div>
+    
+    <hr />
+    <p class="display-field">
+        @Html.Raw(Model.Content)
+    </p>
+</div>
+
+<div class="discuss">
+<div class="header">
+<h4>评论：</h4>
+<span class="action">
+ @{Html.RenderAction("LoginMini", "Account", new { from = Request.Url });}
+</span>
+ </div>
+
+    <ul>
+    @foreach (var item in ViewBag.replylist)
+    {
+        <li>
+        <p class="info">
+        <strong>评论人:@item.Replier.UserName</strong><span>评论日期:@item.ReplyDate.ToString("yyyy-MM-dd")</span>
+        </p>
+        <p class="reply">@Html.Raw(item.ReplyContent)</p>
+        <div class="box"></div>
+        </li>  
+    }
+    </ul>
+
+
+
+<!--回复-->
+   @if (Session["uid"] != null)
+   {
+       using (Html.BeginForm("Create", "HeartWishReply"))
+       {
+        @Html.ValidationSummary(true)
+        
+            @Html.HiddenFor(model => model.HeartWishID)
+
+            <div class="editor-label">
+                @Html.Label("回复")
+            </div>
+            <div class="editor-field p70">
+                @Html.TextArea("ReplyContent")
+            </div>
+            <p class="btn">
+                <input type="submit" value="回复" />
+            </p>
+   }
+   }
+</div>
+</div>

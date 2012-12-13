@@ -1,0 +1,82 @@
+﻿@model IEnumerable<PROnline.Models.Teams.Team>
+@using PROnline.Models.Teams;
+
+@{
+    ViewBag.Title = "服务小组列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+@{
+    PROnline.Controllers.Teams.TeamMemberController tmc = new PROnline.Controllers.Teams.TeamMemberController();
+}
+<p class="btn">
+    @Tools.ActionLink("team_add", @Html.ActionLink("创建服务小组", "Create"))
+</p>
+
+<table id="teamtable" >
+    <thead>
+    <tr>
+        <th>
+            服务小组名称
+        </th>
+        <th>
+            服务类型
+        </th>
+        <th>
+            组长
+        </th>
+         <th>
+            组员数量
+        </th>      
+        <th>
+            操作
+        </th>
+    </tr>
+    </thead>
+    <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in ViewBag.list as List<Team>)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.TeamName, "Details", new { id = item.TeamID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @if (item.TeamLeaderID != null)
+                {
+                    @Html.DisplayFor(modelItem => item.TeamLeader.Volunteer.User.RealName)
+                }
+                else
+                {
+                    <span>无</span>
+                }
+            </td>
+            <td>
+                @{
+                  int count = 0;
+                  if (item.TeamMembers != null)
+                  {
+                      foreach (TeamMember member in item.TeamMembers)
+                      {
+                          if (member.State == "正常")
+                          {
+                              count++;
+                          }
+                      }
+                  }
+                }
+                @Html.DisplayFor(modelItem => count)
+            </td>
+            <td>
+                @Tools.ActionLink("team_edit", @Html.ActionLink("修改", "Edit", new { id = item.TeamID, type="info" })) |
+                @Tools.ActionLink("team_delete", @Html.ActionLink("删除", "Delete", new { id = item.TeamID }))|
+                @Tools.ActionLink("team_changeTeamLeader", @Html.ActionLink("更换小组长", "Edit", new { id = item.TeamID, type = "change" }))
+            </td>
+            </tr>
+    }
+    </tbody>
+</table>
+@Tools.table(@ViewBag, "teamtable", "/Team/Index")

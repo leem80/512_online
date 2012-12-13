@@ -1,0 +1,11 @@
+﻿@model PROnline.Models.Service.Pairs
+@{
+    ViewBag.Title = "Tips";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<strong>学生编号：</strong><span>@Model.Student.User.UserName</span>
+<hr />
+<strong>督导教师：</strong><span>@Model.Supervisor.User.RealName</span>
+<hr />
+<strong>志愿者编号：</strong><span>@Model.Volunteer.User.UserName</span>

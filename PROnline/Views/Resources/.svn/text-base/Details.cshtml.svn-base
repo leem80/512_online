@@ -1,0 +1,52 @@
+﻿@model PROnline.Models.Resources.Resource
+
+@{
+    ViewBag.Title = "资源详情";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+<h3>@Html.Raw(@Model.Title)</h3>
+<p class="ref">发布日期:@Html.DisplayFor(modelItem=>modelItem.CreateDate)
+ </p>
+<hr/>
+<p>
+    @Html.Raw(@Model.Content)
+</p>
+
+        <div class="editor-label">
+            附件列表:
+        </div>
+
+        <div class="editor-field">
+            @if (Model.Filexs != null && Model.Filexs.Count > 0)
+            {
+                <ul>
+                @foreach (var file in Model.Filexs)
+                {
+                    <li><a href="@file.Url" target="_blank">@file.Name</a></li>
+                }
+                </ul>
+            }
+        </div>
+
+
+    @if (Request.Params["verify"] != null)
+    {
+       <form action="/Resources/VerifyIt" method="post" style="margin:0px;padding:0px">
+       <input type="hidden" name="id" value="@Model.ResourceID" />
+        <input type="hidden" name="status" value="@Request.Params["status"]" />
+        
+        @if (@Request.Params["status"] != "Y")
+        {
+        <div class="editor-label">
+        <strong>不通过理由：</strong>
+        </div>
+        <div class="editor-field">
+        <textarea  name="reason" ></textarea>
+        </div>
+        }
+       <button type="submit">确定</button>
+       </form>
+    }
+    <div class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+    </div>

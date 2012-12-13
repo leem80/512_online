@@ -1,0 +1,31 @@
+﻿@model PROnline.Models.Activities.ActivityContribute
+
+@{
+    ViewBag.Title = "删除投稿";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.HiddenFor(model => model.ActivityContributeID)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.Raw(@Model.Content)
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="确定" /> | <a href="@Request.UrlReferrer">返回</a>
+        </p>
+    </fieldset>
+}
+

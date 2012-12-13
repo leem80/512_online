@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PROnline.Models.Resources.Resource>
+@using PROnline.Controllers.Resources
+
+@{
+    ViewBag.Title = "站内资源";
+    Layout = "~/Views/Shared/Normal/_ContentList.cshtml";
+}
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/app/resource/resource.css")" />
+}
+<div class="grid_12 nav_menu_top">
+    @Html.Raw(ResourceTypeController.MenuTop())
+</div>
+
+<div class="clear"></div>
+<div class="grid_3 typemenu">
+<h2>站内资源</h2>
+    @if(@ViewBag.tid!=null){
+        @Html.Raw(ResourceTypeController.Menu(ViewBag.tid))
+    }else{
+        @Html.Raw(ResourceTypeController.Menu())
+    }
+</div>
+
+<div class="grid_9">
+    <!--h5>当前位置：@Html.Raw(ResourceTypeController.getPath(ViewBag.tid, "&raquo;"))</h5-->
+
+<table id="table">
+<thead>
+    <tr>
+        <th>
+            标题
+        </th>
+        <th style="width:100px">
+            类型
+        </th>
+        <th style="width:100px">
+            发布人
+        </th>
+        <th style="width:100px">
+            发布日期
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Show", new { id=item.ResourceID},null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResourceType.TypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creator.UserName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(ViewBag,"table","/Resources/Index")
+</div>
+<div class="clear"></div>
+

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PROnline.Models.Users.Donator>
+
+@{
+    ViewBag.Title = "爱心人士列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+
+<table id="table">
+<thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            真实姓名
+        </th>
+        <th>
+            固定电话
+        </th>
+        <th>
+            移动电话
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.User.UserName, "Details", new { id = item.DonatorID }, new { target="_blank"}) 
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileTelephone)
+        </td>
+        <td>
+            @Html.ActionLink("删除", "Delete", new { id=item.DonatorID })
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table(ViewBag,"table","/Donator/Index")

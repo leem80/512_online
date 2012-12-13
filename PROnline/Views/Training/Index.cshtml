@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.Training>
+
+@{
+    ViewBag.Title = "培训列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("新建培训", "Create")
+</p>
+
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            培训主题
+        </th>
+        <th>
+            日期
+        </th>
+        <th>
+            状态
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="4"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id = item.TrainingID, type="detail" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+            @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)                       
+        </td>
+        <td>
+            @if (item.State == "已通过")
+            {
+                <!--Html.ActionLink("取消", "Cancel", new { id = item.TrainingID })
+                Html.ActionLink("签到", "Details", new { id = item.TrainingID, type = "attend" })-->
+                @Html.ActionLink("取消", "Cancel", new { id = item.TrainingID })
+            }
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table(ViewBag, "datatable", "/Training/Index")

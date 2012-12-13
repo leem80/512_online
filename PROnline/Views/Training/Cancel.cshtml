@@ -1,0 +1,34 @@
+﻿@model PROnline.Models.Trainings.Training
+
+@{
+    ViewBag.Title = "取消培训";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认取消</h3>
+<fieldset>
+
+    <div class="display-label">培训主题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">培训安排</div>
+    <div class="display-field">
+        @Html.Raw(Model.Arrangement)
+    </div>
+
+    <div class="display-label">日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p class="btn">
+        <input type="submit" value="确认" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

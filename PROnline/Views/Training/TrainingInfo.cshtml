@@ -1,0 +1,166 @@
+﻿@model PROnline.Models.Trainings.Training
+@using PROnline.Models.Trainings;
+
+@{
+    ViewBag.Title = "培训详情";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+
+<fieldset>
+
+    <div class="display-label">主题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">安排</div>
+    <div class="display-field">
+        @Html.Raw(Model.Arrangement)
+    </div>
+
+    <div class="display-label">日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="display-label">状态</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">督导专家</div>
+    <table id="supervisor" >
+        <thead>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    真实姓名
+                </th>
+                <th>
+                    签到
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.SupervisorList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supervisor.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supervisor.User.RealName)
+                </td>
+                <td>
+                @if (ViewBag.type == "attend")
+                {
+
+                    if (item.IsAttend == true)
+                    {
+                         @Html.Label("已签到");
+                    }
+                    else
+                    {
+                        <div id=@item.TrainingSupervisorID class="display-field">
+                            <p class="btn">
+                                @Ajax.ActionLink("签到", "SupervisorAttend/" + item.TrainingSupervisorID, "TrainingSupervisor", new AjaxOptions { UpdateTargetId = item.TrainingSupervisorID.ToString() })
+                            </p>
+                        </div>
+                    }
+                }
+                else if (ViewBag.type == "detail")
+                {
+                    if (item.IsAttend == true)
+                    {                 
+                         <span>已签到</span>
+                    }
+                    else
+                    {
+                         <span>未签到</span>
+                    }
+                }
+             </td> 
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Tools.table("supervisor")
+
+    <div class="display-label">志愿者</div>
+    <table id="volunteer" >
+        <thead>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    真实姓名
+                </th>
+                <th>
+                    签到
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.VolunteerList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Volunteer.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+                </td>
+                <td>
+                @if (ViewBag.type == "attend")
+                {
+
+                    if (item.IsAttend == true)
+                    {
+                         @Html.Label("已签到");
+                    }
+                    else
+                    {
+                        <div id=@item.TrainingVolunteerID class="display-field">
+                            <p class="btn">
+                                @Ajax.ActionLink("签到", "VolunteerAttend/" + item.TrainingVolunteerID, "TrainingVolunteer", new AjaxOptions { UpdateTargetId = item.TrainingVolunteerID.ToString() })
+                            </p>
+                        </div>
+                    }
+                }
+                else if (ViewBag.type == "detail")
+                {
+                    if (item.IsAttend == true)
+                    {                 
+                         <span>已签到</span>
+                    }
+                    else
+                    {
+                         <span>未签到</span>
+                    }
+                }
+                 
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Tools.table("volunteer")
+
+</fieldset>
+
+<div>
+    <p class="btn">
+        <a href="@Request.UrlReferrer">返回</a>
+    </p>
+</div>
+

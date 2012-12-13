@@ -1,0 +1,41 @@
+﻿@model PROnline.Models.Donation.DonationItem
+
+@{
+    ViewBag.Title = "捐助提案";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@section head{
+
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <div class="editor-field p50">
+            @Html.EditorFor(model => model.Title)
+        </div>
+    
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+
+            @Html.TextAreaFor(model => model.Content)
+        </div>
+    
+         <div>
+            @{Html.RenderAction("Select", "Users", new { selectType = "checkbox", filter = "type=selDonationMember", userType = new[] { "student" } });}
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="创建" />
+        </p>
+}
+

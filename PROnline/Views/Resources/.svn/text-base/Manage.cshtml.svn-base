@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PROnline.Models.Resources.Resource>
+
+@{
+    ViewBag.Title = "资源维护";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="table">
+<thead>
+    <tr>
+        <th>
+            标题
+        </th>
+
+        <th style="width:100px">
+            发布人
+        </th>
+
+        <th style="width:100px">
+            发布日期
+        </th>
+
+        <th style="width:200px">操作</th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id=item.ResourceID},null)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Creator.RealName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+
+        <td>
+            @Html.ActionLink("删除", "Delete", new { id=item.ResourceID,t="m" })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(ViewBag,"table","/Resources/Manage")

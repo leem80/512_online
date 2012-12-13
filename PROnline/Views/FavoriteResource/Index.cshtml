@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PROnline.Models.Resources.FavoriteResource>
+
+@{
+    ViewBag.Title = "收藏夹资源管理";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+@section head{
+    <script src="@Url.Content("~/Content/tips.js")" type="text/javascript"></script>
+}
+
+<p class="btn">
+    
+     @Html.ActionLink("返回收藏夹列表", "Index", "Favorite")
+</p>
+<table id="datatable">
+<thead>
+    <tr>
+        
+        <th >
+            标题
+        </th>
+
+        <th style="width:100px;">
+            创建日期
+        </th>
+        <th style="width:100px;">操作</th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            <a href="@item.Url" class="tips" title="@item.Commnet">@item.Title</a>
+        </td>
+        <td>
+            @item.CreateDate.ToString("yyyy-MM-dd")
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.FavoriteResourceID }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.FavoriteResourceID })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@{String url = @Request.Params["url"] + "?FavoriteId=" + ViewBag.FavoriteId + "&";}
+@Tools.table(@ViewBag,"datatable",url)

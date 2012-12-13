@@ -1,0 +1,22 @@
+﻿@model IEnumerable<PROnline.Models.Guides.AboutUs>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="head">
+<h3>关于我们 </h3>
+
+</div>
+<p>
+<ul>
+@foreach (var item in Model)
+{
+    <li>
+    <span class="title">&raquo;&nbsp;@Html.ActionLink(Utils.title(item.Title), "Show", "AboutUs", new { id = @item.ID }, null)</span></li>
+
+}
+</ul>
+</p>
+

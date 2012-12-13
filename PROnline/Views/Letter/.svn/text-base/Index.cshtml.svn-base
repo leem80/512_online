@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PROnline.Models.Letters.Letter>
+
+@{
+    ViewBag.Title = "消息盒子";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+ <table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            状态（已读/未读）
+        </th>
+        <th>
+            标题
+        </th>
+        <th>
+            发送者
+        </th>
+        <th>
+            发送日期
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="6"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsRead)
+        </td>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id = item.LetterID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sender.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SenderDate)
+        </td>
+        <td>
+            @Html.ActionLink("删除", "Delete", new { id=item.LetterID })
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table(ViewBag, "datatable", "/Letter/Index")

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PROnline.Models.Users.Role>
+
+@{
+    ViewBag.Title = "角色列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+<div class="btn">
+@Html.ActionLink("创建","Create")
+</div>
+<table id="datatable">
+<thead>
+    <tr>
+        <th>
+            名称
+        </th>
+        <th style="width:200px">
+            描述
+        </th>
+        <th style="width:130px">
+            操作
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+
+        <td>
+            @Html.ActionLink("权限维护", "Index","RoleMenu", new { rid=item.Id },null) 
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")

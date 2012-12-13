@@ -1,0 +1,43 @@
+﻿@model  IEnumerable<PROnline.Models.Activities.Activity>
+@{
+    ViewBag.Title = "联谊统计表";
+    Layout = "~/Views/Shared//Space/_Detail.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th style="width:100px">
+            活动名称
+        </th>
+        <th >
+            活动时间
+        </th>
+        <th style="width:160px">活动地点</th>
+        <th style="width:80px">组织方</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityStartDate.ToString("yyyy-MM-dd"))
+        </td>
+            @Html.DisplayFor(modelItem => item.ActivityAddr)
+        <td>
+
+        </td>
+       <td> 
+            @Html.DisplayFor(modelItem => item.ActivityArrangement)
+       </td>
+
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+
+

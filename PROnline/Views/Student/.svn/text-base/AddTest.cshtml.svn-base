@@ -1,0 +1,161 @@
+﻿@model PROnline.Models.Users.UserPTest
+
+@{
+    ViewBag.Title = "心理测评";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>UserPTest</legend>
+
+        @Html.HiddenFor(model => model.StudentID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TestDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TestDate)
+            <script type="text/javascript">
+                $("#TestDate").attr("readonly", "readonly")
+            </script>
+            @Html.ValidationMessageFor(model => model.TestDate)
+            @Html.ValidationMessage("TestDateError")
+            @Tools.DateBox("TestDate")
+        </div>
+
+        <table id="testtable">
+            <thead>
+                <tr><td>录入心理测评数据:</td><td></td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>想法总与别人不一样:</td>
+                    <td>
+                        <select name="Ta">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>情绪不稳定（常发脾气或容易激动或容易哭泣）:</td>
+                    <td>
+                        <select name="Tb">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>讨厌上学、讨厌写作业:</td>
+                    <td>
+                        <select name="Tc">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>伤害他人或打人:</td>
+                    <td>
+                        <select name="Td">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>从不与异性在一起:</td>
+                    <td>
+                        <select name="Te">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>平时成绩和考试成绩差距较大:</td>
+                    <td>
+                        <select name="Tf">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>时常与人争论、抬杠:</td>
+                    <td>
+                        <select name="Tg">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>不喜欢与他人交往:</td>
+                    <td>
+                        <select name="Th">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>学习成绩忽上忽下，很不稳定:</td>
+                    <td>
+                        <select name="Ti">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>和老师发生冲突:</td>
+                    <td>
+                        <select name="Tj">
+                            <option value="2" selected="selected">2 无</option>
+                            <option value="4">4 偶尔</option>
+                            <option value="6">6 时有</option>
+                            <option value="8">8 经常</option>
+                            <option value="10">10 总是</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @Tools.table("testtable")
+
+        <p class="btn">
+            <input type="submit" value="保存" />|@Html.ActionLink("返回", "MyStudent")
+        </p>
+    </fieldset>
+}

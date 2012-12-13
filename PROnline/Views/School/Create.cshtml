@@ -1,0 +1,53 @@
+﻿@model PROnline.Models.Users.School
+
+@{
+    ViewBag.Title = "新建学校";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+@section head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+    
+        <input name="SchoolID" type="hidden" value="00000000-0000-0000-0000-000000000000" />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SchoolNo)
+        </div>
+        <div class="editor-field p50">
+            @Html.EditorFor(model => model.SchoolNo)
+            @Html.ValidationMessageFor(model => model.SchoolNo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SchoolName)
+        </div>
+        <div class="editor-field p50">
+            @Html.EditorFor(model => model.SchoolName)
+            @Html.ValidationMessageFor(model => model.SchoolName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SchoolIntro)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.SchoolIntro)
+            @Html.ValidationMessageFor(model => model.SchoolIntro)            
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SchoolCommnet)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.SchoolCommnet)
+            @Html.ValidationMessageFor(model => model.SchoolCommnet)
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="新建" />|@Html.ActionLink("返回", "Index", new { type="school"})
+        </p>
+    </fieldset>
+}

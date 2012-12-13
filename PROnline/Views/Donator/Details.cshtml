@@ -1,0 +1,75 @@
+﻿@model PROnline.Models.Users.Donator
+
+ @if (ViewBag.type != null && ViewBag.type == "workspace")
+ {
+ }
+ else
+ {
+     ViewBag.Title = "爱心人士详情";
+     Layout = "~/Views/Shared/Normal/_Detail.cshtml";
+ }
+
+<fieldset>
+    @if (ViewBag.type != null && ViewBag.type == "workspace")
+    {
+    <p class="btn">
+        @Html.ActionLink("修改个人信息", "Edit", new { id = Model.DonatorID })
+        @Html.ActionLink("修改密码", "ChangePassword", "Users", new { id = Model.User.Id }, null)
+    </p>
+    }
+
+    <div class="display-label">用户名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+
+    <div class="display-label">真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+    <div class="display-label">性别</div>
+        <div class="display-field">
+        @Html.DisplayFor(model => model.Sex)
+    </div>
+        <div class="display-label">出生日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+    <div class="display-label">电子邮箱</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EMail)
+    </div>
+
+    <div class="display-label">固定电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+
+    <div class="display-label">移动电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileTelephone)
+    </div>
+        <div class="display-label">QQ</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QQ)
+    </div>
+        <div class="display-label">职业</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Occupation)
+    </div>
+        <div class="display-label">是否参加过类似的爱心捐助</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.isHaveExperience)
+    </div>
+
+    <div class="display-label">地址</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+        <div class="display-label">希望采用何种方式与我们联系（可多选）</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Connection)
+    </div>
+</fieldset>

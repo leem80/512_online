@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "我的工作台";
+    Layout = "~/Views/Shared/Manage/_Main.cshtml";
+}
+@section menu{
+
+    @Tools.menu("workspace", 0, 5, "lm", "manage")
+
+}
+
+@section head{
+
+<script type="text/javascript">
+    $(function () {
+        var goto = "@Request.Params["g"]"
+        $("#lm a[href=''] ~ul").hide();
+        $("#lm a[href='']").click(function (event) {
+            //$("#lm a[href=''] ~ul").slideUp();
+            $(this).siblings("ul").slideToggle();
+            event.preventDefault();
+        })
+
+        if(goto){
+            var target=$("."+goto);
+            target.parents("ul").slideDown();
+            $("#manage").attr("src",target.attr("href"));
+        }
+
+    })
+
+</script>
+}
+<iframe id="manage" name="manage" width="100%" scrolling="no" src="/Workspace/Default" frameborder="0" >
+
+</iframe>
+

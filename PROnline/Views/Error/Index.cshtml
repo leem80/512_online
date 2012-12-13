@@ -1,0 +1,8 @@
+﻿@model PROnline.Models.Error
+
+@{
+    ViewBag.Title = Model.ErroCode+":"+Model.Heading;
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+<hr/>
+<div class="display-field">@Model.Message </div>

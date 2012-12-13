@@ -1,0 +1,99 @@
+﻿@model PROnline.Models.Donation.DonationItem
+@using PROnline.Models.Donation;
+@using PROnline.Models;
+@using PROnline.Src;
+@{
+    ViewBag.Title = "捐助详情";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+@section head{
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+<fieldset>
+    <div class="display-label">
+        捐助项目名称</div>
+    <div class="display-field">
+        @Html.Raw(Model.Title)
+    </div>
+    <div class="display-label">
+        内容</div>
+    <div class="display-field">
+        @Html.Raw(Model.Content)
+    </div>
+    
+    <div class="display-label">
+        受助对象
+    </div>
+    <div class="display-field">
+        @{
+            String allName = ViewBag.allName;
+            String partName = Utils.title(allName, 10, "...");
+        }
+        <span>@allName</span>
+    </div>
+    <div class="display-label">
+        捐助人
+    </div>
+    <div class="display-field">
+            @{
+                String donatorName = ViewBag.donatorName;
+        }
+        <span>@donatorName</span>
+    </div>
+    <div class="display-label">
+    发布日期
+    </div>
+    <div class="display-field">
+    @Html.Raw((Model.StartDate).ToString())
+    </div>
+        <div class="display-label">
+    执行日期
+    </div>
+    <div class="display-field">
+    @Html.Raw((Model.ExcuteDate).ToString())
+    </div>
+    <div class="display-label">
+        状态
+    </div>
+    <div class="display-field">
+    @Html.Raw(Model.VerifyStateId)
+    </div>
+    @if (Model.VerifyStateId == VerifyState.SUCCESS)
+    {   <!--显示学生列表-->
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>
+                        学生姓名
+                    </th>
+                    <th>
+                        申请视讯预约
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DonationStudentList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.User.RealName)
+                        </td>
+                        <td>
+                            <div id=@item.DonationStudentID class="display-field">
+                                <p class="btn">
+                                    @Ajax.ActionLink("申请视频预约", "Create/" + item.DonationStudentID, "DonationVideo", new AjaxOptions { UpdateTargetId = item.DonationStudentID.ToString() })
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Tools.table("table")
+    }
+</fieldset>
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>

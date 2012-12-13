@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "微风山谷";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = {"Snow",
+                            "Song Of The Angles",
+                            "Indian Summer",
+                            "Mars And Venus",
+                            "Dreaming In The Moonlight",
+                            "Love Of My Life",
+                            "Sunset Valley",
+                            "Love Me Tonight",
+                            "If I Love Again",
+                            "Heaven On Earrh",
+                            "Green Leaves Of Spring",
+                            "Good Morning Sunshine",
+                            "The Way Of The Wind",
+                            "For Your Heart Only",
+                            "Bonus",
+                            "Lauthien",
+                            "When Silence Was Born",
+                            "Embrace",
+                            "Field Of Tears",
+                            "Allegia"          
+            };
+            int i = 1;
+            foreach(String str in names)
+            {
+                String content = "/content/res/";
+                String temp = String.Format("{0:000}", i);
+                String path = content + "MSMW-" + temp + "-" + str + ".swf";
+                i++;
+                <tr>
+                    <td>
+                        <a href="@path">@str</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+
+
+

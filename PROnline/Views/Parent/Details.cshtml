@@ -1,0 +1,42 @@
+﻿@model PROnline.Models.Users.Parent
+<fieldset>
+    <p class="btn">
+        @Html.ActionLink("修改个人信息", "Edit", new { id = Model.ParentID })
+        @Html.ActionLink("修改密码", "ChangePassword", "Users", new { id = Model.User.Id }, null)
+    </p>
+    <div class="display-label">
+        用户名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+    <div class="display-label">
+        姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+    <div class="display-label">
+        生日</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+    <div class="display-label">
+        工作地点</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkPlace)
+    </div>
+    <div class="display-label">
+        职业</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Career)
+    </div>
+    <div class="display-label">
+        固定电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telepone)
+    </div>
+    <div class="display-label">
+        移动电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileTelephone)
+    </div>
+</fieldset>

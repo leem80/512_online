@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "删除全部学生信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<h2>确认删除全部学生?</h2>
+
+@using (Html.BeginForm()) {
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        <a href="@Request.UrlReferrer">返回</a>
+    </p>
+}

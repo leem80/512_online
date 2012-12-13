@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PROnline.Models.Users.SchoolAdministrator>
+
+@{
+    ViewBag.Title = "学校管理员列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+
+<p class="btn">
+    @Html.ActionLink("添加学校管理员", "Create")
+</p>
+
+ <table id="admintable" >
+    <thead>
+        <tr>
+            <th>
+                用户名
+            </th>
+            <th>
+                真实姓名
+            </th>
+            <th>
+                学校
+            </th>
+            <th>
+                移动电话
+            </th>
+
+            <th>
+                类型
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    if (item.User.isDeleted == false)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.User.UserName, "UserInfo", "Users", new { id = item.User.Id }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.RealName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.School.SchoolName)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.MobileTelephone)
+            </td>
+
+            <td>
+               @Html.DisplayFor(modelItem => item.User.UserType.Note)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+}
+    </tbody>
+</table>
+@Tools.table("admintable")

@@ -1,0 +1,199 @@
+﻿@model PROnline.Models.Users.Student
+
+<style>
+    .plist div
+    {
+        float:left;width:45%;display:block;margin:0px;padding:0px;border-left:3px solid #eeeeee;margin-top:5px
+    }
+    .xyqk{height:80px;list-style:none;margin:0px;padding:0px;}
+    .xyqk li{
+        float:left;width:80px;margin:0px;padding:0px;margin-right:2px;
+    }
+</style>
+
+<fieldset>
+
+    <p class="btn">
+        @Html.ActionLink("修改个人信息", "Edit", new { id = Model.StudentID })
+        @Html.ActionLink("修改密码", "ChangePassword", "Users", new { id = Model.User.Id }, null)
+    </p>
+
+    <div class="display-label">用户名</div>
+    <div class="dis[lay-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+
+    <div class="display-label">学校</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.School.SchoolName)
+    </div>
+
+    <div class="display-label">姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+    <div class="display-label">性别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sex)
+    </div>
+
+    <div class="display-label">出生日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">民族</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.People)
+    </div>
+
+    <div class="display-label">是否担任班干部</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Career)
+    </div>
+
+    <div class="display-label">家庭人口数</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeNum)
+    </div>
+
+    <div class="display-label">个人特长</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hobby)
+    </div>
+
+    <div class="display-label">联系电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+
+    <div class="display-label">家里是否具备上网条件</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CanSurf)
+    </div>
+
+    <div class="display-label">每周固定上网时间</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SurfDayOfWeek)
+    </div>
+
+    <div class="display-label">固定时间</div>
+    <div class="display-field">
+        @ViewBag.serverTime
+    </div>
+
+    <div class="display-label">个人受伤情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hurt)
+    </div>
+
+    <div class="display-label">亲朋亡故情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Die)
+    </div>
+
+    <div class="display-label">家庭财产损失情况</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Lose)
+    </div>
+
+    <div class="display-label">是否留守</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAlone)
+    </div>
+
+    <div class="editor-label">
+            @Html.Label("学业情况")
+        </div>
+        <ul class="xyqk">
+        <li>
+        <div class="editor-label">
+            @Html.Label("数学")
+        </div>
+        <div class="editor-field">
+            @Model.Math
+         </div>
+         </li><li>
+         <div class="editor-label">
+            @Html.Label("语文")
+        </div>
+        <div class="editor-field">
+            @Model.Chinese
+         </div>
+         </li><li>
+         <div class="editor-label">
+            @Html.Label("英语")
+        </div>
+        <div class="editor-field">
+            @Model.English
+         </div>
+         </li><li>
+         <div class="editor-label">
+            @Html.Label("物理")
+        </div>
+        <div class="editor-field">
+            @Model.Physics
+         </div>
+         </li><li>
+         <div class="editor-label">
+            @Html.Label("化学")
+        </div>
+        <div class="editor-field">
+            @Model.Chemistry
+         </div>
+         </li><li>
+         <div class="editor-label">
+            @Html.Label("生物")
+        </div>
+        <div class="editor-field">
+            @Model.Sw
+         </div>
+
+         </li><li>
+         <div class="editor-label">
+            @Html.Label("地理")
+        </div>
+        <div class="editor-field">
+            @Model.Dl
+         </div>
+         </li><li>
+
+         <div class="editor-label">
+            @Html.Label("历史")
+        </div>
+        <div class="editor-field">
+            @Model.Ls
+         </div>
+         </li>
+         </ul>
+
+
+    <div class="display-label ">心理测评</div>
+    <div class="plist">
+    @foreach (var ptest in Model.UserPTest)
+    {   
+        <div>
+        <h6>测评时间:@ptest.TestDate.ToString("yyyy-MM-dd")</h6>
+        <ul >
+            <li><strong>想法总与别人不一样:</strong><span>@ptest.Ta</span></li>
+            <li><strong>情绪不稳定:</strong><span>@ptest.Tb</span></li>
+            <li><strong>讨厌上学、讨厌写作业:</strong><span>@ptest.Tc</span></li>
+            <li><strong>伤害他人或打人:</strong><span>@ptest.Td</span></li>
+            <li><strong>从不与异性在一起:</strong><span>@ptest.Te</span></li>
+            <li><strong>平时成绩和考试成绩差距较大:</strong><span>@ptest.Tf</span></li>
+            <li><strong>时常与人争论、抬杠:</strong><span>@ptest.Tg</span></li>
+            <li><strong>不喜欢与他人交往:</strong><span>@ptest.Th</span></li>
+            <li><strong>学习成绩忽上忽下，很不稳定:</strong><span>@ptest.Ti</span></li>
+            <li><strong>和老师发生冲突:</strong><span>@ptest.Tj</span></li>
+        </ul>
+        </div>
+        
+    }
+    
+    <div class="clear"></div>
+    <!--div class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+    </div-->
+    </div>
+</fieldset>

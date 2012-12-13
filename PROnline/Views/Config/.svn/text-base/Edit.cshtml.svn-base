@@ -1,0 +1,45 @@
+﻿@model PROnline.Models.Manage.ConfigBean
+
+@{
+    ViewBag.Title = "配置修改";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>ConfigBean</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SMSCon)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SMSCon)
+            @Html.ValidationMessageFor(model => model.SMSCon)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TableSize)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TableSize)
+            @Html.ValidationMessageFor(model => model.TableSize)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ListSize)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ListSize)
+            @Html.ValidationMessageFor(model => model.ListSize)
+        </div>
+
+        <p>
+            <input type="submit" value="保存" />
+        </p>
+    </fieldset>
+}

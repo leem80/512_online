@@ -1,0 +1,51 @@
+﻿@model PROnline.Models.HeartWishes.HeartWish
+@using PROnline.Models.HeartWishes
+@{
+    ViewBag.Title = "发表心声";
+    Layout = "~/Views/Shared/Normal/_Edit.cshtml";
+}
+
+
+@section head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+@section menu {
+    @foreach (var type in ViewBag.typelist as List<HeartWishType>)
+    {        
+    <li>@Html.ActionLink(type.TypeName, "HeartWishBrowse", "HeartWish", new { id = type.HeartWishTypeID }, null)</li>       
+    }
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.Label("心声类型")
+        </div>
+        <div class="editor-field p30">
+            @Html.DropDownList("HeartWishTypeID", ViewBag.list as SelectList)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field p70">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+            @Tools.richbox("Content")
+        </div>
+
+        <p>
+            <input type="submit" value="发表" />| @Html.ActionLink("返回", "HeartWishBrowse")
+        </p>
+    </fieldset>
+}

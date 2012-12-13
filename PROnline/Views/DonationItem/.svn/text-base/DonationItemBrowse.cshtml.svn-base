@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationItem>
+@using PROnline.Models.Donation;
+@{
+    ViewBag.Title = "爱心天地";
+    Layout = "~/Views/Shared/Normal/_List.cshtml";
+}
+
+<!--左侧菜单-->
+<ul id="admin_menu">
+
+
+</ul>
+        <ul class="content-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                @{
+                    if (item.VerifyStateId == "已通过")
+                    {
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未执行</span>
+                    }
+                    else
+                    {
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已执行</span>
+                    }
+                }
+                <span>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </span>
+                               
+                @Html.ActionLink(item.Title, "PerDetails", new { id = item.DonationItemID })
+            </li>
+        }
+</ul>
+
+<div id="pager"></div>
+@Tools.pager(@ViewBag, "pager", "/DonationItem/DonationItemBrowse")

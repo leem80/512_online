@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PROnline.Models.Users.UserPTest>
+
+@{
+    ViewBag.Title = "是否导入";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+    int errorCount = 0;
+}
+@section head{
+<style>
+    .alert
+    {
+        border:1px solid #FFC78F;
+        background-color:#FFF0E0;
+        padding:10px;
+        font-weight:bold;
+        font-size:9px;
+        margin:5px 0px;
+    }
+    
+    .alert .success
+    {
+        padding:2px;
+        background:url("/Content/icon/16/accept.png") no-repeat;
+        padding-left:20px;
+        color:#009933;
+    }
+    
+        .alert .failure
+    {
+        padding:2px;
+        background:url("/Content/icon/16/exclamation.png") no-repeat;
+        padding-left:20px;
+        color:#ff0000;
+    }
+    
+</style>
+}
+<form action="/Users/ImportTest" method="POST">
+<div class="alert">
+    @foreach (var temp in @ViewBag.result)
+    {
+        if(temp.Status == "failure") { errorCount++; }
+        <div class="@temp.Status">
+        <span>@temp.Description！</span>
+        </div>
+    }   
+</div>
+
+<input type="hidden" name="TeacherID" value="@ViewBag.TeacherID" />
+<input type="hidden" name="SchoolID" value="@ViewBag.SchoolID" />
+<input type="hidden" name="type" value="@ViewBag.type" />
+<div>
+@{var count = 0;}
+@foreach (var item in Model)
+{
+    <input type="hidden" name="PTest[@count].StudentID" value="@item.StudentID" />
+    <input type="hidden" name="PTest[@count].Ta" value="@item.Ta" />
+    <input type="hidden" name="PTest[@count].Tb" value="@item.Tb" />
+    <input type="hidden" name="PTest[@count].Tc" value="@item.Tc" />
+    <input type="hidden" name="PTest[@count].Td" value="@item.Td" />
+    <input type="hidden" name="PTest[@count].Te" value="@item.Te" />
+    <input type="hidden" name="PTest[@count].Tf" value="@item.Tf" />
+    <input type="hidden" name="PTest[@count].Tg" value="@item.Tg" />
+    <input type="hidden" name="PTest[@count].Th" value="@item.Th" />       
+    <input type="hidden" name="PTest[@count].Ti" value="@item.Ti" />
+    <input type="hidden" name="PTest[@count].Tj" value="@item.Tj" />
+    <input type="hidden" name="PTest[@count].total" value="@item.total" />
+    <input type="hidden" name="PTest[@count].result" value="@item.result" />
+    count++;
+}
+</div>
+@Tools.table("tableList")
+@if (errorCount == 0)
+{
+<div class="btn"><button type="submit">确认导入</button>|<a href="@Request.UrlReferrer">返回</a></div>
+}
+else
+{
+<div class="btn"><a href="@Request.UrlReferrer">返回</a></div>
+}
+</form>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PROnline.Models.Assessments.AssessmentResult>
+
+@{
+    ViewBag.Title = "心理健康状况评估记录";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<table id="datatable">
+<thead>
+    <tr>
+        <th>
+            姓名
+        </th>
+        <th>
+            结论
+        </th>
+        <th>
+            建议
+        </th>
+        <th>
+            下一步行动
+        </th>
+        <th>
+            录入日期
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Student.User.RealName, "Details", new { id = item.AssessmentResultID }, new { target="_blank"})
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Conclusion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Advice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Action)
+        </td>
+        <td>
+           @Html.ActionLink(item.CreateDate.ToString(), "Index", "AssessmentResultOption", new { AssessmentResultID = item.AssessmentResultID }, new { target = "_blank" })
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")
+
+<p class="btn">
+    @Html.ActionLink("返回", "SchoolNavigation", new { SchoolID = ViewBag.schoolID, type = "psychological" })
+</p>

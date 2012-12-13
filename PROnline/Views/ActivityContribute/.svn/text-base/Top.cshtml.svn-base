@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PROnline.Models.Activities.ActivityContribute>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="head">
+<script src="@Url.Content("~/Content/tips.js")" type="text/javascript"></script>
+
+<h3>最新风采</h3>
+<strong>@Html.ActionLink("更多>>", "List", "ActivityContribute")</strong>
+</div>
+
+@{
+    if (ViewBag.isShow == true)
+    {
+        <ul>
+            @foreach (var item in Model)
+            {
+                String title = item.Title + " 发布于:" + item.CreateDate;
+                <li>
+                    <span class="title" title="@title">@Html.ActionLink(Utils.title(@item.Title), "Show", new { id = @item.ActivityContributeID })</span>
+                    <span class="date">@Html.DisplayFor(it => item.CreateDate)</span>
+                </li>
+            }
+        </ul>
+    }
+}
+

@@ -1,0 +1,57 @@
+﻿@model PROnline.Models.Teams.TeamLeader
+
+@{
+    ViewBag.Title = "脱离小组申请";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+     <fieldset>
+
+        @Html.HiddenFor(model => model.TeamLeaderID)
+
+        <div class="display-label">姓名</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Volunteer.User.RealName)
+        </div>
+    
+        <div class="display-label">小组名称</div>
+        <div class="display-field">
+            @ViewBag.TeamName;
+        </div>
+
+        <div class="display-label">组内职务</div>
+        <div class="display-field">
+            <span>组长</span>
+        </div>
+
+        <div class="display-label">申请时间</div>
+        <div class="display-field">
+            @ViewBag.ApplyTime
+        </div>
+
+        <div class="display-label">脱离原因</div>
+        <div class="display-field">
+            @{
+                List<SelectListItem> items = new List<SelectListItem>();
+                items.Add(new SelectListItem { Text = "个人原因", Value = "个人原因" });
+                items.Add(new SelectListItem { Text = "管理原因", Value = "管理原因" });
+                items.Add(new SelectListItem { Text = "校方原因", Value = "校方原因" });
+                
+                @Html.DropDownList("Reason", items as IEnumerable<SelectListItem>)
+             }
+        </div>
+        <div class="display-label">备注</div>
+        <div class="editor-field">
+                @Html.TextArea("Apply")
+            </div>
+
+        <p class="btn">
+            <input type="submit" value="确认" /> | @Html.ActionLink("返回", "MyTeam", "Team", null, null)
+        </p>
+    </fieldset>
+}
+

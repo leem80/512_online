@@ -1,0 +1,32 @@
+﻿@model PROnline.Models.Users.School
+
+@{
+    ViewBag.Title = "删除学校";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认删除</h3>
+<fieldset>
+
+    <div class="display-label">学校名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolName)
+    </div>
+
+    <div class="display-label">介绍</div>
+    <div class="display-field">
+        @Html.Raw(Model.SchoolIntro)
+    </div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolCommnet)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index", new { type = "school" })
+    </p>
+}

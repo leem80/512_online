@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "512行动在线";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/index.css")" />
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/agile_carousel/js/agile_carousel.css")" />
+    <script src="@Url.Content("~/Content/agile_carousel/js/agile_carousel.a1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/swfobject.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/tips.js")" type="text/javascript"></script>
+}
+<div class="container_12">
+<div class="grid_8 index_box " id="slides">
+@{Html.RenderAction("Slides", "Home");}
+</div>
+    
+<div class="grid_4  index-panel" id="notice">
+ @{Html.RenderAction("Top", "Notice");}
+</div>
+
+
+<div class="clear"></div>
+<div class="grid_4 index-panel"  id="HeartWish">
+ @{Html.RenderAction("Top", "HeartWish");}
+</div>
+
+
+<div class="grid_4 index-panel" id="DonationItem" >
+ @{Html.RenderAction("Top", "DonationItem");}
+</div>
+<div class="grid_4 index-panel" id="Activity" >
+ @{Html.RenderAction("Top", "ActivityContribute");}
+</div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+<div class="container-12 webcenter">
+    
+</div>
+@{//首页底部   
+}
+<div class="container_12 intro-panel" >
+<div class="grid_3  bot-panel">
+ @{Html.RenderAction("Top", "AboutUs");}
+</div>
+<div class="grid_6 bot-panel">
+     <div id="myContent">
+      <p>Alternative content</p>
+    </div>
+     <script type="text/javascript">
+         swfobject.embedSWF("/Content/show/PROline.swf", "myContent", "460", "300", "9.0.0");
+    </script>
+
+</div>
+<div class="grid_3 bot-panel"> 
+@{Html.RenderAction("Zm", "Notice");}
+</div>
+<div class="clear"></div>
+<div class="grid_12" >
+     @{Html.RenderAction("Top", "PairAppointment");}
+</div>
+</div>

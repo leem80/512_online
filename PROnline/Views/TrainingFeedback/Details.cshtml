@@ -1,0 +1,41 @@
+﻿@model PROnline.Models.Trainings.TrainingFeedback
+
+@{
+    ViewBag.Title = "反馈详情";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<div class="editor-label">
+    @Html.Label("志愿者姓名")
+    </div>
+    <div class="editor-field">
+        @Model.Volunteer.User.RealName
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("培训时间")
+    </div>
+    <div class="editor-field">
+        @ViewBag.time
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("自身收获")
+    </div>
+    <div class="editor-field">
+        @Model.SelfGains
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("培训建议")
+    </div>
+    <div class="editor-field">
+        @Model.TrainingAdvice
+    </div>
+
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>
+
+
+

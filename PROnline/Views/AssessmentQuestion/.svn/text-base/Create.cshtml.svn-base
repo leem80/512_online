@@ -1,0 +1,83 @@
+﻿@model PROnline.Models.Assessments.AssessmentQuestion
+
+@{
+    ViewBag.Title = "创建心理测评题目";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("无")
+        </div>
+         @Html.Hidden("AssessmentOptionList[0].OptionTitle", "无")
+          @Html.Hidden("AssessmentOptionList[0].Index", 1)
+        <div class="editor-field">
+             @Html.EditorFor(model => model.AssessmentOptionList[0].OptionValue)
+             @Html.ValidationMessageFor(model => model.AssessmentOptionList[0].OptionValue)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("偶尔")
+        </div>
+         @Html.Hidden("AssessmentOptionList[1].OptionTitle", "偶尔")
+          @Html.Hidden("AssessmentOptionList[1].Index", 2)
+        <div class="editor-field">
+             @Html.EditorFor(model => model.AssessmentOptionList[1].OptionValue)
+             @Html.ValidationMessageFor(model => model.AssessmentOptionList[1].OptionValue)
+        </div>
+
+         <div class="editor-label">
+            @Html.Label("时有")
+        </div>
+         @Html.Hidden("AssessmentOptionList[2].OptionTitle", "时有")
+          @Html.Hidden("AssessmentOptionList[2].Index", 3)
+       <div class="editor-field">
+             @Html.EditorFor(model => model.AssessmentOptionList[2].OptionValue)
+             @Html.ValidationMessageFor(model => model.AssessmentOptionList[2].OptionValue)
+        </div>
+
+       <div class="editor-label">
+             @Html.Label("经常")
+        </div>
+         @Html.Hidden("AssessmentOptionList[3].OptionTitle", "经常")
+         @Html.Hidden("AssessmentOptionList[3].Index",4)
+        <div class="editor-field">
+             @Html.EditorFor(model => model.AssessmentOptionList[3].OptionValue)
+             @Html.ValidationMessageFor(model => model.AssessmentOptionList[3].OptionValue)
+        </div>
+
+         <div class="editor-label">
+             @Html.Label("总是")
+        </div>
+         @Html.Hidden("AssessmentOptionList[4].OptionTitle", "总是")
+         @Html.Hidden("AssessmentOptionList[4].Index", 5)
+        <div class="editor-field">
+             @Html.EditorFor(model => model.AssessmentOptionList[4].OptionValue)
+             @Html.ValidationMessageFor(model => model.AssessmentOptionList[4].OptionValue)
+        </div>
+     
+        <p>
+            <input type="submit" value="创建" />
+        </p>
+
+        <p class="btn">
+            @Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+
+

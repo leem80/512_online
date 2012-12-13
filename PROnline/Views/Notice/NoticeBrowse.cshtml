@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PROnline.Models.Notices.Notice>
+@using PROnline.Models.Notices;
+@{
+    ViewBag.Title = ViewBag.typename;
+    Layout = "~/Views/Shared/Normal/_List.cshtml";
+}
+
+<!--左侧菜单-->
+<ul id="admin_menu">
+@section menu {
+    @foreach (var type in ViewBag.typelist as List<NoticeType>)
+    {        
+    <li>@Html.ActionLink(type.TypeName, "Browse", "Notice", new { id = type.NoticeTypeID }, null)</li>       
+    }
+}
+
+</ul>
+        <ul class="content-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                @Html.ActionLink(item.Title, "Details", new { id = item.NoticeID }, new { target = "_blank" })
+            <span>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </span>
+            </li>
+        }
+</ul>
+
+<div id="pager"></div>
+@Tools.pager(@ViewBag, "pager", "/Notice/NoticeBrowse")

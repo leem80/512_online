@@ -1,0 +1,49 @@
+﻿@model PROnline.Models.Users.School
+           
+@{
+    ViewBag.Title = "NavSchool";
+    Layout = "~/Views/Shared/Normal/_ContentList.cshtml";
+    DateTime WeekFirst = ViewBag.WeekFirst;
+    string[] str = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
+}
+@section head{
+    <script src="@Url.Content("~/Content/tips.js")" type="text/javascript"></script>
+    <style>
+    .plist{height:500px}
+    .dotted{border:2px dotted #dddddd}
+    .plist td{padding-left:5px;border-left:2px dotted #dddddd}
+    .week{text-align:center;background-color:#eeeeee;color:#666666;margin-bottom:10px}
+    .week-nav{padding:15px;margin:0px}
+        #pre{padding-left:20px;background:url(/Content/icon/16/book_previous.png) no-repeat;padding-right:10px}
+        #next{padding-right:20px;background:url(/Content/icon/16/book_next.png) right no-repeat;padding-left:10px}
+        .school-info{background-color:#FDE6C7;border:2px dotted #dddddd;padding:10px;margin-top:10px}
+    </style>
+}
+
+<div class="container_12">
+<div class="grid_12">
+<div class="nav">
+    <h2>服务预约</h2>
+</div>
+<div>
+<div class="school-info"><strong>学校：</strong>@Model.SchoolName</div>
+<p class="week-nav">
+<a id="pre" href="/Pair/NavSchool?id=@ViewBag.id&datex=@WeekFirst.AddDays(-1).ToString("yyyy-MM-dd")" >上一周</a>|
+<a id="next" href="/Pair/NavSchool?id=@ViewBag.id&datex=@WeekFirst.AddDays(+7).ToString("yyyy-MM-dd")">下一周</a>|
+(@WeekFirst.ToString("yyyy年MM月dd日")～@WeekFirst.AddDays(6).ToString("yyyy年MM月dd日"))
+</p>
+<hr class="dotted" />
+<table style="width:100%" class="plist">
+<tr>
+@for (int i = 0; i <= 6; i++)
+{
+    String datex=WeekFirst.AddDays(i).ToString("yyyy-MM-dd");
+    <td>
+    <div class="week"><strong>【@str[i]】</strong></div>
+    @{Html.RenderAction("GetPair", new { ID = Model.SchoolID, datex = datex });}
+    </td>
+}
+</tr>
+</table>
+</div>
+</div>

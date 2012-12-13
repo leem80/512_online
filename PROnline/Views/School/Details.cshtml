@@ -1,0 +1,30 @@
+﻿@model PROnline.Models.Users.School
+
+@{
+    ViewBag.Title = "学校详情";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<fieldset>
+
+    <div class="display-label">学校名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolName)
+    </div>
+
+    <div class="display-label">学校介绍</div>
+    <div class="display-field">
+        @Html.Raw(Model.SchoolIntro)
+    </div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolCommnet)
+    </div>
+
+    <p class="btn">
+        @Html.ActionLink("返回", "Index", new { type = "school" })
+    </p>
+
+</fieldset>
+

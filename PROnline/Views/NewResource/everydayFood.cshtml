@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "每日灵粮";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = {"接纳你的真正身份",
+"昂起头来真美",
+"抽水机旁的水瓶",
+"从生活中学习",
+"大海里的船",
+"格言",
+"价值",
+"你也在井里吗",
+"平凡",
+"人格比金钱更重要",
+"人是一间客房",
+"生命的价值",
+"生命中大石块",
+"怎样活出你的最佳状态",
+"为生命画一片树叶",
+"消气",
+"幸福是什么",
+"永远的朋友",
+"你准备好了吗？",
+
+            };
+            int i = 1;
+            foreach(String str in names)
+            {
+                String content = "/content/res/";
+                String temp = String.Format("{0:000}", i);
+                String path = content + "PIL-" + temp + "-" + str + ".doc";
+                i++;
+                <tr>
+                    <td>
+                        <a href="@path">@str</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+
+
+

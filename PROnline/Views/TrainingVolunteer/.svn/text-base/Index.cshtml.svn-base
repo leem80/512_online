@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.TrainingVolunteer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Training
+        </th>
+        <th>
+            IsAttend
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Training.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAttend)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TrainingVolunteerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TrainingVolunteerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TrainingVolunteerID })
+        </td>
+    </tr>
+}
+
+</table>

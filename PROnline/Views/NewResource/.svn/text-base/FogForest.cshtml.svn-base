@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "迷雾森林";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = {"One day in spring",
+                            "Neptune",
+                            "Diamonds",
+                            "New Morning",
+                            "Starry Sky",
+                            "Mother Nature",
+                            "The First Snowflakes",
+                            "Sunest Glow",
+                            "Windills",
+                            "The Purpte Butterfly",
+                            "Melody Of Love",
+                            "Spring Water",
+                            "Blue Lagoon",
+                            "Nebula",
+                            "Time to say goodbye",
+                            "Conquest of paradise",
+                            "Welcome To Hearen",
+                            "Late Autumn Day",
+                            "Blaue Layune",
+                            "The Lady And The Unicorn"        
+            };
+            int i = 1;
+            foreach(String str in names)
+            {
+                String content = "/content/res/";
+                String temp = String.Format("{0:000}", i);
+                String path = content + "MSMM-" + temp + "-" + str + ".swf";
+                i++;
+                <tr>
+                    <td>
+                        <a href="@path">@str</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+
+
+

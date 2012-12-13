@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationItem>
+@using PROnline.Models;
+@{
+    ViewBag.Title = "已审核捐助";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+<table id="itemtable">
+    <thead>
+        <tr>
+            <th>
+                标题
+            </th>
+            <th>
+                状态
+            </th>
+
+            <th>
+                审核时间
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="navbar">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", new { id = item.DonationItemID })
+                </td>
+                <td>
+                    @{       
+            if (item.VerifyStateId == "已通过")
+            {
+                        <span class="tips" title="审核通过">审核通过</span>
+            }
+            else if (item.VerifyStateId == "未通过")
+            {
+                        <span class="tips" title="未通过原因：@item.Cause">审核未通过</span>
+            }
+            else if (item.VerifyStateId == "已执行")
+            {
+                        <span class="tips" title="已经执行">已经执行</span> 
+            }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Tools.table(ViewBag, "itemtable", "/DonationItem/MyCheckedDonation")

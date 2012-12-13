@@ -1,0 +1,20 @@
+﻿@model PROnline.Models.Users.User
+
+@{
+    ViewBag.Title = "UserInfo";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="display-label">真实姓名</div>
+<div class="display-field">@Model.RealName</div>
+
+<div class="display-label">用户类型</div>
+<div class="display-field">@Model.UserTypeId</div>
+
+<div class="display-label">登陆次数</div>
+<div class="display-field">@Model.LoginNum</div>
+
+<div class="display-label">最后登陆日起</div>
+<div class="display-field">@String.Format("{0:g}", Model.LastLoginDate)</div>
+
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PROnline.Models.Users.User>
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "个人信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<div>
+    <!--志愿者-->
+    @if (ViewBag.userType == UserType.VOLUNTEER)
+    {
+        Html.RenderAction("Details", "Volunteer", new { id = ViewBag.id, type="workspace" });                 
+    }
+    else if (ViewBag.userType == UserType.TEAM_LEADER)
+    {
+        Html.RenderAction("Details", "Volunteer", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.SUPERVISOR)
+    {
+        Html.RenderAction("Details", "Supervisor", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.TEACHER)
+    {
+        Html.RenderAction("Details", "Teacher", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.STUDENT)
+    {
+        Html.RenderAction("Details", "Student", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.PARENT)
+    {
+        Html.RenderAction("Details", "Parent", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.ADMIN)
+    {
+        Html.RenderAction("SADetails", "Users", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.MANAGER)
+    {
+        Html.RenderAction("Details", "Administrator", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.DONATOR)
+    {
+        Html.RenderAction("Details", "Donator", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.SCHOOL_MANAGER)
+    {
+        Html.RenderAction("Details", "SchoolAdministrator", new { id = ViewBag.id, type = "workspace" });
+    }
+</div>
+
+@{
+    if (ViewBag.show == true)
+    {
+        <p class="btn">
+            <a href="@Request.UrlReferrer">返回</a>
+        </p>
+    }
+}
+

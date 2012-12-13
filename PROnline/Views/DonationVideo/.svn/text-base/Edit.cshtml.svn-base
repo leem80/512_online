@@ -1,0 +1,57 @@
+﻿@model PROnline.Models.Donation.DonationVideo
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>DonationVideo</legend>
+
+        @Html.HiddenFor(model => model.DonationVideoID)
+
+        <div class="editor-label">
+            @Html.Label("视讯服务器")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ServerID", ViewBag.ServerDropDownList as SelectList)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.AdministratorID, "管理员")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AdministratorID", String.Empty)
+            @Html.ValidationMessageFor(model => model.AdministratorID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+            @Tools.DateBox("StartDate")
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("时间")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Hour", new SelectList(new List<String> { "10", "11", "12", "13" }))
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,100 @@
+﻿@model PROnline.Models.Activities.Activity
+@using PROnline.Models.Activities
+@using PROnline.Models.Users
+
+@{
+    ViewBag.Title = "活动详情";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<fieldset>
+
+    <div class="display-label">主题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActivityName)
+    </div>
+
+    <div class="display-label">活动开始日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActivityStartDate)
+    </div>
+
+    <div class="display-label">活动地点</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActivityAddr)
+    </div>
+
+    <div class="display-label">活动负责人</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PersonInCharge)
+    </div>
+
+    <div class="display-label">电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+
+    <div class="display-label">活动安排</div>
+    <div class="display-field">
+        @Html.Raw(Model.ActivityArrangement)
+    </div>
+
+    <div class="display-label">参与人员</div>
+    <div class="display-field">
+        @{
+            List<ActivityMember> list = ViewBag.list;
+            List<String> vList = new List<String>();
+            List<String> sList = new List<String>();
+            
+            if (list.Count != 0)
+            {
+                foreach (ActivityMember m in list)
+                {
+                    if (m.User.UserTypeId == UserType.STUDENT)
+                    {
+                        sList.Add(m.User.RealName);
+                    }
+                    else
+                    {
+                        vList.Add(m.User.RealName);
+                    }
+                }
+            }
+            @Html.Label("参加的学生有：")
+            if (sList.Count != 0)
+            {
+                int count = 0;
+                foreach (String name in sList)
+                {
+                    <span class="title">@name </span>
+                    count++;
+                    if (count == 5)
+                    {
+                        count = 0;
+                        <br />
+                    }
+                }
+            }
+            <br />
+            @Html.Label("参加的志愿者有：")
+            if (vList.Count != 0)
+            {
+                int count = 0;
+                foreach (String name in vList)
+                {
+                    <span class="title">@name </span>
+                    count++;
+                    if (count == 5)
+                    {
+                        count = 0;
+                        <br />
+                    }
+                }
+            }
+        }
+    </div>
+</fieldset>
+
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>

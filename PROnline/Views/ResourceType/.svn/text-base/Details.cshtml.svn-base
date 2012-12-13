@@ -1,0 +1,23 @@
+﻿@model PROnline.Models.Resources.ResourceType
+
+@{
+    ViewBag.Title = "资源类型详细信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<fieldset>
+
+    <div class="display-label">类型名称</div>
+    <div class="display-field">@Model.TypeName</div>
+
+    <div class="display-label">简介</div>
+    <div class="display-field">@Model.Introduction</div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">@Model.Comment</div>
+</fieldset>
+
+<p class="btn">
+    @Html.ActionLink("返回", "Index")
+</p>
+

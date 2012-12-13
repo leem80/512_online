@@ -1,0 +1,29 @@
+﻿@model PROnline.Models.Donation.DonationType
+
+@{
+    ViewBag.Title = "删除捐助类型";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+
+<h3>确认删除?</h3>
+@using (Html.BeginForm()) {
+
+    <div class="display-label">爱心捐助类型名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypeName)
+    </div>
+
+    <div class="display-label">简介</div>
+    <div class="display-field">
+        @Html.Raw(Model.Introduction)
+    </div>
+
+    <p>
+        <input type="submit" value="删除" />
+    </p>
+    
+    <p class="btn">
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

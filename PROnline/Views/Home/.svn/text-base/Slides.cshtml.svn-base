@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+<div class="slideshow" id="flavor_2"></div>
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+        $.getJSON("/Slider/List",function(data){
+            $("#flavor_2").agile_carousel({
+                carousel_data: data,
+                carousel_outer_height: 328,
+                carousel_height: 328,
+                slide_height: 330,
+                carousel_outer_width: 620,
+                slide_width: 620,
+                transition_type: "fade",
+                transition_time: 300,
+                timer: 4000,
+                continuous_scrolling: true,
+                control_set_1: "numbered_buttons,previous_button,pause_button,next_button"
+
+            });
+            
+            })
+        });
+
+</script>

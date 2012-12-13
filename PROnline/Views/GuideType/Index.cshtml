@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PROnline.Models.Guides.GuideType>
+
+@{
+    ViewBag.Title = "新手导航列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("新建", "Create")
+</p>
+
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            名称
+        </th>
+        <th style="width:150px">
+            操作
+        </th>
+    </tr>
+ </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.TypeName, "Details", new { id = item.GuideTypeID }) 
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.GuideTypeID }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.GuideTypeID })
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")

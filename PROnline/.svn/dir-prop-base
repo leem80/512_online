@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 62
+App_Data
+PROnline.csproj
+PROnline.csproj.user
+Uploads
+bin
+obj
+
+END

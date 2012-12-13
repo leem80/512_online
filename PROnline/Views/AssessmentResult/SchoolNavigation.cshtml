@@ -1,0 +1,81 @@
+﻿@model PROnline.Models.Users.School
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "学校列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<!--传回学校ID-->
+@using (Html.BeginForm("SchoolNavigation", "AssessmentResult" , FormMethod.Get))
+{
+    @Html.ValidationSummary(true)
+
+        <input type="hidden" name="type" value=@ViewBag.type />
+    
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SchoolName)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SchoolID", ViewBag.SchoolDropDownList as SelectList)
+            <input type="submit" value="选择学校" />
+        </div>
+    }
+
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            班主任
+        </th>
+        <th>
+            学生
+        </th>
+        <th>
+            录入
+        </th>
+        <th>
+            查询
+        </th>
+    </tr>
+     </thead>
+    <tbody>
+    <!--列出学校、班主任、学生-->
+@if (Model != null)
+{
+    foreach (var item in Model.TeacherList as List<Teacher>)
+    {
+        foreach (var student in item.StudentList as List<Student>)
+        {
+            if (student.User.isDeleted == false)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.RealName)
+                </td>
+                <td>
+                 @Html.ActionLink(student.User.RealName, "Details", "Student", new { id = student.StudentID }, new { target = "_blank" }) 
+                </td>
+                <td>
+               @if (ViewBag.type == "psychological"){
+                    @Html.ActionLink("录入心理测评", "Create", "AssessmentResult", new { studentId = student.StudentID, SchoolID = student.Teacher.SchoolID }, null) 
+                }else if (ViewBag.type == "study"){
+                    @Html.ActionLink("录入学业测评", "Create", "StudyAssessment", new { studentId = student.StudentID, SchoolID = student.Teacher.SchoolID }, null) 
+                }
+                </td>
+                <td>
+                @if (ViewBag.type == "psychological"){
+                    @Html.ActionLink("心理测评历史记录", "Details", "AssessmentResult", new { StudentID = student.StudentID, SchoolID = student.Teacher.SchoolID }, null)
+                }else if (ViewBag.type == "study"){                
+                    @Html.ActionLink("学业测评历史记录", "Details", "StudyAssessment", new { StudentID = student.StudentID, SchoolID = student.Teacher.SchoolID }, null) 
+                }
+                </td>
+            </tr>
+            }
+        }
+    }
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+

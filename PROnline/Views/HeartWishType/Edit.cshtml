@@ -1,0 +1,45 @@
+﻿@model PROnline.Models.HeartWishes.HeartWishType
+
+@{
+    ViewBag.Title = "编辑心声类型";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        @Html.HiddenFor(model => model.HeartWishTypeID)
+
+        <div class="editor-label ">
+            @Html.LabelFor(model => model.TypeName)
+        </div>
+        <div class="editor-field p50">
+            @Html.EditorFor(model => model.TypeName)
+            @Html.ValidationMessageFor(model => model.TypeName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Comment)
+            @Html.ValidationMessageFor(model => model.Comment)
+        </div>
+
+        <p>
+            <input type="submit" value="保存" />|@Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+

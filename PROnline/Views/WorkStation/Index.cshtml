@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PROnline.Models.WorkStations.WorkStation>
+@using PROnline.Models.WorkStations;
+
+@{
+    ViewBag.Title = "工作站列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("创建工作站", "Create")
+</p>
+
+<table id="workstationtable" >
+    <thead>
+    <tr>
+        <th>
+            工作站名称
+        </th>
+        <th>
+            站长
+        </th>
+        <th>
+            联系方式
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+    </thead>
+    <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in ViewBag.list as List<WorkStation>)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkStationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkStationerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telephone)
+            </td>
+            <td>
+                @Html.ActionLink("编辑工作站", "Edit", new { id = item.WorkStationID }) 
+                <!--@Html.ActionLink("删除工作站", "Delete", new { id = item.WorkStationID })-->
+            </td>  
+        </tr>
+    }
+    </tbody>
+</table>
+@Tools.table(@ViewBag, "workstationtable", "WorkStation/Index")
+

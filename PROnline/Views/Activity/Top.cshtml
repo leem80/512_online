@@ -1,0 +1,27 @@
+﻿@model IEnumerable<PROnline.Models.Activities.Activity>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="head">
+<h3>最新活动 </h3>
+<strong>@Html.ActionLink("更多>>", "List", "Activity")</strong>
+</div>
+
+@{
+    if (ViewBag.isShow == true)
+    {
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <span class="title">@Html.ActionLink(Utils.title(@item.ActivityName), "Detials", "Activity", new { id = @item.ActivityName }, null)</span>
+                    <span class="date">@Html.DisplayFor(it => item.CreateDate)</span>
+                </li>
+            }
+        </ul>
+    }
+}
+

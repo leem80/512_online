@@ -1,0 +1,33 @@
+﻿@model PROnline.Models.Users.Role
+
+@{
+    ViewBag.Title = "添加角色";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Id)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Id)
+            @Html.ValidationMessageFor(model => model.Id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Note)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Note)
+            @Html.ValidationMessageFor(model => model.Note)
+        </div>
+
+        <p>
+            <input type="submit" value="添加" />|@Html.ActionLink("返回列表", "Index")
+        </p>
+    </fieldset>
+}

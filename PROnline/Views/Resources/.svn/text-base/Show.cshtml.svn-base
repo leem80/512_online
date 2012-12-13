@@ -1,0 +1,53 @@
+﻿@model PROnline.Models.Resources.Resource
+ @using PROnline.Controllers.Resources
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/Normal/_Show.cshtml";
+}
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/app/resource/resource.css")" />
+}
+<div class="grid_12 nav_menu_top">
+    @Html.Raw(ResourceTypeController.MenuTop())
+</div>
+
+<div class="clear"></div>
+<div class="grid_3 more" >
+    <div class="container">
+     @{Html.RenderAction("Relate", "Slider");}
+    </div>
+</div>
+
+<div class="grid_9">
+<div class="content-section">
+<h3>@Html.Raw(@Model.Title)</h3>
+<p class="ref">发布日期:@Html.DisplayFor(modelItem => modelItem.CreateDate)
+<span >@Html.ActionLink("收藏", "Add", "FavoriteResource",
+    new { resource = Request.Params["url"], title = Model.Title, typeName = Model.ResourceType.TypeName }, new { id="fav"})</span> |
+    <span >@Html.ActionLink("返回", "List", null, new { id="back"})</span>
+ </p>
+<hr/>
+<p>
+    @Html.Raw(@Model.Content)
+</p>
+</div>
+        @if (Model.Filexs != null && Model.Filexs.Count > 0)
+        {
+        <div class="editor-label">
+            附件列表:
+        </div>
+
+        <div class="editor-field">
+
+                <ul>
+                @foreach (var file in Model.Filexs)
+                {
+                    <li><a href="@file.Url" target="_blank">@file.Name</a></li>
+                }
+                </ul>
+        </div>
+        }
+</div>
+
+

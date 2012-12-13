@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+    <input type="hidden" name="UserId" id="UserId"/>
+    @if (ViewBag.user != null)
+    {
+        <strong>当前登录用户:</strong><span id="UserName">@ViewBag.user.RealName</span>
+    }
+    else
+    {
+
+        <strong>@Html.ActionLink("登陆", "Login", "Account", new { from = ViewBag.from }, null)</strong>
+        <span>后进行操作</span>
+    }
+

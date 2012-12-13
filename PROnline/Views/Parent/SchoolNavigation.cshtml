@@ -1,0 +1,71 @@
+﻿@model PROnline.Models.Users.School
+@using PROnline.Models.Users;
+@using PROnline.Models.Service;
+@using PROnline.Controllers.Service;
+
+@{
+    ViewBag.Title = "家长列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+
+<!--传回学校ID-->
+@using (Html.BeginForm("SchoolNavigation","Parent",FormMethod.Get)) {
+    @Html.ValidationSummary(true)
+        <div class="editor-label p50">
+            @Html.LabelFor(model => model.SchoolName)
+            @Html.DropDownList("SchoolID", ViewBag.SchoolDropDownList as SelectList)
+            <button type="submit">选择学校</button>
+        </div>
+}
+
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            学生
+        </th>
+        <th>
+            家长
+        </th>        
+        <th>
+            操作
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--列出学校、班主任、学生-->
+@if (Model != null)
+{
+    foreach (var item in ViewBag.list as List<Student>)
+    {
+        if (item.User.isDeleted == false)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.User.RealName, "Details", "Student", new { id = item.StudentID }, new { target = "_blank" }) 
+                </td>
+                <td>
+                     @if(item.ParentList.Count>0)
+                    {
+                        @Html.ActionLink(item.ParentList[0].User.RealName, "Details", new { id = item.ParentList[0].ParentID },null)
+                     }
+                </td>
+                <td>
+                    @if(item.ParentList.Count==0){
+                        @Html.ActionLink("添加", "Create", "Parent", new { StudentID = item.StudentID, SchoolID = item.Teacher.SchoolID }, null)         
+                    }else{
+                         @Html.ActionLink("修改", "Edit", new { id = item.ParentList[0].ParentID })
+                        <span>|</span>
+                         @Html.ActionLink("删除", "Delete", new { id = item.ParentList[0].ParentID })
+                    }
+                </td>
+            </tr>
+        }
+    }
+}
+    
+</tbody>
+</table>
+@Tools.table("datatable")
+

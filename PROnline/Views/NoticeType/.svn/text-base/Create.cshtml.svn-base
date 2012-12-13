@@ -1,0 +1,37 @@
+﻿@model PROnline.Models.Notices.NoticeType
+
+@{
+    ViewBag.Title = "新建公告类型";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+
+@{Html.EnableClientValidation();}
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <input name="NoticeTypeID" type="hidden" value="00000000-0000-0000-0000-000000000000" />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TypeName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TypeName)
+            @Html.ValidationMessageFor(model => model.TypeName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+        </div>
+
+        <p>
+            <input type="submit" value="新建" />| @Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+

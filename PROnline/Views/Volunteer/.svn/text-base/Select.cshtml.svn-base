@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PROnline.Models.Users.User>
+
+@{
+    ViewBag.Title = "Select";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+<button id="openBtn"  type="button">选择志愿者</button>
+<div id="userSelect">
+<div>
+<p>
+<span>真实姓名</span><input name="RealName" id="RealName" value=""/>
+<button id="qBtn" type="button">查询</button>
+<button id="checkOk">确定</button>
+</p>
+<iframe name="query" id="query" src="" style="width:100%;height:280px"></iframe>
+</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var rootUrl = "/Volunteer/Query";
+        var selectType = "@ViewBag.selectType"
+        window.userCheck = {};
+        $("#userSelect").dialog({ autoOpen: false, width: 500, height: 400, resizable: false });
+        $("#openBtn").click(function () {
+            $("#userSelect").dialog("open");
+        })
+        $("#checkOk").click(function () {
+            $("#userSelect").dialog("close");
+
+            var div = document.getElementById("userlist");
+
+
+
+            for (i = 0; i < window.userCheck.length; i++) {
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name="SupervisorID"
+                input.value = window.userCheck[i].id;
+
+                var label = document.createElement("input");
+                label.type = "text";
+                
+                label.value = window.userCheck[i].username
+
+                div.appendChild(input);
+                div.appendChild(label);
+            }
+
+        })
+
+        $("#qBtn").click(function () {
+            var ut = $("#UserType").val();
+            var qurl = rootUrl + "?selectType=" + selectType + "&search=" + document.getElementById("RealName").value;
+            $("#query").attr("src", qurl);
+
+        })
+    })
+</script>
+
+<div id="userlist">
+
+</div>
+

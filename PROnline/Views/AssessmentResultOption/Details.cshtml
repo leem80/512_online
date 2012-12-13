@@ -1,0 +1,20 @@
+﻿@model PROnline.Models.Assessments.AssessmentResultOption
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>AssessmentResultOption</legend>
+
+    <div class="display-label">AssessmentQuestion</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AssessmentQuestion.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AssessmentResultOptionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

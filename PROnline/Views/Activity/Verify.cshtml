@@ -1,0 +1,50 @@
+﻿@model PROnline.Models.Activities.Activity
+
+@{
+    ViewBag.Title = "审核联谊活动方案";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<fieldset>
+
+    @Html.HiddenFor(model => model.ActivityID)
+
+    <div class="display-label">主题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActivityName)
+    </div>
+
+    <div class="display-label">活动开始日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActivityStartDate)
+    </div>
+
+    <div class="display-label">活动地点</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ActivityAddr)
+    </div>
+
+    <div class="display-label">活动负责人</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PersonInCharge)
+    </div>
+
+    @{
+        String type = Request.Params.Get("type");
+        if (type == "notpass")
+        {
+            <div class="display-label">未通过原因</div>
+            <div class="display-field">
+                @Html.TextAreaFor(model => model.Cause)
+            </div>
+        }
+      }
+
+</fieldset>
+    <p class="btn">
+        <input type="submit" value="确定" /> |
+        @Html.ActionLink("返回", "VerifyList")
+    </p>
+}

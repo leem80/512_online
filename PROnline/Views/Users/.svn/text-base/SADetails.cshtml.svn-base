@@ -1,0 +1,10 @@
+﻿@model PROnline.Models.Users.User
+
+@{
+    ViewBag.Title = "系统管理员详情";
+}
+
+<p class="btn">
+    @Html.ActionLink("修改密码", "ChangePassword", "Users", new { id = ViewBag.id }, null)
+</p>
+

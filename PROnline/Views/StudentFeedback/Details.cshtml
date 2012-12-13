@@ -1,0 +1,35 @@
+﻿@model PROnline.Models.Service.StudentFeedback
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>StudentFeedback</legend>
+
+    <div class="display-label">Student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Student.State)
+    </div>
+
+    <div class="display-label">PairAppointment</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PairAppointment.Name)
+    </div>
+
+    <div class="display-label">Results</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Results)
+    </div>
+
+    <div class="display-label">Feelings</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Feelings)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.StudentFeedbackID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

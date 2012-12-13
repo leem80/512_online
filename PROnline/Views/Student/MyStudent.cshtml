@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PROnline.Models.Users.Student>
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "学生管理";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<!--传回学校ID-->
+<div class="btn">
+ @Html.ActionLink("添加学生", "Create", "Student") |
+ @Html.ActionLink("删除全部", "DeleteAll", new { id = ViewBag.schoolID })
+</div>
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th style="width:110px">
+            学生编号
+        </th>
+        <th style="width:110px">
+            学生
+        </th>
+        <th>家长</th>
+        <th style="width:250px">
+            操作
+        </th>
+    </tr>
+     </thead>
+     <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    <!--列出学校、班主任、学生-->
+@if (Model != null && @ViewBag.UserType == UserType.SCHOOL_MANAGER)
+{
+
+    foreach (var student in Model as List<Student>)
+    {
+        if (student.User.isDeleted == false)
+        {
+            <tr>   
+            
+                <td>
+                    @student.User.UserName
+                </td>
+                     
+                <td>
+                    @Html.ActionLink(student.User.RealName, "UserInfo", "Users", new { id = student.UserID }, null) 
+                </td>
+                <td>
+
+                     @if (student.ParentList.Count > 0)
+                     {
+                         foreach (var parent in student.ParentList)
+                         {
+                             @Html.ActionLink(parent.User.RealName, "ParentInfo", "Parent", new { id = parent.ParentID }, null)@:|
+                         }
+                     }
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new { id = student.StudentID }) |
+                    @Html.ActionLink("添加家长", "Create", "Parent", new { StudentID = student.StudentID }, null)|
+                    @Html.ActionLink("录入心理数据", "AddTest", new { StudentID = student.StudentID }, null)|
+                    @Html.ActionLink("删除", "Delete", new { id = student.StudentID })
+                </td>
+             </tr>       
+        }
+    }
+}
+
+</tbody>
+</table>
+@Tools.table(ViewBag,"datatable","/Student/MyStudent")
+

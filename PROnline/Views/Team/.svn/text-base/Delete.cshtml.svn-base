@@ -1,0 +1,31 @@
+﻿@model PROnline.Models.Teams.Team
+
+@{
+    ViewBag.Title = "删除服务小组";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<fieldset>
+    <div class="display-label">小组名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamName)
+    </div>
+
+    <div class="display-label">服务类型</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+
+</fieldset>
+
+@using (Html.BeginForm()) {
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

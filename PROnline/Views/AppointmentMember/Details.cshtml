@@ -1,0 +1,30 @@
+﻿@model PROnline.Models.Service.AppointmentMember
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>AppointmentMember</legend>
+
+    <div class="display-label">PairAppointment</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PairAppointment.Name)
+    </div>
+
+    <div class="display-label">AppointmentHash</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AppointmentHash)
+    </div>
+
+    <div class="display-label">User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AppointmentMemberID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

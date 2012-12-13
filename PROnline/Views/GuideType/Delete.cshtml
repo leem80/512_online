@@ -1,0 +1,23 @@
+﻿@model PROnline.Models.Guides.GuideType
+
+@{
+    ViewBag.Title = "新手导航删除";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认删除?</h3>
+<fieldset>
+
+    <div class="display-label">名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypeName)
+    </div>
+
+</fieldset>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

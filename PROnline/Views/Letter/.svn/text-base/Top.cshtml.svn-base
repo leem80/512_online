@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PROnline.Models.Letters.Letter>
+@using PROnline.Models.Users;
+@using PROnline.Src;
+
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<div class="head">
+<h3>最新消息 </h3>
+<strong>@Html.ActionLink("更多>>","Index")</strong>
+</div>
+
+<ul>
+@{       
+    foreach (var item in Model)
+    {        
+        if (item.Sender.UserTypeId==UserType.ADMIN)
+        {
+            ViewBag.type="超级管理员:";
+        }
+        else if (item.Sender.UserTypeId == UserType.DONATOR)
+        {
+            ViewBag.type = "爱心人士:";
+        }
+        else if (item.Sender.UserTypeId == UserType.MANAGER)
+        {
+            ViewBag.type = "项目负责人:";
+        }
+        else if (item.Sender.UserTypeId == UserType.PARENT)
+        {
+            ViewBag.type = "家长:";
+        }
+        else if (item.Sender.UserTypeId == UserType.SCHOOL_MANAGER)
+        {
+            ViewBag.type = "校方:";
+        }
+        else if (item.Sender.UserTypeId == UserType.STUDENT)
+        {
+            ViewBag.type = "学生:";
+        }
+        else if (item.Sender.UserTypeId == UserType.SUPERVISOR)
+        {
+            ViewBag.type = "督导:";
+        }
+        else if (item.Sender.UserTypeId == UserType.TEAM_LEADER)
+        {
+            ViewBag.type = "志愿者小组长:";
+        }
+        else if (item.Sender.UserTypeId == UserType.VOLUNTEER)
+        {
+            ViewBag.type = "志愿者:";
+        }
+        <li>
+            <span class="title">@Html.ActionLink(item.Title, "Details", "Letter", new { id = item.LetterID }, null)</span>
+            <span class="sender">来自于 @ViewBag.type @Html.DisplayFor(it => item.Sender.RealName)</span>
+            <span class="date">@Html.DisplayFor(it => item.SenderDate)</span>
+        </li>
+
+    }
+}
+
+</ul>
+

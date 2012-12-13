@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PROnline.Models.HeartWishes.HeartWishType>
+
+@{
+    ViewBag.Title = "心声类型列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("创建心声类型", "Create")
+</p>
+<table id="datatable">
+<thead>
+    <tr>
+        <th>
+            类型名称
+        </th>
+        <th>
+            备注
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+             @Html.ActionLink(item.TypeName, "Details", new { id = item.HeartWishTypeID }, new { target = "_blank" }) 
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>        
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id = item.HeartWishTypeID }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.HeartWishTypeID })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+
+
+  

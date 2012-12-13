@@ -1,0 +1,23 @@
+﻿@model PROnline.Models.Assessments.AssessmentQuestion
+
+@{
+    ViewBag.Title = "删除心理测评题目";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认删除?</h3>
+
+    <div class="display-label">标题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" />
+    </p>
+    
+   <p class="btn">
+       @Html.ActionLink("返回", "Index")
+   </p>
+}

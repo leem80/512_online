@@ -1,0 +1,74 @@
+﻿<div class="container_12">
+    <link href="/Content/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <div class="grid_12 top_box"><span class="user-status">@{Html.RenderAction("Status", "Account");}</span></div>
+    <div class="clear"></div>
+<div class="grid_12" id="nav_bar">
+    <div id="header">
+    
+
+
+    <!--h1 id="web_title" style="font-size:30px;margin-top:35px;">绵竹市中小学心理康复综合社会支持公益服务系统</h1-->
+    <script>
+        var fadeStatus = true;
+        var timeout = 2000;
+        function changeFade() {
+            if (fadeStatus) {
+                $("#web_title").fadeTo(timeout * 0.8,0.3)
+            } else {
+                $("#web_title").fadeTo(timeout * 0.8,1)
+            }
+            fadeStatus = !fadeStatus;
+        }
+
+        setInterval("changeFade()", timeout)
+        
+    </script>
+    		<div id="flashContent">
+			<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="700" height="100" align="left">
+				<param name="movie" value="/Content/img/logo.swf" />
+				<param name="quality" value="high" />
+				<param name="bgcolor" value="#ffffff" />
+				<param name="play" value="true" />
+				<param name="loop" value="true" />
+				<param name="wmode" value="transparent" />
+				<param name="scale" value="showall" />
+				<param name="menu" value="true" />
+				<param name="devicefont" value="false" />
+				<param name="salign" value="" />
+				<param name="allowScriptAccess" value="sameDomain" />
+				<!--[if !IE]>-->
+				<object type="application/x-shockwave-flash" data="/Content/img/logo.swf" width="700" height="100">
+					<param name="movie" value="/Content/img/logo.swf" />
+					<param name="quality" value="high" />
+					<param name="bgcolor" value="#ffffff" />
+					<param name="play" value="true" />
+					<param name="loop" value="true" />
+					<param name="wmode" value="transparent" />
+					<param name="scale" value="showall" />
+					<param name="menu" value="true" />
+					<param name="devicefont" value="false" />
+					<param name="salign" value="" />
+					<param name="allowScriptAccess" value="sameDomain" />
+				<!--<![endif]-->
+					<a href="http://www.adobe.com/go/getflash">
+						<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获得 Adobe Flash Player" />
+					</a>
+				<!--[if !IE]>-->
+				</object>
+				<!--<![endif]-->
+			</object>
+		</div>
+    <img src="/Content/img/logo.png" />
+    <!--span>Psychological rehabilitation service system</span-->
+    </div>
+</div>
+<div class="clear"></div>
+<div class="grid_12 logo">
+   
+</div>
+<div class="clear"></div>
+<div class="grid_12" id="navx">
+    @Tools.menu("")
+</div>
+<div class="clear"></div>
+</div>

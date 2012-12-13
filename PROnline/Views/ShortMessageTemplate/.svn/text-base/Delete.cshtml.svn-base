@@ -1,0 +1,26 @@
+﻿@model PROnline.Models.ShortMessages.ShortMessageTemplate
+
+@{
+    ViewBag.Title = "删除心理辅导短信";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<h3>确认删除?</h3>
+<fieldset>
+    <div class="display-label">心理问题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">建议</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Content)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

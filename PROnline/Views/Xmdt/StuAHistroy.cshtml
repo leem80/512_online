@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PROnline.Models.Service.PairAppointment>
+
+@{
+    ViewBag.Title = "辅导历史信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th >
+            辅导时段
+        </th>
+        <th style="width:100px">
+            完成情况
+        </th>
+        <th style="width:160px">志愿者编号</th>
+        <th style="width:80px">督导老师编号</th>
+        <th style="width:140px">心理辅导实际时间</th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.StartDate.ToString("HH:mm:ss")
+            -
+            @item.EndDate.ToString("HH:mm:ss")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @item.Pairs.Volunteer.User.UserName
+        </td>
+       <td>
+            @item.Pairs.Supervisor.User.UserName
+       </td>
+       <td>
+            @item.totalMinitues
+       </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(ViewBag, "datatable", "/Xmdt/StuAHistroy/" + @ViewBag.Student.StudentID)
+<div class="btn">
+<a href="/Xmdt/SchoolToday/@ViewBag.Student.SchoolID">返回</a>
+</div>

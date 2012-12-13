@@ -1,0 +1,39 @@
+﻿@model PROnline.Models.Users.User
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = ViewBag.title;
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<div>
+    @if (ViewBag.userType == UserType.VOLUNTEER)
+    {
+        Html.RenderAction("VolunteerInfo", "Volunteer", new { id = ViewBag.id, type="workspace" });                 
+    }
+    else if (ViewBag.userType == UserType.TEAM_LEADER)
+    {
+        Html.RenderAction("VolunteerInfo", "Volunteer", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.SUPERVISOR)
+    {
+        Html.RenderAction("SupervisorInfo", "Supervisor", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.DONATOR)
+    {
+        Html.RenderAction("DonatorInfo", "Donator", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.STUDENT)
+    {
+        Html.RenderAction("StudentInfo", "Student", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.SCHOOL_MANAGER)
+    {
+        Html.RenderAction("SchoolAdministratorInfo", "SchoolAdministrator", new { id = ViewBag.id, type = "workspace" });
+    }
+    else if (ViewBag.userType == UserType.PARENT)
+    {
+        Html.RenderAction("ParentInfo", "Parent", new { id = ViewBag.id, type = "workspace" });
+    }
+</div>
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PROnline.Models.Assessments.StudyAssessment>
+
+@{
+    ViewBag.Title = "学业测评详情";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<table id="datatable">
+<thead>
+    <tr>
+        <th>
+            科目
+        </th>
+        <th>
+            日期
+        </th>
+        <th>
+            分数
+        </th>
+        <th>
+            进步情况
+        </th>
+        <th>
+            评估
+        </th>
+        <th>
+            下一步行动
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imporvement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Conclusion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Action)
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")
+
+<p class="btn">
+    @Html.ActionLink("返回", "SchoolNavigation", "AssessmentResult", new { SchoolID=ViewBag.schoolID, type="study"},null)
+</p>

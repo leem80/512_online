@@ -1,0 +1,26 @@
+﻿@model PROnline.Models.Teams.TeamMember
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_2Section.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TeamMember</legend>
+
+    <div class="display-label">Level</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Level)
+    </div>
+
+    <div class="display-label">Declaration</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Declaration)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TeamMemberID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

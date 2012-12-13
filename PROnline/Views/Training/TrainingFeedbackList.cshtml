@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.Training>
+
+@{
+    ViewBag.Title = "培训列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="trainingtable" >
+    <thead>
+    <tr>
+        <th>
+            培训主题
+        </th>
+        <th>
+            培训地点
+        </th>
+        <th>
+            培训时间
+        </th>
+    </tr>
+    </thead>
+    <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Title, "MemberList", new { id = item.TrainingID })
+            </td>
+            <td>
+                @Html.Label(item.Locale)
+            </td>
+            <td>
+                @{
+                    String date = item.StartDate.ToShortDateString() + " " + item.StartTime + "-" + item.EndTime;
+                    @Html.Label(date)
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Tools.table(@ViewBag, "trainingtable", "/Training/TrainingFeedbackList")
+
+
+

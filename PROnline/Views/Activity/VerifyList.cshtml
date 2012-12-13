@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PROnline.Models.Activities.Activity>
+@using PROnline.Models;
+
+@{
+    ViewBag.Title = "活动申请审核";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            申请时间
+        </th>
+        <th>
+            活动时间
+        </th>
+        <th>
+            方案名称
+        </th>
+        <th>
+            审核状态
+        </th>
+    </tr>
+    </thead>
+    <tfoot><tr><td colspan="3"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityStartDate)
+            </td>
+            <td>
+                @Html.ActionLink(item.ActivityName, "Details", new { id = item.ActivityID })
+            </td>
+            <td>
+                @Html.ActionLink("通过", "Verify", new { id = item.ActivityID, type = "pass" })
+                <label>|</label>
+                @Html.ActionLink("不通过", "Verify", new { id = item.ActivityID, type = "notpass" })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Tools.table(@ViewBag, "datatable", "/Activity/VerifyList")
+

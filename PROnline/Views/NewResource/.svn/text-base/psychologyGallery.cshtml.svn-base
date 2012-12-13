@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "心里画廊";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = {"星空凡高",
+"超现实图画（1）",
+"超现实图画（2）",
+"让人头晕的奇图－－看眼睛如何欺骗大脑1",
+"让人头晕的奇图－－看眼睛如何欺骗大脑2", 
+"最后的晚餐"
+            };
+            int i = 1;
+            foreach(String str in names)
+            {
+                String content = "/content/res/";
+                String temp = String.Format("{0:000}", i);
+                String path = content + "PIH-" + temp + "-" + str + ".doc";
+                i++;
+                <tr>
+                    <td>
+                        <a href="@path">@str</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+
+
+

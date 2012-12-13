@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.Training>
+
+@{
+    ViewBag.Title = "待审培训申请";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            培训主题
+        </th>
+        <th>
+            日期
+        </th>
+        <th>
+            目前状态
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", new { id = item.TrainingID, type="detail" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                    @Html.DisplayFor(modelItem => item.StartTime)-@Html.DisplayFor(model => item.EndTime)
+                </td>
+                <td>
+                    <span>待审核</span>
+                </td>
+            </tr>
+        }
+    }
+
+</tbody>
+</table>
+@Tools.table("datatable")
+

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PROnline.Models.Users.GoodAtField>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Field
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Field)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GoodAtFieldID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GoodAtFieldID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GoodAtFieldID })
+        </td>
+    </tr>
+}
+
+</table>

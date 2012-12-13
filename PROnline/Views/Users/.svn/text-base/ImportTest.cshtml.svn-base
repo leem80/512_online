@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "心理测评数据导入";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+@section head{
+<style>
+    .upshow{background-color:#FAF9F2;margin-top:3px;padding:30px;color:#C2B55E}
+</style>
+
+}
+<h3 class="upshow">
+    数据导入
+</h3>
+    <form action="/Users/Import" method="POST" enctype="multipart/form-data" >
+    <input type="hidden" name="TeacherID" value="@Request.Params["TeacherID"]" />
+    <input type="hidden" name="SchoolID" value="@Request.Params["SchoolID"]" />
+    <input type="hidden" name="type" value="test" />
+    
+    <div>
+    <label>文件：</label> 
+    <input type="file"  name="upload"/>
+    </div>
+    <div class="btn"><button type="submit">上传</button>|<a href="@Request.UrlReferrer">返回</a></div>
+
+</form>

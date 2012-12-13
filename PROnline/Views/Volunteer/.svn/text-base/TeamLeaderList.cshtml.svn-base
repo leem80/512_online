@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PROnline.Models.Users.Volunteer>
+
+@{
+    ViewBag.Title = "志愿者小组长列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("创建志愿者小组长", "CreateTeamLeader")
+</p>
+
+<table id="tabellist">
+<thead>
+    <tr>
+        <th>
+            小组长姓名
+        </th>
+        <th>
+            是否已有小组
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td> 
+            @Html.ActionLink(item.User.RealName, "UserInfo", "Users", new { id = item.UserID }, null)
+        </td>
+        <td>
+            @if (item.isHaveTeam == true)
+            {
+                @ViewBag.dic[item.VolunteerID]
+            }
+            else
+            {
+                <span>否</span>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("修改小组长信息", "Edit", new { id = item.VolunteerID }) |
+            @Html.ActionLink("删除小组长", "Delete", new { id = item.VolunteerID })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(@ViewBag, "tabellist", "Volunteer/TeamLeaderList")
+

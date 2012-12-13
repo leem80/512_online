@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PROnline.Models.Users.Supervisor>
+
+@{
+    ViewBag.Title = "督导专家列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            真实姓名
+        </th>
+        <th>
+            性别
+        </th>
+        <th>
+            移动电话
+        </th>
+        <th>
+            心理咨询师级别
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="7"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    if (item.User.isDeleted == false)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink(item.User.UserName, "UserInfo", "Users", new { id = item.UserID }, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileTelephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PDegree)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id = item.SupervisorID }) |           
+            @Html.ActionLink("删除", "Delete", new { id = item.SupervisorID })
+        </td>
+    </tr>
+    }
+}
+</tbody>
+</table>
+@Tools.table(ViewBag, "datatable", "/Supervisor/Index")

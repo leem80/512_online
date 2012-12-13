@@ -1,0 +1,25 @@
+﻿@model PROnline.Models.Trainings.TrainingVolunteer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TrainingVolunteer</legend>
+
+    <div class="display-label">Training</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Training.Title)
+    </div>
+
+    <div class="display-label">IsAttend</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAttend)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TrainingVolunteerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,35 @@
+﻿@model PROnline.Models.Resources.Favorite
+
+@{
+    ViewBag.Title = "编辑收藏夹";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Favorite</legend>
+
+        @Html.HiddenFor(model => model.FavoriteID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FavoriteName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FavoriteName)
+            @Html.ValidationMessageFor(model => model.FavoriteName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Commnet)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Commnet)
+            @Html.ValidationMessageFor(model => model.Commnet)
+        </div>
+        <p class="btn">
+            <input type="submit" value="保存" />|@Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+

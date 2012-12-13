@@ -1,0 +1,47 @@
+﻿@model PROnline.Models.Guides.AboutUs
+
+@{
+    ViewBag.Title = "创建[关于我们]";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@section Head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+
+}
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field p100">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+            @Tools.richbox("Content", "/Resources/EditorSave")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsPublic)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.IsPublic, new {text="公开" })
+            @Html.ValidationMessageFor(model => model.IsPublic)
+        </div>
+
+        <p>
+            <input type="submit" value="创建" />|@Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+
+

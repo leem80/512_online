@@ -1,0 +1,36 @@
+﻿@model PROnline.Models.Resources.FavoriteResource
+
+@{
+    ViewBag.Title = "删除收藏";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+
+<h3>你是否要删除该条收藏?</h3>
+<fieldset>
+    <legend>FavoriteResource</legend>
+
+    <div class="display-label">收藏夹名</div>
+    <div class="display-field">@Model.Favorite.FavoriteName</div>
+
+    <div class="display-label">名称</div>
+    <div class="display-field">@Model.Title</div>
+
+    <div class="display-label">地址</div>
+    <div class="display-field">@Model.Url</div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">@Model.Commnet</div>
+
+
+    <div class="display-label">创建日期</div>
+    <div class="display-field">@String.Format("{0:g}", Model.CreateDate)</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index", "FavoriteResource", new { FavoriteId=@Model.FavoriteId},null)
+    </p>
+}
+
+

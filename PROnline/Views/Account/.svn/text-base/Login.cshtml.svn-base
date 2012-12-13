@@ -1,0 +1,73 @@
+﻿@model PROnline.Models.Users.LoginModel
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "用户登录";
+    ViewBag.CTitle = "";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+@section head{
+<link rel="Stylesheet" href="@Url.Content("~/Content/logon.css")" />
+}
+<div class="grid_12 login_topbar">
+    
+</div>
+<div class="clear"></div>
+<div class="grid_5">
+<div class="login_form">
+@using (Html.BeginForm("Login", "Account"))
+{
+    <h3>用户登录</h3>
+    @Html.ValidationSummary(true)
+        <input type="hidden" name="from" value="@Request.Params["from"]" />
+        <div class="editor-field">
+            @Html.ValidationMessage("Error")
+        </div>
+    
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field p70 input">
+            @Html.EditorFor(model => model.UserName)
+           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field p70 input">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div class="editor-label">
+        
+        <input type="checkbox" value="cookie" name="Cookie" />保留登录信息一周
+            
+        </div>
+        <p>
+            <button type="submit">登录</button>
+        </p>
+}
+</div>
+</div>
+<div class="grid_6 logon"> 
+    <h3>用户注册</h3>
+
+    <p >
+        @Html.ActionLink("志愿者注册", "Create", "Volunteer")
+    </p>
+
+    <p>
+        @Html.ActionLink("督导专家注册", "Create", "Supervisor")
+    </p>
+    
+    <p>
+        @Html.ActionLink("爱心人士注册", "Create", "Donator")
+    </p>  
+      
+</div>
+<div class="clear"></div>
+<div class="grid_12 login_botbar">
+    
+</div>
+

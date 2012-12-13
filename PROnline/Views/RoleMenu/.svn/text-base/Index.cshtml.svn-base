@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "角色：【" + ViewBag.Role.Note + "】授权";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+@{
+    List<String> limit = @ViewBag.limit;
+    var menu = PROnline.Src.Menu.builSelectedHtmlMenu(limit, "RoleMenu", "_blank", "MenuId");
+}
+@section head{
+<link rel="Stylesheet" href="@Url.Content("~/Content/treeview/jquery.treeview.css")" />
+<script src="@Url.Content("~/Content/treeview/jquery.cookie.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/treeview/jquery.treeview.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#RoleMenu input[type=checkbox]").click(function () {
+            if ($(this).attr('checked')) {
+                $(this).parents("li").children("input").attr("checked", "checked");
+            } else {
+                $(this).siblings().find("input").attr("checked", false)
+            }
+
+        })
+
+        //$("#RoleMenu>li").addClass("col-ul");
+        $("#RoleMenu").treeview({ collapsed: true });
+
+    })
+
+</script>
+<style type="text/css">
+      .ablist a{color:#888888;font-size:12px;}
+      .ablist a:hover{color:#ff0000}
+</style>
+}
+<div class=" ablist">
+@using (Html.BeginForm("Save", "RoleMenu")){
+    <div class="menuList" >
+        <p>
+         <button type="submit">保存</button>
+        </p>
+        <strong>菜单列表</strong>
+    </div>
+    <input type="hidden" value="@ViewBag.Role.Id" name="RoleId" />
+    @Html.Raw(menu)
+    <div class="clear"></div>
+    
+}
+
+</div>
+<div class="clear "></div>
+

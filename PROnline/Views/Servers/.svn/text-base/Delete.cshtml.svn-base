@@ -1,0 +1,25 @@
+﻿@model PROnline.Models.Service.Servers
+
+@{
+    ViewBag.Title = "删除服务器";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认删除?</h3>
+
+    <div class="display-label">服务器名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServerName)
+    </div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PROnline.Models.Teams.TeamLeader>
+
+@{
+    ViewBag.Title = "小组长管理";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("添加小组长", "Create")
+</p>
+
+<table id="teamleaderTabel">
+<thead>
+    <tr>
+        <th>
+            姓名
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+    </tr>
+}
+</tbody>
+
+</table>
+@Tools.table("teamleaderTabel")

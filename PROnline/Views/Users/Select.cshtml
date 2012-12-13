@@ -1,0 +1,208 @@
+﻿@model IEnumerable<PROnline.Models.Users.User>
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "Select";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+<style>
+	.selbox{border-bottom:1px dotted #cccccc;padding:2px 5px;margin-right:3px;background-color:#fff}
+	.selbox a{border:1px solid #FFCB33;background-color:#FFE599;color:#ff0000;padding 0px 2px;margin-left:3px}
+	.selectbox{line-height:23px;margin:3px;border-bottom:1px dotted #FF9E33;background-color:#FFE299}
+	.selectbox strong{font-size:9px;}
+</style>
+<script type="text/javascript">
+    $(function () {
+        var type = "@ViewBag.showType";
+
+        if (type == "selTeamLeader") {
+            $("#openBtn").text("选择小组长");
+        }
+        else if (type == "selActivityMember") {
+            $("#openBtn").text("选择参加活动人员");
+        }
+        else if (type == "selTrainingMember") {
+            $("#openBtn").text("选择参加培训人员");
+        }
+        else if (type == "selPairMember") {
+            $("#openBtn").text("选择参加配对服务人员");
+        }
+        else if (type == "selDonator") { 
+            $("#openBtn").text("选择捐助人");
+        }
+        else {
+            $("#openBtn").text("选择用户");
+        }
+    });
+</script>
+
+<button id="openBtn" type="button"></button>
+<div id="userSelect">
+<div>
+<p>
+<span>用户类型</span>
+<select name="UserType" id="UserType">
+    @foreach (String s in ViewBag.userType)
+    {
+        if (s == "student")
+        {
+            <option value="student"  url="/Student/QueryX">学生</option>
+        }
+        else if (s == "volunteer")
+        {
+            <option value="volunteer" url="/Volunteer/QueryX">志愿者</option>
+        }
+        else if (s == "supervisor")
+        {
+            <option value="supervisor" url="/Users/Query">督导专家</option>
+        }
+        else if (s == "team_leader")
+        {
+            <option value="team_leader" url="/Users/Query">志愿者小组长</option>
+        }
+        else if (s == "donator")
+        {
+            <option value="donator" url="/Donator/Query">爱心人士</option> 
+        }
+    }
+</select>
+<button id="checkOk">确定</button>
+</p>
+    <iframe name="query" id="query" src="" style="width:100%;height:310px" frameborder="0"></iframe>
+    
+</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        function createInputBox(name, value, text) {
+            var container = $("<span class='selbox'></span>");
+            if (value && typeof value != "string" && value.length) {
+                for (var k = 0; k < value.length; k++) {
+                    container.append($("<input type='hidden' name='" + name + "' value='" + value[k] + "'>"));
+                }
+            } else {
+                container.append($("<input type='hidden' name='" + name + "' value='" + value + "'>"));
+            }
+            var showBox = $("<strong>" + text + "</strong>");
+            var closeBox = $("<a href='javascript:0'>X</a>")
+            closeBox.click(function (event) { $(this).parent().remove(); event.preventDefault() })
+
+            container.append(showBox).append(closeBox);
+            return container
+        }
+        var selectType = "@ViewBag.selectType"
+        window.userCheck = {};
+        $("#userSelect").dialog({ autoOpen: false, width: 620, height: 450, resizable: false });
+        $("#openBtn").click(function () {
+            $("#userSelect").dialog("open");
+            gotoUrl();
+        })
+        $("#checkOk").click(function () {
+            $("#userSelect").dialog("close");
+            var supdiv = document.getElementById("supervisor");
+            var voldiv = document.getElementById("volunteer");
+            var studiv = document.getElementById("student");
+            var tldiv = document.getElementById("team_leader");
+            var dodiv = document.getElementById("donator");
+            var userType = $("#UserType").val();
+
+            if (supdiv && userType == "supervisor") {
+                supdiv.innerHTML = "<span>督导专家：</span>";
+            }
+            if (voldiv && userType == "volunteer") {
+                voldiv.innerHTML = "<span>志愿者：</span>";
+            }
+            if (studiv && userType == "student") {
+                studiv.innerHTML = "<span>学生：</span>";
+            }
+            if (tldiv && userType == "team_leader") {
+                tldiv.innerHTML = "<span>志愿者小组长：</span>";
+            }
+            if (dodiv && userType == "donator")
+            {
+                dodiv.innerHTML = "<span>爱心人士：</span>"
+            }
+
+            for (i = 0; i < window.userCheck.length; i++) {
+                if (window.userCheck[i].usertype == "supervisor") {
+                    var tt = createInputBox("SupervisorID", window.userCheck[i].id, window.userCheck[i].username);
+                    $(supdiv).append(tt);
+
+                }
+                else if (window.userCheck[i].usertype == "volunteer") {
+                    var tt = createInputBox("VolunteerID", window.userCheck[i].id, window.userCheck[i].username);
+                    $(voldiv).append(tt);
+                }
+                else if (window.userCheck[i].usertype == "student") {
+
+                    var tt = createInputBox("StudentID", window.userCheck[i].id, window.userCheck[i].username);
+                    $(studiv).append(tt);
+                }
+                else if (window.userCheck[i].usertype == "team_leader") {
+                    debugger;
+                    var tt = createInputBox("VolunteerID", window.userCheck[i].id, window.userCheck[i].username);
+                    $(tldiv).append(tt);
+                }
+                else if (window.userCheck[i].usertype=="donator") {
+                    var tt = createInputBox("DonatorID", window.userCheck[i].id, window.userCheck[i].username);
+                    $(dodiv).append(tt);
+                }
+            }
+            window.userCheck = [];
+        })
+        function gotoUrl() {
+            var ut = $("#UserType").val();
+            var rootUrl = $("#UserType option[value=" + ut + "]").attr("url");
+
+            var questr = "";
+            $(".select input,.select option,.select textarea").each(function () {
+                var target = $(this);
+                var name = target.attr("name");
+                var value = target.val();
+                questr += "&" + name + "=" + value;
+
+            })
+
+            var qurl = rootUrl + "?UserType=" + ut + "&selectType=" + selectType + "&@ViewBag.filter" + questr;
+
+            $("#query").attr("src", qurl);
+        }
+
+        $("#UserType").change(gotoUrl)
+    })
+</script>
+<div class="selectPanel">
+    @foreach (String s in ViewBag.userType)
+    {
+        if (s == "student")
+        {
+            <div class="selectbox" id="student" name="student">
+                <span>学生：</span>
+            </div>
+        }
+        else if (s == "volunteer")
+        {
+            <div class="selectbox" id="volunteer" name="volunteer">
+                <span>志愿者：</span>
+            </div>
+        }
+        else if (s == "supervisor")
+        {
+            <div class="selectbox" id="supervisor" name="supervisor">
+                <span>督导专家：</span>
+            </div>
+        }
+        else if (s == "team_leader")
+        {
+            <div class="selectbox" id="team_leader" name="team_leader">
+                <span>志愿者小组长：</span>
+            </div>
+        }
+        else if (s == "donator")
+        {
+            <div class="selectbox" id="donator" name="donator">
+                <span>爱心人士：</span>
+            </div>
+        }
+    }
+</div>

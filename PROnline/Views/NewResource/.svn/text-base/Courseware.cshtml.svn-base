@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "电子课件";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = ViewBag.key;
+            Dictionary<String,String> path = ViewBag.value;
+            foreach(String str in names)
+            {
+                <tr>
+                    <td>
+                        <a href="@path[str]">@str</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+
+
+

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PROnline.Models.ShortMessages.ShortMessage>
+
+@{
+    ViewBag.Title = "我的短信";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th>
+            内容
+        </th>
+        <th style="width:150px">
+            接收电话号码
+        </th>
+        <th style="width:100px">
+            发送者
+        </th>
+        <th style="width:100px">
+           发送日期
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="4"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortMessageTemplate.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToUser.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendDate)
+        </td>                  
+    </tr>
+    }
+</tbody>
+</table>
+@Tools.table(@ViewBag, "datatable", "/ShortMessage/MyShortMessage")

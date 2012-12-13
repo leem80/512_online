@@ -1,0 +1,80 @@
+﻿@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "Query";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<script type="text/javascript">
+    $(function () {
+        var selectType = "@ViewBag.selectType";
+        $(".uid").click(function () {
+            var datax = []
+            var user = {}
+            if (selectType = "checkbox") {
+                $(".uid").each(function () {
+                    if ($(this).attr("checked")) {
+                        user.id = $(this).attr("value");
+                        user.username = $(this).attr("username");
+                        user.usertype = $(this).attr("usertype");
+                        datax.push(user);
+                    }
+
+                })
+            }
+            window.parent.userCheck = datax;
+        })
+
+    })
+    
+</script>
+
+}
+
+<style>
+   body{overflow-x:hidden}
+</style>
+<table id="datatable">
+<thead>
+    <tr>
+        <th></th>
+        <th>
+            用户名
+        </th>
+        <th>
+            真实姓名
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in ViewBag.list) {
+    <tr>
+        <td>
+            @if (item.User.UserTypeId == UserType.SUPERVISOR)
+            {
+                Supervisor s = item as Supervisor;
+                <input type="@ViewBag.selectType" name="uid" class="uid" value="@s.SupervisorID" username="@item.User.UserName" usertype="@item.User.UserType"/>
+            }
+            else if (item.User.UserTypeId == UserType.VOLUNTEER)
+            {
+                Volunteer v = item as Volunteer;
+                <input type="@ViewBag.selectType" name="uid" class="uid" value="@v.VolunteerID" username="@item.User.UserName" usertype="@item.User.UserType"/>
+            }
+            else if (item.User.UserTypeId == UserType.STUDENT)
+            {
+                Student stu = item as Student;
+                <input type="@ViewBag.selectType" name="uid" class="uid" value="@stu.StudentID" username="@item.User.UserName" usertype="@item.User.UserType"/>
+            }
+        </td>
+        <td>
+            @item.User.RealName
+        </td>
+        <td>
+            @item.PDegree
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PROnline.Models.Users.Administrator>
+
+@{
+    ViewBag.Title = "系统管理员列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("添加项目负责人", "Create")
+</p>
+
+
+ <table id="admintable" >
+    <thead>
+        <tr>
+            <th>
+                用户名
+            </th>
+            <th>
+                真实姓名
+            </th>
+            <th>
+                移动电话
+            </th>
+
+            <th>
+                类型
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    if (item.User.isDeleted == false)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.User.UserName, "Details", new { id = item.AdministratorID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.RealName)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.MobileTelephone)
+            </td>
+
+            <td>
+               @Html.DisplayFor(modelItem => item.User.Role.Note)
+            </td>
+            <td>
+                    @Html.ActionLink("删除", "Delete", new { id = item.AdministratorID })
+            </td>
+        </tr>
+    }
+}
+    </tbody>
+</table>
+@Tools.table("admintable")

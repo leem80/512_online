@@ -1,0 +1,94 @@
+﻿@model IEnumerable<PROnline.Models.Service.Pairs>
+@using PROnline.Controllers.Service;
+@using PROnline.Models.Service;
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title = "我的督导日程";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<!--@section head{
+<script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}-->
+
+ <table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            学生
+        </th>
+        <th>
+            志愿者
+        </th>
+        <th>
+           辅导时间
+        </th>
+        <th>
+           查看学生反馈
+        </th>
+         <th>
+           查看志愿者反馈
+        </th>
+         <th>
+           查看录像
+        </th>
+         <th>
+           删除
+        </th>
+      
+    </tr>
+    </thead>
+
+    <tbody>
+    @if (Model != null)
+    {
+        
+        foreach (var item in Model)
+        {  
+            var all = item.AppointmentList.OrderByDescending(a =>a.StartDate);
+            <!--列出完成的预约--> 
+            int count = 0;
+            foreach (PairAppointment pa in all)
+         {
+
+        if ((DateTime.Compare(DateTime.Now, pa.EndDate) > 0 || DateTime.Now.DayOfYear == pa.StartDate.DayOfYear))
+        {
+            ++count;
+            if (count > 4) {
+                break;
+            }  
+        <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+         <td>
+              @Html.DisplayFor(modelItem => pa.StartDate)
+         </td>
+         <td>
+              @Html.ActionLink("查看学生反馈", "CheckStudentFeedback", "SupervisorFeedback", new { id = pa.PairAppointmentID }, null)
+         </td>
+         <td>
+             @Html.ActionLink("查看志愿者反馈", "CheckVolunteerFeedback", "SupervisorFeedback", new { id = pa.PairAppointmentID }, null)
+         </td>
+         <td>
+             @Html.ActionLink("查看录像", "LookVolunteer", "Pair", new { id = pa.PairAppointmentID },null)
+         </td>
+         <td>
+             @Html.ActionLink("删除", "Delete1", "PairAppointment", new { id = pa.PairAppointmentID }, null)
+         </td>
+         </tr>
+        }
+  }
+
+        }
+    }
+
+</tbody>
+</table>
+@Tools.table("datatable")

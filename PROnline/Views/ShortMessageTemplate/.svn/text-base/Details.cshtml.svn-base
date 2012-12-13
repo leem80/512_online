@@ -1,0 +1,28 @@
+﻿@model PROnline.Models.ShortMessages.ShortMessageTemplate
+
+@{
+    ViewBag.Title = "建议短信详情";
+    Layout = "~/Views/Shared/Normal/_Detail.cshtml";
+}
+
+@section menu{
+    @Tools.menu("workspace")
+}
+
+<fieldset>
+
+    <div class="display-label">标题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">内容</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Content)
+    </div>
+
+</fieldset>
+<p class="btn">
+    @Html.ActionLink("编辑", "Edit", new { id=Model.ShortMessageTemplateID }) |
+    @Html.ActionLink("返回", "Index")
+</p>

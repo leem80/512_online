@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PROnline.Models.Users.School>
+
+@{
+    ViewBag.Title = "学校列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+@if (ViewBag.type == "school")
+{
+<p class="btn">
+    @Tools.ActionLink("school_add", @Html.ActionLink("添加", "Create"))
+</p>
+}
+
+<table id="schooltable" >
+    <thead>
+    <tr>
+        <th>
+            学校名称
+        </th>
+        <th>
+            学校备注
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.SchoolName, "Details", new { id = item.SchoolID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolCommnet)
+        </td>
+        <td>
+            @if (ViewBag.type == "school")
+            {
+                @Html.ActionLink("编辑", "Edit", new { id=item.SchoolID }) <span>|</span>
+                @Html.ActionLink("删除", "Delete", new { id = item.SchoolID });
+            }else if (ViewBag.type == "teachers")
+            {
+                @Html.ActionLink("老师列表", "Index", "Teacher", new { SchoolID = item.SchoolID }, null)
+            }
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
+@Tools.table("schooltable")

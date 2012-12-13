@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationVideo>
+@using PROnline.Controllers.Service;
+
+@{
+    ViewBag.Title = "我的视讯预约";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable" >
+ <thead>
+    <tr>
+        <th>
+            日期
+        </th>
+        <th>
+            进入视讯平台
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+           <a href=http://@PairController.GetAppointment(item.StudentHash.ToString()):5080/openmeetings?appointmentHash=@item.StudentHash target="_blank">@item.StudentHash</a>
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(@ViewBag, "datatable", "/DonationVideo/Index")

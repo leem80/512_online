@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "项目动态";
+    Layout = "~/Views/Shared/Normal/_ContentList.cshtml";
+}
+@section head{
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/app/resource/resource.css")" />
+}
+<div class="grid_3 typemenu">
+<h2>项目动态</h2>
+    <ul>
+        <li><a href="/Xmdt/SchoolTotal" target="manage">今日辅导</a>
+        </li>
+        <li><a href="/Xmdt/StationTotal" target="manage">志愿服务</a>
+        </li>
+        <li><a href=""  >公益活动</a>
+            <ul>
+                <li><a href="/Xmdt/Activity" target="manage">联谊统计表</a>
+                </li>
+                <li><a href="/Xmdt/Donation" target="manage">志愿服务</a>
+                </li>
+            </ul>
+        
+        </li>
+    </ul>
+</div>
+<div class="grid_9">
+<iframe id="manage" name="manage" width="100%" scrolling="no" src="/Xmdt/SchoolTotal" frameborder="0" >
+
+</iframe>
+</div>

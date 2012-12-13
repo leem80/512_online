@@ -1,0 +1,39 @@
+﻿@model PROnline.Models.Resources.Resource
+
+@{
+    ViewBag.Title = "删除资源";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<h3>你是否要删除该资源？</h3>
+<fieldset>
+    <legend>Resource</legend>
+
+    <div class="display-label">标题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">内容</div>
+    <div class="display-field">
+        @Html.Raw(@Model.Content)
+    </div>
+
+    <div class="display-label">审核状态</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VerifyState.Note)
+    </div>
+
+    <div class="display-label">审核日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VerifyingDate)
+    </div>
+
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

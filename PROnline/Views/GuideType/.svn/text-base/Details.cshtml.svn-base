@@ -1,0 +1,24 @@
+﻿@model PROnline.Models.Guides.GuideType
+
+@{
+    ViewBag.Title = "新手导航详情";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<fieldset>
+
+    <div class="display-label">名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypeName)
+    </div>
+
+    <div class="display-label">介绍</div>
+    <div class="display-field">
+        @Html.Raw(Model.Introduction)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id=Model.GuideTypeID }) |
+    @Html.ActionLink("返回", "Index")
+</p>

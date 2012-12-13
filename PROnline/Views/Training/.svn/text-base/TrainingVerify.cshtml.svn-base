@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PROnline.Models.Trainings.Training>
+
+@{
+    ViewBag.Title = "培训申请审核";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="traininglist">
+<thead>
+    <tr>
+        <th>
+            培训主题
+        </th>
+        <th>
+            申请人
+        </th>
+        <th>
+            审核
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "TrainingInfo", new { id = item.TrainingID, type = "detail" })
+        </td>
+        <td>
+            <span>@ViewBag.dic[item.TrainingID]</span>
+        </td>
+        <td>
+            @Html.ActionLink("通过", "Verifying", new { id = item.TrainingID, verify = "accept" }) |
+            @Html.ActionLink("拒绝", "Verifying", new { id = item.TrainingID, verify = "refuse" })
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("traininglist")
+

@@ -1,0 +1,35 @@
+﻿@model PROnline.Models.WorkStations.WorkStation
+
+
+@{
+    ViewBag.Title = "删除工作站";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>确认删除?</h3>
+<fieldset>
+    <div class="display-label">工作站名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkStationName)
+    </div>
+
+    <div class="display-label">站长</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkStationerName)
+    </div>
+
+    <div class="display-label">联系方式</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+</fieldset>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.WorkStationID)
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}
+

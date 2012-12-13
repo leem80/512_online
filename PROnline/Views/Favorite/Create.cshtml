@@ -1,0 +1,30 @@
+﻿@model PROnline.Models.Resources.Favorite
+
+@{
+    ViewBag.Title = "添加收藏夹";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+        <input type="hidden" name="rdurl" value="@Request.UrlReferrer" />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FavoriteName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FavoriteName)
+            @Html.ValidationMessageFor(model => model.FavoriteName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Commnet)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Commnet)
+            @Html.ValidationMessageFor(model => model.Commnet)
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="创建" />|@Html.ActionLink("返回", "Index")
+        </p>
+}

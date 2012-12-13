@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PROnline.Models.Activities.Activity>
+@using PROnline.Models;
+
+@{
+    ViewBag.Title = "活动列表";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("创建活动", "Create")
+</p>
+
+ <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            活动主题
+        </th>
+        <th>
+            开始日期
+        </th>
+        <th>
+            结束日期
+        </th>
+        <th>
+            地点
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.ActionLink(item.ActivityName, "Details", new { id = item.ActivityID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityAddr)
+        </td>
+        <td>
+            @if (item.VerifyState == "SUBMIT")
+            {
+                @Html.ActionLink("通过", "Verify", new { id = item.ActivityID, type = "pass" });
+                <label>|</label>
+                @Html.ActionLink("不通过", "Verify", new { id = item.ActivityID, type = "notpass" }) ;
+            }           
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")

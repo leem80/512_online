@@ -1,0 +1,51 @@
+﻿@model PROnline.Models.Users.School
+@using PROnline.Models.Users;
+
+@{
+    ViewBag.Title="学生数据导入";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+<div class="btn">
+     @Html.ActionLink("导入学生", "Import", "Users")
+     @Html.ActionLink("导入心理数据", "ImportTest", "Users")
+</div>
+<!--table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            学生
+        </th>
+        <th>家长</th>
+    </tr>
+     </thead>
+    <tbody>
+    <!--列出学校、班主任、学生-->
+<!--if(Model!=null){
+
+    foreach (var student in Model.Students as List<Student>)
+    {
+        if (student.User.isDeleted == false)
+        {
+    <tr>            
+        <td>
+            Html.ActionLink(student.User.RealName, "Details", "Student", new { id = student.StudentID },null) 
+        </td>
+                <td>
+
+                     if (student.ParentList.Count > 0)
+                     {
+                         foreach (var parent in student.ParentList)
+                         {
+                             Html.ActionLink(parent.User.RealName, "Details", "Parent", new { id = parent.ParentID }, null)|
+                         }
+                     }
+                </td>
+        </tr>       
+        }
+    }
+}
+
+</tbody>
+</table>
+Tools.table("datatable")-->
+

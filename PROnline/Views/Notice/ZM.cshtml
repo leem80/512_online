@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PROnline.Models.Notices.Notice>
+@using PROnline.Src;
+@{
+    ViewBag.Title = "Top";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+<!--首页用来显示最新公告-->
+
+<div class="head">
+<h3>志愿者招募 </h3>
+<strong>@Html.ActionLink("更多>>", "NoticeBrowse", "Notice")</strong>
+</div>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <span class="title">@Html.ActionLink(Utils.title(item.Title), "Details", "Notice", new { id = @item.NoticeID }, new { target="_blank"})</span>
+        </li>
+
+    }
+</ul>
+

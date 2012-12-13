@@ -1,0 +1,3 @@
+﻿@RenderSection("head",false)
+@RenderBody()
+

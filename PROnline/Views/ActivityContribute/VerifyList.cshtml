@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PROnline.Models.Activities.ActivityContribute>
+
+@{
+    ViewBag.Title = "风采投稿审核";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="datatable">
+    <thead>
+        <tr>
+            <th>
+                投稿主题
+            </th>
+            <th>
+                投稿人
+            </th>
+            <th>
+                投稿日期
+            </th>
+            <th>
+                审核
+            </th>
+        </tr>
+    </thead>
+    <tfoot><tr><td colspan="3"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in Model) 
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.ActivityContributeID })
+            </td>
+            <td>
+                <span>@ViewBag.dic[item.ActivityContributeID]</span>
+            </td>
+            <td>
+                @{
+                    String date = item.CreateDate.ToShortDateString();
+                    @Html.Label(date)
+                }
+            </td>
+            <td>
+                @Html.ActionLink("通过", "Verify", new { id = item.ActivityContributeID, type = "pass" }) |
+                @Html.ActionLink("不通过", "Verify", new { id = item.ActivityContributeID, type = "refuse" })
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+@Tools.table(@ViewBag, "datatable", "/ActivityContribute/VerifyList")
+

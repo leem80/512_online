@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PROnline.Models.Users.School>
+
+@{
+    ViewBag.Title = "学生辅导信息";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<table id="datatable" >
+<thead>
+    <tr>
+        <th style="width:100px">
+            项目学校编号
+        </th>
+        <th >
+            学校名称
+        </th>
+        <th style="width:100px">学生参与人数</th>
+        <th style="width:140px">心理辅导实际时间</th>
+        <th style="width:100px">今日辅导</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentCount)
+        </td>
+       <td> @Html.DisplayFor(modelItem => item.TotalServiceTime)</td>
+       <td>
+            @if (item.Pairs.Count > 0)
+            {
+                <a href="/Xmdt/SchoolToday/@item.SchoolID">有</a>
+            }
+            else
+            {
+                <a href="/Xmdt/SchoolToday">无</a>
+            }
+       </td>
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table("datatable")

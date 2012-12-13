@@ -1,0 +1,32 @@
+﻿@model PROnline.Models.Guides.AboutUs
+
+@{
+    ViewBag.Title = "新手导航详情";
+    Layout = "~/Views/Shared/Normal/_ContentList.cshtml";
+}
+<link rel="Stylesheet" type="text/css" href="/Content/app/resource/resource.css" />
+
+<div class="grid_3 typemenu">
+<h2>关于我们</h2>
+<ul>
+@foreach (var ab in @ViewBag.list as List<PROnline.Models.Guides.AboutUs>)
+{
+   <li><a href="/AboutUs/Show/@ab.ID">@ab.Title</a></li> 
+}
+</ul>
+</div>
+<div class="grid_9">
+<fieldset>
+
+    <div class="display-label">标题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">详情</div>
+    <div class="display-field">
+        @Html.Raw(Model.Content)
+    </div>
+
+</fieldset>
+</div>

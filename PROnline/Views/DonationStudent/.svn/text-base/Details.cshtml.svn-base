@@ -1,0 +1,25 @@
+﻿@model PROnline.Models.Donation.DonationStudent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>DonationStudent</legend>
+
+    <div class="display-label">Student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Student.State)
+    </div>
+
+    <div class="display-label">DonationItem</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DonationItem.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DonationStudentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

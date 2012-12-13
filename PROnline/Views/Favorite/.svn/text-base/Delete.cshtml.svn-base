@@ -1,0 +1,34 @@
+﻿@model PROnline.Models.Resources.Favorite
+
+@{
+    ViewBag.Title = "删除确认";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+
+<h3>是否删除收藏夹?</h3>
+<fieldset>
+    <legend>Favorite</legend>
+
+    <div class="display-label">收藏夹名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FavoriteName)
+    </div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Commnet)
+    </div>
+
+    <div class="display-label">创建日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateDate)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p class="btn">
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

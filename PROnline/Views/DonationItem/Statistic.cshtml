@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationItem>
+@using PROnline.Models;
+@using PROnline.Src;
+@{
+    ViewBag.Title = "捐助项统计";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+<table id="itemtable">
+    <thead>
+        <tr>
+            <th>
+                捐助项目名称
+            </th>
+            <th>
+                审核日期
+            </th>
+            <th>
+                状态
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="navbar">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", new { id = item.DonationItemID })                
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VerifyStateId)
+                </td>
+                <td>
+                    @if (item.VerifyStateId == "已通过")
+                    {
+                        @Html.ActionLink("执行", "Execute", new { id = item.DonationItemID, type = "success" });
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Tools.table(ViewBag, "itemtable", "/DonationItem/Statistic")

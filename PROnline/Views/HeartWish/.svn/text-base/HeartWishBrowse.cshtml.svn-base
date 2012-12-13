@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PROnline.Models.HeartWishes.HeartWish>
+@using PROnline.Models.HeartWishes
+@{
+    ViewBag.Title = "心声互动";
+    Layout = "~/Views/Shared/Normal/_List.cshtml";
+}
+
+<!--左侧菜单-->
+<ul>
+@section menu {
+    @foreach (var type in ViewBag.typelist as List<HeartWishType>)
+    {        
+    <li>@Html.ActionLink(type.TypeName, "HeartWishBrowse", "HeartWish", new { id = type.HeartWishTypeID }, null)</li>       
+    }
+}
+</ul>
+
+@using (Html.BeginForm("HeartWishSearch", "HeartWish", FormMethod.Get))
+{
+    <div class="editor-label">
+        @Html.Label("搜索")
+        @Html.Editor("search")
+    
+    <input type="submit" value="搜索" />
+    @Html.ActionLink("发表心声", "Create","HeartWish")
+    </div>
+}
+
+
+<table id="wishbrowse" >
+    <thead>
+        <tr>
+            <th>
+                标题
+            </th>
+            <th style="width:120px">
+                心声类型
+            </th>
+            <th style="width:80px">
+                浏览数
+            </th>
+        </tr>
+    </thead>
+    <tfoot><tr><td colspan="3"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+    @if (ViewBag.list != null)
+    {
+        foreach (var item in ViewBag.list as List<HeartWish>)
+        {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Title, "Show", new { id = item.HeartWishID }, new { target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeartWishType.TypeName)
+            </td>       
+            <td>
+                @Html.DisplayFor(modelItem => item.BrowsingNum)
+            </td>
+        </tr>
+        }
+    }
+    </tbody>
+</table>
+@Tools.table(ViewBag, "wishbrowse", "/HeartWish/HeartWishBrowse")

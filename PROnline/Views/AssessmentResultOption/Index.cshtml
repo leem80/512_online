@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PROnline.Models.Assessments.AssessmentResultOption>
+
+@{
+    ViewBag.Title = "选项详情";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+ <table id="datatable" >
+    <tr>
+        <th>
+            题目
+        </th>
+         <th>
+            选项
+        </th>
+        <th>
+            分值
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       <td>
+            @Html.DisplayFor(modelItem => item.AssessmentOption.AssessmentQuestion.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssessmentOption.OptionTitle)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.AssessmentOption.OptionValue)
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")

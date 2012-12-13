@@ -1,0 +1,94 @@
+﻿@model PROnline.Models.Trainings.Training
+
+@{
+    ViewBag.Title = "培训详情";
+    Layout = "~/Views/Shared/Normal/_Detail.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+
+<fieldset>
+
+    <div class="display-label">主题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">安排</div>
+    <div class="display-field">
+        @Html.Raw(Model.Arrangement)
+    </div>
+
+    <div class="display-label">日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="display-label">督导专家</div>
+    <table id="supervisor" >
+        <thead>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    真实姓名
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.SupervisorList) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supervisor.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supervisor.User.RealName)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Tools.table("supervisor")
+
+    <div class="display-label">志愿者</div>
+    <table id="volunteer" >
+        <thead>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    真实姓名
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.VolunteerList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Volunteer.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Tools.table("volunteer")
+
+</fieldset>
+
+<div>
+    <p class="btn">
+    @Html.ActionLink("返回", "TrainingList")
+    </p>
+</div>
+

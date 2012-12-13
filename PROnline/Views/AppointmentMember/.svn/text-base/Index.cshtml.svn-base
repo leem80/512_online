@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PROnline.Models.Service.AppointmentMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            PairAppointment
+        </th>
+        <th>
+            AppointmentHash
+        </th>
+        <th>
+            User
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PairAppointment.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentHash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AppointmentMemberID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AppointmentMemberID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AppointmentMemberID })
+        </td>
+    </tr>
+}
+
+</table>

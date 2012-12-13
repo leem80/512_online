@@ -1,0 +1,301 @@
+﻿@model IEnumerable<PROnline.Models.Teams.Team>
+
+@using PROnline.Models.Teams;
+@using PROnline.Models.WorkStations;
+
+@{
+    if (ViewBag.type == "showTeam")
+    {
+        ViewBag.Title = "申请加入小组";
+    }
+    else
+    {
+        ViewBag.Title = "我的服务小组";
+    }
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+@section head
+{
+<script src="@Url.Content("~/Scripts/mapapi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/wbox.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/wbox/wbox.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Content/MSG.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".wDetails").each(function () {
+            if ($(this).attr("wID")) {
+                var wID = $(this).attr("wID");
+                $(this).wBox(
+                {
+                    title: "工作站详细信息",
+                    requestType: "iframe",
+                    iframeWH: { width: 600, height: 300 },
+                    target: "/WorkStation/Details?id=" + wID
+                })
+            }
+        })
+    })
+</script>
+}
+
+<!--没有小组或者申请尚在审核的志愿者所看到的界面-->
+ @if (ViewBag.type == "showTeam")
+ {
+     if (ViewBag.userType == "tm")
+     {
+         using (Html.BeginForm("Create", "TeamMember"))
+         {
+            @Html.ValidationSummary(true)
+ 
+            <table id="showtable" >
+                <thead>
+                <tr>
+                    <th>
+                        小组名称
+                    </th>
+                    <th>
+                        服务类型
+                    </th>
+                    <th>
+                        组长
+                    </th>      
+                </tr>
+                </thead>
+                <tfoot><tr><td colspan="4"><div class="navbar"></div></td></tr></tfoot>
+                <tbody>
+                @foreach (var item in ViewBag.list as List<Team>)
+                {
+                    <tr>
+                        <td>
+                            @Html.RadioButton("TeamID", item.TeamID)
+                            @Html.ActionLink(item.TeamName, "Details", new { id = item.TeamID })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TeamLeader.Volunteer.User.RealName)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            @Tools.table(@ViewBag, "showtable", "/Team/MyTeam")
+
+            if (ViewBag.isShow == true)
+            {
+                <div class="editor-label">
+                    @Html.Label("申请加入理由")
+                </div>
+                <div class="editor-field">
+                    @Html.TextArea("Apply")
+                </div>
+        
+                <p class="btn">
+                    <input type="submit" value="申请加入" />
+                </p>
+            }
+            else
+            {
+                <div class="editor-label">
+                    <p>您已申请加入小组，目前仍在审核中!</p>
+                </div>
+            }
+         }
+    }
+    else if (ViewBag.userType == "tl")
+    {
+         <span>您是志愿者小组长，但是尚未分配有小组，请尽快与管理员联系！</span>
+    }
+ }
+ else if (ViewBag.type == "teamleader")
+ {
+     if (ViewBag.isHaveTeam == true)
+     {
+         <p class="btn">
+            @Html.ActionLink("组员审核", "TeamMemberVerifying", new { id = ViewBag.Id })
+            @Html.ActionLink("脱离小组", "ApplyingExit", "TeamLeader", new { id = ViewBag.teamLeaderId }, null)
+         </p>
+         //组长看到的表格
+        <table id="leaderTable" >
+            <thead>
+            <tr id="workstation">
+                <td>工作站名称:<a class="wDetails" wID="@ViewBag.wID" href="javascript:void(0);">@ViewBag.wName</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>                      
+                    <span>小组名称:</span>  
+                    @{
+                        String name = ViewBag.teamName;
+                        @Html.ActionLink(name, "Details", new { id = ViewBag.Id });
+                    }  
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>
+                    职务
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    网络留言
+                </th>
+                <th>
+                    联系电话
+                </th>
+                <th></th>  
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in ViewBag.list as List<Team>)
+            {
+                //第一行显示组长
+                <tr>
+                    <td>
+                        <font color="red"><span>组长</span></font>
+                    </td>
+                    <td>
+                        <font color="red">@Html.DisplayFor(modelItem => item.TeamLeader.Volunteer.User.RealName)</font>
+                    </td>
+                    <td> 
+                    </td>
+                    <td>
+                        <font color="red">@Html.DisplayFor(modelItem => item.TeamLeader.Volunteer.MobileTelephone)</font>
+                    </td>
+                    <td></td>
+                </tr>
+                    //之后显示组员          
+                    foreach (var member in item.TeamMembers)
+                    {
+                        if (member.State == "正常")
+                        {
+                    <tr>
+                        <td>
+                            <span>组员</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => member.Volunteer.User.RealName)
+                        </td>
+                        <td>                      
+                            <a class="msg" srid="@ViewBag.sID&@member.Volunteer.UserID" href="javascript:void(0);">发送站内信</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => member.Volunteer.MobileTelephone)
+                        </td>
+                        <td>
+                            @Html.ActionLink("开除", "Edit", "TeamMember", new { id = member.TeamMemberID, type = "fire" }, null)
+                        </td>
+                    </tr>
+                    }
+                }
+            }
+            </tbody>
+        </table>
+        @Tools.table("leaderTable")
+     }
+     else
+     {
+         <span>您是志愿者小组长，但是尚未分配有小组，请尽快与管理员联系！</span>
+     }
+ }
+
+ else if (ViewBag.type == "teammember")
+ {
+     //组员看到的表格
+     <p class="btn">
+       @Html.ActionLink("脱离小组", "ApplyingExit", "TeamMember", new { id = ViewBag.teamMemberID }, null)
+     </p>
+    <table id="memberTable" >
+        <thead>
+        <tr id="workstationm">
+            <td><a class="wDetails" wID="@ViewBag.wID" href="javascript:void(0);">工作站名称:@ViewBag.wName</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>                      
+                <span>小组名称:</span> 
+                @{ 
+                    String name = ViewBag.teamName;
+                    @Html.ActionLink(name, "Details", new { id = ViewBag.Id });
+                 }
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                职务
+            </th>
+            <th>
+                姓名
+            </th>
+            <th>
+                网络留言
+            </th>   
+            <th>
+                联系电话
+            </th>   
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            //不是列表
+            var item = ViewBag.list as Team;
+            if (ViewBag.isHaveTL == true)
+            {
+                <tr>
+                    <td>
+                        <font color="red"><span>组长</span></font>
+                    </td>
+                    <td>
+                        <font color="red">@Html.DisplayFor(modelItem => item.TeamLeader.Volunteer.User.RealName)</font>
+                    </td>
+                    <td>                        
+                        <a class="msg" srid="@ViewBag.sID&@item.TeamLeader.Volunteer.UserID" href="javascript:void(0);">发送站内信</a>
+                    </td>
+                    <td>
+                        <font color="red">@Html.DisplayFor(modelItem => item.TeamLeader.Volunteer.MobileTelephone)</font>
+                    </td>
+                </tr>
+            }
+            foreach (var member in item.TeamMembers)
+            {
+                if (member.State == "正常")
+                {
+                    <tr>
+                        <td>
+                            <span>组员</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => member.Volunteer.User.RealName)
+                        </td>
+                        <td>                                                             
+                            @if (member.Volunteer.UserID.CompareTo(ViewBag.sID) != 0)
+                            {
+                                <a class="msg" srid="@ViewBag.sID&@member.Volunteer.UserID" href="javascript:void(0);">发送站内信</a>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => member.Volunteer.MobileTelephone)
+                        </td>
+                    </tr>
+                }
+            }                                                                            
+        }
+        </tbody>
+    </table>
+    @Tools.table("memberTable")
+}

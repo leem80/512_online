@@ -1,0 +1,33 @@
+﻿@model PROnline.Models.Trainings.TrainingSupervisor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>TrainingSupervisor</legend>
+
+    <div class="display-label">Training</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Training.Title)
+    </div>
+
+    <div class="display-label">Volunteer</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Volunteer.PoliticalExperience)
+    </div>
+
+    <div class="display-label">IsAttend</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAttend)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PROnline.Models.Activities.Activity>
+@using PROnline.Models.Notices;
+@{
+    ViewBag.Title = "活动风采";
+    Layout = "~/Views/Shared/Normal/_List.cshtml";
+}
+
+<!--左侧菜单-->
+<ul>
+        <ul class="content-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                @Html.ActionLink(item.ActivityName, "View", new { id = item.ActivityID })
+            <span>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </span>
+            </li>
+        }
+        </ul>
+</ul>
+
+<div id="pager"></div>
+@Tools.pager(@ViewBag, "pager", "/Activity/List")

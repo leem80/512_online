@@ -1,0 +1,7 @@
+﻿@{
+    ViewBag.Title = "码表管理";
+    Layout = "~/Views/Shared/_3section.cshtml";
+}
+@section menu{@Tools.menu("codes", 0, 1, "manage_menu", "")}
+@section nav{@Tools.nav("codes",true)}
+

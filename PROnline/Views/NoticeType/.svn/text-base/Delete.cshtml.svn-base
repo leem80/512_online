@@ -1,0 +1,27 @@
+﻿@model PROnline.Models.Notices.NoticeType
+
+@{
+    ViewBag.Title = "删除公告类型";
+    Layout = "~/Views/Shared/Manage/_Detail.cshtml";
+}
+
+<h3>删除确认?</h3>
+<fieldset>
+
+    <div class="display-label">名称</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypeName)
+    </div>
+
+    <div class="display-label">介绍</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Introduction)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="删除" /> |
+        @Html.ActionLink("返回", "Index")
+    </p>
+}

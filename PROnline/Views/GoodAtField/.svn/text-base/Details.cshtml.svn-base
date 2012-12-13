@@ -1,0 +1,20 @@
+﻿@model PROnline.Models.Users.GoodAtField
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>GoodAtField</legend>
+
+    <div class="display-label">Field</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Field)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.GoodAtFieldID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

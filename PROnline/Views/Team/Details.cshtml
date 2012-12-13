@@ -1,0 +1,235 @@
+﻿@model PROnline.Models.Teams.Team
+
+@using PROnline.Models.Teams;
+
+@{
+    ViewBag.Title = "服务小组详情";
+    Layout = "~/Views/Shared/Space/_Detail.cshtml";
+}
+
+<fieldset>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Type)
+    </div>
+    <div class="editor-field">
+        @Model.Type
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("工作站")
+    </div>
+    <div class="editor-field">
+        @Model.WorkStation.WorkStationName
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.TeamName)
+    </div>
+    <div class="editor-field select" >
+        @Model.TeamName
+    </div>
+    <div class="editor-label">
+        @Html.Label("小组长")
+    </div>
+    <div class="editor-field">
+        @{
+            if (ViewBag.tl == true)
+            {
+                @Model.TeamLeader.Volunteer.User.RealName
+            }
+            else
+            {
+                <span>暂无</span>
+            }
+        }
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Introduction)
+    </div>
+    <div class="editor-field">
+        @Html.Raw(@Model.Introduction)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Comment)
+    </div>
+    <div class="editor-field">
+        @Model.Comment
+    </div>
+
+</fieldset>
+
+<p class="btn">
+    <a href="@Request.UrlReferrer">返回</a>
+</p>
+
+<!--fieldset>
+
+    <div class="display-label">服务类型</div>
+    <div class="display-field">
+        Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">服务小组名称</div>
+    <div class="display-field">
+        Html.DisplayFor(model => model.TeamName)
+    </div>
+
+    <div class="display-label">备注</div>
+    <div class="display-field">
+        Html.DisplayFor(model => model.Comment)
+    </div>
+    
+    <h5>待办事宜</h5>
+    <h6>申请加班小组列表</h6>
+           {if(ViewBag.apply.Count>0){
+
+      <table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="4"><div class="nav"></div></td></tr></tfoot>
+    <tbody>
+foreach (var item in ViewBag.apply as List<TeamMember>)
+{
+
+    <tr>
+        <td>
+            Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+    </tr>
+}
+
+</tbody>
+    </table>
+      Tools.table("datatable")
+              }
+}
+
+     {if(ViewBag.divorce.Count>0){
+     <p>申请脱离小组</p>
+      <table id="divorcetable" >
+  <thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            申请理由
+        </th>
+         <th>
+            操作
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="4"><div class="nav"></div></td></tr></tfoot>
+    <tbody>
+foreach (var item in ViewBag.divorce as List<TeamMember>)
+{
+
+    <tr>
+        <td>
+            Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+        <td>
+            Html.DisplayFor(modelItem => item.JoinDeclaration)
+        </td>
+        <td>
+             Html.ActionLink("同意脱离", "Verify","TeamMember", new { id = item.TeamMemberID, state=1 }, null)
+        </td>
+    </tr>
+}
+
+</tbody>
+    </table>
+      @Tools.table(ViewBag, "divorcetable", "/Team/index")
+ }
+}
+
+   @{if (ViewBag.fire.Count > 0)
+     {
+     <p>申请开除小组</p>
+      <table id="firetable" >
+  <thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            申请理由
+        </th>
+         <th>
+            操作
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="4"><div class="nav"></div></td></tr></tfoot>
+    <tbody>
+@foreach (var item in ViewBag.fire as List<TeamMember>)
+{
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JoinDeclaration)
+        </td>
+        <td>
+             @Html.ActionLink("同意开除", "Verify", "TeamMember", new { id = item.TeamMemberID, state = 1 }, null)
+        </td>
+    </tr>
+}
+
+</tbody>
+    </table>
+      @Tools.table(ViewBag, "firetable", "/Team/index")
+     }
+}
+
+   @{if (ViewBag.normal.Count > 0)
+     {
+     <p>小组成员</p>
+      <table id="normaltable" >
+  <thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            申请理由
+        </th>
+         <th>
+            操作
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="4"><div class="nav"></div></td></tr></tfoot>
+    <tbody>
+@foreach (var item in ViewBag.normal as List<TeamMember>)
+{
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volunteer.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JoinDeclaration)
+        </td>
+        <td>
+             @Html.ActionLink("申请开除", "Verify", "TeamMember", new { id = item.TeamMemberID, state = 1 }, null)
+        </td>
+    </tr>
+}
+
+</tbody>
+    </table>
+      @Tools.table(ViewBag, "normaltable", "/Team/index")
+              }
+}
+</fieldset-->

@@ -1,0 +1,124 @@
+﻿@model PROnline.Models.Resources.Resource
+
+@{
+    ViewBag.Title = "添加资源";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+@section head{
+    <script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <link rel="Stylesheet"  href="@Url.Content("~/Content/ajaxupload/fileuploader.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Content/ajaxupload/fileuploader.js")" ></script> 
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('file-uploader'),
+                listElement:document.getElementById('fileStatusList'),
+                action: 'Upload',
+                fileTemplate: '<li>' +
+                '<span class="qq-upload-file"></span>' +
+                '<span class="qq-upload-spinner"></span>' +
+                '<span class="qq-upload-size"></span>' +
+                '<a class="qq-upload-cancel" href="#">取消</a>' +
+                '<span class="qq-upload-failed-text">错误</span>' +
+                '</li>',  
+                onComplete: function(id, fileName, responseJSON){
+                    if(responseJSON.id){
+                        $("#fileStatusList")[0].innerHTML="";
+                        var ele=$("<li>"+fileName+"<input type='hidden' name='FileNames' value="+fileName+
+                            " /><input type='hidden' name='FileID' value="+responseJSON.id+
+                            " /><input type='hidden' name='Files' value="+responseJSON.url+" /></li>");
+                        var eleClose=$("<a href='javasciprt:0'>【删除】<a>");
+                        eleClose.click(function(){$(this).parent().remove();});
+                        ele.append(eleClose)
+
+                        $("#fileList").append(ele);
+                    }
+                },
+            });  
+        });
+
+
+        $(function(){
+            $("#handAdd").click(function(){
+                var strTemp=$("<div><label>文件名：</label><input name='cusName' class='name' type='text' /><label>文件地址：</label><input name='cusUrl' class='url' type='text'></div>")
+                $("#customDiv").append(strTemp);
+            })
+        })
+    </script>
+    <style>
+        #customDiv{padding:5px;border:1px solid #eeeeee;background-color:#fafafafa;margin-top:5px; font-size:14px;}
+        #cutomDiv .url{width:300px}
+    </style> 
+
+
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+
+
+        <div class="editor-field p70">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+
+
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ResourceTypeId)
+        </div>
+
+
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.ResourceTypeId)
+            @Html.ValidationMessageFor(model => model.ResourceTypeId)
+            @Tools.tree("ResourceTypeId", @ViewBag.TypeTree)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Content)
+            @Tools.richbox("Content", "/Resources/EditorSave")
+        </div>
+
+	    <div id="file-uploader" style="margin-top:5px;">		
+		    <noscript>			
+			    <p>Please enable JavaScript to use file uploader.</p>
+			    <!-- or put a simple form for upload here -->
+		    </noscript>         
+	    </div> 
+        <ul id="fileStatusList">
+        </ul>
+
+        <ul id="fileList">
+        </ul>
+
+
+        <!--
+        div class='btn '>
+        <a href="javascript:0" id="handAdd">手动添加文件</a>
+        </div>
+        <div id="customDiv"></div
+        -->
+
+        <p class="btn">
+            <input type="submit" value="发布" />|@Html.ActionLink("返回列表", "Index")
+        </p>
+    </fieldset>
+}
+

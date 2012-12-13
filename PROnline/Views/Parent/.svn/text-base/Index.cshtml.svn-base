@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PROnline.Models.Users.Parent>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("添加", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            子女
+        </th>
+        <th>
+            生日
+        </th>
+        <th>
+            关系
+        </th>
+        <th>
+            工资地点
+        </th>
+        <th>
+            职业
+        </th>
+        <th>
+            手机
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.User.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Relationship)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkPlace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Career)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileTelephone)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.ParentID }) |
+            @Html.ActionLink("详情", "Details", new { id=item.ParentID }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.ParentID })
+        </td>
+    </tr>
+}
+
+</table>

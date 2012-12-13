@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationItem>
+@using PROnline.Models;
+@{
+    ViewBag.Title = "我的捐助";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+<table id="itemtable">
+    <thead>
+        <tr>
+            <th>
+                捐助项目名称
+            </th>
+            <th>
+                捐助日期
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="navbar">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", new { id = item.DonationItemID })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExcuteDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Tools.table(ViewBag, "itemtable", "/DonationItem/MyCheckedDonation")

@@ -1,0 +1,50 @@
+﻿@model PROnline.Models.Resources.FavoriteResource
+
+@{
+    ViewBag.Title = "添加收藏";
+    Layout = "~/Views/Shared/Space/_Edit.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FavoriteId)
+        </div>
+        <div class="editor-field">
+            @{
+                List<SelectListItem> list = (List<SelectListItem>)@ViewBag.FavoriteList;    
+            }
+            @Html.DropDownListFor(model => model.FavoriteId, list, new {style="width:150px" })
+            @Html.ValidationMessageFor(model => model.FavoriteId)
+            @Html.ActionLink("创建收藏夹", "Create", "Favorite", new { from=Request.UrlReferrer},null)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field p70">
+            <input name="Title" value="@ViewBag.name" />
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Url)
+        </div>
+        <div class="editor-field p70">
+            <input name="Url" value="@ViewBag.resource" />
+            @Html.ValidationMessageFor(model => model.Url)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Commnet)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Commnet)
+            @Html.ValidationMessageFor(model => model.Commnet)
+        </div>
+
+        <p>
+            <button type="submit">收藏</button>|<a href="@Request.UrlReferrer">返回</a>
+        </p>
+}
+

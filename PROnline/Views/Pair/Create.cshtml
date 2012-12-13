@@ -1,0 +1,198 @@
+﻿@model PROnline.Models.Service.Pairs
+
+@{
+    ViewBag.Title = "服务配对";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      
+
+        function GetXmlHttpObject() {
+            var xmlHttp = null;
+
+            try {
+                // Firefox, Opera 8.0+, Safari
+                xmlHttp = new XMLHttpRequest();
+            }
+            catch (e) {
+                // Internet Explorer
+                try {
+                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+            return xmlHttp;
+        }
+
+        var xmlHttp
+
+        function showHint() {
+
+            var hourlist = document.all.Hour;
+            for (var i = 0; i < hourlist.options.length; i++) {
+                if (hourlist.options[i].value =="请选择辅导时间段") {
+                    hourlist.options.remove(i);
+                    break;
+                }
+            }        
+
+            xmlHttp = GetXmlHttpObject()
+            if (xmlHttp == null) {
+                alert("Browser does not support HTTP Request")
+                return
+            }
+            var startdate = document.all.StartDate.value;
+            var hour = document.all.Hour.value;
+            
+            xmlHttp.onreadystatechange = stateChanged
+            xmlHttp.open("GET", "/Servers/serverlist?startdate="+startdate+"&hour="+hour, true)
+            xmlHttp.send(null)
+        }
+
+        function stateChanged() {
+        var objarray=new Array();
+            if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
+                var test = xmlHttp.responseText;
+                if (test.length > 0) {
+                    objarray = test.split(",");
+                }
+                else {
+                    alert("您选择的时间没有可用服务器，请重新选择日期或时间段");
+                }
+               var list = document.all.serverlist;
+               list.options.length =0
+               //alert(objarray.length);
+               for (var i = 0; i < objarray.length-1; i++) {
+
+                  // alert(objarray[i].toString());
+                   list.add(new Option(objarray[i].toString(), objarray[i].toString()));
+               }
+ 
+            }
+        }
+
+
+
+        function selecttime() {
+
+            xmlHttp = GetXmlHttpObject()
+            if (xmlHttp == null) {
+                alert("Browser does not support HTTP Request")
+                return
+            }
+            var startdate = document.all.StartDate.value;
+
+            xmlHttp.onreadystatechange = stateChanged1
+            xmlHttp.open("GET", "/Servers/selecttime?startdate=" + startdate, true)
+            xmlHttp.send(null)
+        }
+
+        function stateChanged1() {
+            var objarray = new Array();
+            if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
+                var test = xmlHttp.responseText;
+                if (test.length > 0) {
+                    objarray = test.split(",");
+                }
+                var list = document.all.Hour;
+                list.options.length = 0
+                //alert(objarray.length);
+                list.add(new Option("请选择辅导时间段", "请选择辅导时间段"));
+               // document.getElementById("Hour").value ="请选择辅导时间段";
+                for (var i = 0; i < objarray.length - 1; i++) {
+                    list.add(new Option(objarray[i].toString(), objarray[++i].toString()));
+                }
+             
+            }
+            
+        
+        }
+
+        $(function () {
+            $("#StartDate").change(function () {
+                selecttime();
+            });
+        })
+     /*    $(function () {
+            $("#StartDate").val("请选择开始日期");
+            $("#EndDate").val("请选择结束日期");
+
+        })
+       
+        $(document).ready(function () {
+            $("#StartDate").checkRequired({
+                required: true,
+                onFocus: "这个为必填项",
+                onBlur: "必须填写啊",
+                onSucces: "恭喜，你输入了",
+                tipId: "txtNameTip"
+            });
+        });
+        */
+    </script>
+
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @Html.Label("该学生的可上网时间")
+        </div>
+        <div class="editor-field">
+            @Html.Label(ViewBag.SurfDayOfWeek as String + "  " + ViewBag.SurfTime as String)
+        </div>
+
+         <div class="editor-label">
+            @Html.Label("结对开始日期")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+            @Tools.DateBox("StartDate")
+        </div>
+        <div class="editor-label">
+            @Html.Label("辅导时间段")
+        </div>
+        <div class="editor-field">
+                <select name="Hour" onchange="showHint()" id="Hour">
+                <option value="请先选择结对开始日期" selected="selected">请先选择开始日期</option>       
+                </select>        
+        </div>
+
+        <div class="editor-label">
+             @Html.Label("结对结束日期")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndDate)
+            @Html.ValidationMessageFor(model => model.EndDate)
+            @Tools.DateBox("EndDate")
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("可用视讯服务器")
+        </div>
+        <div class="editor-field">
+        <select name="serverlist" id="serverlist" style="width:150px"></select>
+        </div>
+
+        <div class="editor-label">
+            @{Html.RenderAction("Select", "Users", new { selectType = "radio", filter = "type=selPairMember", userType = new[] { "volunteer", "supervisor" }});}
+            @Html.ValidationMessageFor(model => model.Volunteer)
+        </div>
+
+        <p>
+            <input type="submit" value="创建" />
+        </p>
+    </fieldset>
+}
+<p class="btn">
+    @Html.ActionLink("返回", "SchoolNavigation", new { SchoolID = ViewBag.SchoolID })
+</p>

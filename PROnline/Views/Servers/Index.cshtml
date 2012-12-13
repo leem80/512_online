@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PROnline.Models.Service.Servers>
+
+@{
+    ViewBag.Title = "视讯服务器列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("添加服务器", "Create")
+</p>
+
+<table id="servertable" >
+    <tr>
+        <th>
+            服务器名称
+        </th>
+        <th>
+            IP
+        </th>
+        <th>
+            端口
+        </th>
+        <th>
+            是否可用
+        </th>
+        <th>
+            备注
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerIP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerPort)
+        </td>
+        <td>
+            @if (item.IsAvaiable == true)
+            {
+                <label>可用</label>
+            }
+            else if (item.IsAvaiable == false)
+            {
+                <label>不可用</label>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id = item.ServersID }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.ServersID })
+        </td>
+    </tr>
+}
+
+@Tools.table("servertable")

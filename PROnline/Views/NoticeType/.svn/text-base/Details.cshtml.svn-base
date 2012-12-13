@@ -1,0 +1,57 @@
+﻿@model PROnline.Models.Notices.NoticeType
+@using PROnline.Models.Notices;
+@{
+    
+    ViewBag.Title = "公告列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+    <div class="display-label">公告类型</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypeName)
+    </div>
+
+    <div class="display-label">介绍</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Introduction)
+    </div>
+
+<table id="datatable" >
+  <thead>
+    <tr>
+        <th>
+            标题
+        </th>
+        <th>
+            浏览数
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+        </thead>
+    <tfoot><tr><td colspan="3"><div class="navbar"></div></td></tr></tfoot>
+    <tbody>
+@foreach (var item in ViewBag.noticeList as List<Notice>)
+{
+
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Details", "Notice", new { id = item.NoticeID }, new { target="_blank"})
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.BrowsingNum)
+        </td>
+        <td>
+            @Html.ActionLink("修改", "Edit","Notice", new { id=item.NoticeID },null) |
+            @Html.ActionLink("删除", "Delete", "Notice", new { id = item.NoticeID }, null)
+        </td>
+    </tr>
+}
+
+</tbody>
+    </table>
+      @Tools.table(ViewBag,"datatable","/NoticeType/Details/"+Model.NoticeTypeID)
+
+<p class="btn">
+    @Html.ActionLink("返回", "Index")
+</p>

@@ -1,0 +1,56 @@
+﻿@model PROnline.Models.Service.Pairs
+
+@{
+    ViewBag.Title = "解除配对";
+   // Layout = "~/Views/Shared/_2Section.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    
+    <fieldset>
+        @Html.HiddenFor(model => model.PairsID)
+       <input type="hidden" value="@ViewBag.schoolid1"  name=sc1 id=sc1/>
+
+
+        <div class="editor-label">
+          @Html.Label("学生")
+        </div>
+        <div class="editor-field">
+          @Html.Label(Model.Student.User.RealName)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("志愿者")
+        </div>
+        <div class="editor-field">
+            @Html.Label(Model.Volunteer.User.RealName)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.Label("结对开始时间")
+        </div>
+        <div class="editor-field">
+             @Html.Label(Model.StartDate.ToString())
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("结对结束时间")
+        </div>
+        <div class="editor-field">
+            @Html.Label(Model.EndDate.ToString())
+        </div>
+
+        <p>
+            <input type="submit" value="确定解除" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回", "SchoolNavigation")
+</div>

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "GetPair";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+    <style>
+        .pairlist{list-style:none;margin:0px;padding:0px;}
+        .pairlist li{height:100px;margin:0px;padding:0px;border-bottom:1px solid #cccccc}
+        .intro{float:left;height:100px;font-size:9px}
+        .intro div{border-bottom:1px dotted #dddddd;line-height:20px}
+        .intro strong{color:#666666}
+    </style>
+@model PROnline.Models.Users.School
+    <ul class="pairlist">
+    @foreach (var pair in @Model.Pairs)
+    {
+        int i = 1;
+        <li>
+        <div class="intro">
+            <div><img src="/Content/img/team.png"  style="width:20px;height:20px"/>
+            <strong>小组
+            @i
+            </strong></div>
+            <div><strong>学生编号：</strong><span class="tips" rel="/Student/Tips">@pair.Student.User.UserName</span></div>
+            <div><strong>督导教师：</strong><span>@pair.Supervisor.User.RealName</span></div>
+            <div><strong>志愿者编号：</strong><span>@pair.Volunteer.User.UserName</span></div>
+        </div>
+        
+        </li>
+        i++;
+    }
+    </ul>

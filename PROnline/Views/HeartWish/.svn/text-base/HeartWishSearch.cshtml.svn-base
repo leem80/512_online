@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PROnline.Models.HeartWishes.HeartWish>
+           
+@using PROnline.Models.HeartWishes;
+
+@{
+    ViewBag.Title = "心声搜索结果";
+    Layout = "~/Views/Shared/_2Section.cshtml";
+}
+
+<!--左侧菜单-->
+<ul id="admin_menu">
+@section menu {
+    @foreach (var type in ViewBag.typelist as List<HeartWishType>)
+    {        
+    <li>@Html.ActionLink(type.TypeName, "HeartWishBrowse", "HeartWish", new { id = type.HeartWishTypeID }, null)</li>       
+    }
+}
+</ul>
+
+<table id="datatable" >
+    <thead>
+        <tr>
+            <th>
+                标题
+            </th>
+            <th style="width:120px">
+                心声类型
+            </th>
+            <th style="width:80px">
+                浏览数
+            </th>
+        </tr>
+    </thead>
+    <tfoot><tr><td colspan="4"><div class="nav"></div></td></tr></tfoot>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeartWishType.TypeName)
+            </td>
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.HeartWishID }, new{ target="_blank"})
+            </td>
+            <td>
+                @{  int count = 0;
+                    if (item.ReplyList != null)
+                    {
+                        foreach (HeartWishReply reply in item.ReplyList)
+                        {
+                            if (reply.VerifyingState == "通过")
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                }
+                @Html.DisplayFor(modelItem => count)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Tools.table(@ViewBag,"datatable", "/HeartWish/HeartWishSearch")

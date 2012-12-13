@@ -1,0 +1,41 @@
+﻿@model PROnline.Models.Guides.GuideType
+
+@{
+    ViewBag.Title = "新建新手导航";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+
+@using (Html.BeginForm("Create", "GuideType", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+       
+        <input name="GuideTypeID" type="hidden" value="00000000-0000-0000-0000-000000000000" />
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TypeName)
+        </div>
+        <div class="editor-field p70">
+            @Html.EditorFor(model => model.TypeName)
+            @Html.ValidationMessageFor(model => model.TypeName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Introduction)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Introduction)
+            @Html.ValidationMessageFor(model => model.Introduction)
+           @Tools.richbox("Introduction")
+        </div>
+
+        <p>
+            <input type="submit" value="新建" />|@Html.ActionLink("返回", "Index")
+        </p>
+    </fieldset>
+}
+

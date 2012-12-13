@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PROnline.Models.Donation.DonationType>
+
+@{
+    ViewBag.Title = "捐助类型列表";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<p class="btn">
+    @Html.ActionLink("新建捐助类型", "Create")
+</p>
+<table id="datatable" >
+    <thead>
+    <tr>
+        <th  style="width:150px;">
+            捐助类型名称
+        </th>
+        <th>
+            介绍
+        </th>
+        <th style="width:100px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeName)
+        </td>
+        <td>
+            @Html.Raw(item.Introduction)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.DonationTypeID }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.DonationTypeID })
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+@Tools.table("datatable")

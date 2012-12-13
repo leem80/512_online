@@ -1,0 +1,46 @@
+﻿@model PROnline.Models.Activities.ActivityContribute
+
+@{
+    ViewBag.Title = "审核活动风采投稿";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="display-label">投稿主题</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+
+        <div class="display-label">投稿人</div>
+        <div class="display-field">
+            <span>@ViewBag.name</span>
+        </div>
+
+        <div class="display-label">投稿日期</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CreateDate)
+        </div>
+
+        <div class="display-label">内容</div>
+        <div class="display-field">
+            @Html.Raw(@Model.Content)
+        </div>
+        
+        @{
+            if (ViewBag.type == "refuse")
+            {
+                <div class="display-label">未通过原因</div>
+                <div class="display-field">
+                    @Html.TextAreaFor(model => model.Cause)
+                </div>
+            }   
+        }
+
+        <p class="btn">
+            <input type="submit" value="确定" /> | @Html.ActionLink("返回", "VerifyList")
+        </p>
+    </fieldset>
+}
+

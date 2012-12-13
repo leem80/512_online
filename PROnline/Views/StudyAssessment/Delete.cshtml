@@ -1,0 +1,45 @@
+﻿@model PROnline.Models.Assessments.StudyAssessment
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_2Section.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>StudyAssessment</legend>
+
+    <div class="display-label">Courses</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Course)
+    </div>
+
+    <div class="display-label">Grade</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Grade)
+    </div>
+
+    <div class="display-label">Imporvement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Imporvement)
+    </div>
+
+    <div class="display-label">Conclusion</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Conclusion)
+    </div>
+
+    <div class="display-label">Action</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Action)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

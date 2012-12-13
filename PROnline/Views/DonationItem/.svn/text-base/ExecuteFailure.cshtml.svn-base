@@ -1,0 +1,28 @@
+﻿@model PROnline.Models.Donation.DonationItem
+
+@{
+    ViewBag.Title = "审核捐助统计";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<fieldset>
+
+    @Html.HiddenFor(model => model.DonationItemID)
+
+    <div class="display-label">标题</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">内容</div>
+    <div class="display-field">
+         @Html.Raw(Model.Content)
+    </div>
+</fieldset>
+    <p class="btn">
+        <input type="submit" value="确认" /> |
+        @Html.ActionLink("返回", "Statistic")
+    </p>
+}

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PROnline.Models.Teams.TeamMember>
+
+@{
+    ViewBag.Title = "组员审核";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+@section head{
+    <script src="@Url.Content("~/Content/tips.js")" type="text/javascript"></script>
+}
+
+<p class="btn">
+    @Html.ActionLink("成员列表", "MyTeam")
+    @Html.ActionLink("脱离小组", "ApplyingExit", "TeamLeader", new { id = ViewBag.teamLeaderId }, null)
+</p>
+
+<table id="tablelist">
+    <thead>
+        <tr>
+            <td>工作站名称:@ViewBag.wName</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>                      
+                小组名称:@ViewBag.teamName
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                姓名
+            </th>
+            <th>
+                申请日期
+            </th>
+            <th>
+                网络留言
+            </th>
+            <th>
+                联系电话
+            </th>
+            <th>
+                审核状态
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach(var item in Model)
+            {
+                <tr>
+                    <td title="申请加入理由:@item.JoinDeclaration" class="tips">
+                        @Html.ActionLink(item.Volunteer.User.RealName, "UserInfo", "Users", new { id = item.Volunteer.UserID }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JoinDate)
+                    </td>
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Volunteer.MobileTelephone)
+                    </td>
+                    <td>
+                        @Html.ActionLink("同意", "Edit", "TeamMember", new { id = item.TeamMemberID, type = "join" }, null)|
+                        @Html.ActionLink("不同意", "Edit", "TeamMember", new { id = item.TeamMemberID, type = "refuse" }, null)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@Tools.table("tablelist")
+

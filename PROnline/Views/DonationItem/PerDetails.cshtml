@@ -1,0 +1,105 @@
+﻿@model PROnline.Models.Donation.DonationItem
+@using PROnline.Models.Donation;
+@using PROnline.Models;
+ @using PROnline.Controllers.Resources
+
+@{
+    ViewBag.Title = "捐助详情";
+    Layout = "~/Views/Shared/Normal/_Show.cshtml";
+}
+@section head{
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+
+<div class="clear"></div>
+<div class="grid_3 more" >
+    <div class="container">
+     @{Html.RenderAction("Relate", "Slider");}
+    </div>
+</div>
+
+<div class="grid_9">
+<div class="content-section">
+<h3>@Html.Raw(@Model.Title)</h3>
+<p class="ref">
+@if (Model.VerifyStateId == "已执行")
+{
+    <span>执行日期:@Model.ExcuteDate</span>
+}
+else
+{
+    <span>发布日期:@Model.CreateDate</span>
+}
+
+<span><a href="@Request.UrlReferrer">返回</a></span>
+</p>
+<hr/>
+<p>
+    @Html.Raw(@Model.Content)
+</p>
+</div>
+</div>
+
+<fieldset>   
+    <div class="display-label">
+<<<<<<< .mine
+        捐助项目名称</div>
+    <div class="display-field">
+        @Html.Raw(Model.Title)
+    </div>
+    <div class="display-label">
+        内容</div>
+    <div class="display-field">
+        @Html.Raw(Model.Content)
+    </div>
+
+        <div class="display-label">
+=======
+>>>>>>> .r405
+        捐助人
+    </div>
+    <div class="display-field">
+        @{
+            if (Model.VerifyStateId == "已执行")
+            {
+                String donatorName = ViewBag.donatorUserName;
+                <span>@donatorName.Trim(',')</span>
+            }
+            else
+            {
+                <span>无</span>
+            }
+        }       
+    </div>
+    <div class="display-label">
+        受助人数
+    </div>
+    <div class="display-field">
+    @{int number = ViewBag.number;}
+    <span>@number</span>
+    </div>
+<<<<<<< .mine
+
+        <div class="display-label">
+    发布日期
+    </div>
+    <div class="display-field">
+    @Html.Raw(Model.StartDate.ToString())
+    </div>
+        <div class="display-label">
+    执行日期
+    </div>
+    <div class="display-field">
+    @Html.Raw(Model.ExcuteDate.ToString())
+    </div>
+    <div class="display-label">
+    目前状态
+    </div>
+    <div class="display-field">
+    @Html.Raw(Model.VerifyStateId)
+    </div>
+=======
+>>>>>>> .r405
+</fieldset>

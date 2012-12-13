@@ -1,0 +1,65 @@
+﻿@model PROnline.Models.Users.Administrator
+
+ @if (ViewBag.type != null && ViewBag.type == "workspace")
+ {
+ }
+ else
+ {
+     ViewBag.Title = "系统管理员详情";
+     Layout = "~/Views/Shared/Space/_Detail.cshtml";
+ }
+
+<fieldset>
+
+    @if (ViewBag.type != null && ViewBag.type == "workspace")
+    {
+    <p class="btn">
+        @Html.ActionLink("修改个人信息", "Edit", new { id = Model.AdministratorID })
+        @Html.ActionLink("修改密码", "ChangePassword","Users", new { id = Model.User.Id },null)
+    </p>
+    }
+
+    <div class="display-label">用户名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.UserName)
+    </div>
+
+    <div class="display-label">真实姓名</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.RealName)
+    </div>
+
+    <div class="display-label">出生日期</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">性别</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">固定电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+
+    <div class="display-label">移动电话</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileTelephone)
+    </div>
+
+    <div class="display-label">地址</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+     @if (ViewBag.type == null && ViewBag.type != "workspace")
+     {
+         <p class="btn">
+            @Html.ActionLink("返回", "Index", "Administrator")
+        </p>
+     }
+         
+</fieldset>
+

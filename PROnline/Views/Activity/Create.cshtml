@@ -1,0 +1,78 @@
+﻿@model PROnline.Models.Activities.Activity
+
+@{
+    ViewBag.Title = "活动提案";
+    Layout = "~/Views/Shared/Manage/_Edit.cshtml";
+}
+
+@section head{
+<script src="@Url.Content("~/Content/ckeditor/ckeditor.js")" type="text/javascript"></script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActivityName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ActivityName)
+            @Html.ValidationMessageFor(model => model.ActivityName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActivityStartDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ActivityStartDate)
+            <script type="text/javascript">
+                $("#ActivityStartDate").attr("readonly", "readonly")
+            </script>
+            @Html.ValidationMessageFor(model => model.ActivityStartDate)
+            @Html.ValidationMessage("ActivityStartDateError")
+            @Tools.DateBox("ActivityStartDate")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActivityAddr)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ActivityAddr)
+            @Html.ValidationMessageFor(model => model.ActivityAddr)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PersonInCharge)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PersonInCharge)
+            @Html.ValidationMessageFor(model => model.PersonInCharge)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telephone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telephone)
+            @Html.ValidationMessageFor(model => model.Telephone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActivityArrangement)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.ActivityArrangement)
+            @Html.ValidationMessageFor(model => model.ActivityArrangement)
+        </div>
+
+         <div class="editor-label">
+            @{Html.RenderAction("Select", "Users", new { selectType = "checkbox", filter = "type=selActivityMember", userType = new[] { "team_leader", "volunteer", "student" } });}
+        </div>
+
+        <p class="btn">
+            <input type="submit" value="创建" />|@Html.ActionLink("返回", "MyActivityList")
+        </p>
+    </fieldset>
+}

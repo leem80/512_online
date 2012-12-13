@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "冥想之音";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="URLList">
+    <thead>
+        <tr>
+            <td>目录</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            String[] names = {"Mystica",
+                            "Marco Polo",
+                            "Raindrops on Your Face",
+                            "Summerwaltz",
+                            "Black Windmill",
+                            "Japanese Girl",
+                            "The Wings Of Tharus",
+                            "Theme Form Missing",
+                            "Sparkling Raindrops",
+                            "Blue Love Theme",
+                            "A Day Without Rain",
+                            "Aqua Blue",
+                            "White Moon Over Tibet",
+                            "Loverletter to You",
+                            "Caribbean Blue",
+                            "Rainbow River",
+                            "Hijo De La Luna",
+                            "The Book of Life",
+                            "Moonglow",
+                            "Mystic Zone"         
+            };
+            int i = 1;
+            foreach(String str in names)
+            {
+                String content = "/content/res/";
+                String temp = String.Format("{0:000}", i);
+                String path = content + "MSML-" + temp + "-" + str + ".swf";
+                i++;
+                <tr>
+                    <td>
+                        <a href="@path">@str</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@Tools.table("URLList")
+
+
+

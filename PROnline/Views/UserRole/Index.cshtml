@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PROnline.Models.Users.User>
+
+@{
+    ViewBag.Title = "管理员角色修改";
+    Layout = "~/Views/Shared/Manage/_List.cshtml";
+}
+
+<table id="datatable">
+<thead>
+    <tr>
+        <th></th>
+        <th>
+            用户名
+        </th>
+        <th>
+            真实姓名
+        </th>
+        <th>
+            用户类型
+        </th>
+
+        <th>
+            当前角色
+        </th>
+        <th>
+            创建日期
+        </th>
+
+    </tr>
+</thead>
+<tfoot><tr><td colspan="6"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("更改角色", "Change", new { id=item.Id }) |
+        </td>
+        <td>
+            @item.UserName
+        </td>
+        <td>
+            @item.RealName
+        </td>
+
+        <td>
+
+             @item.UserType.Note
+
+        </td>
+
+        <td>
+        @if (item.Role != null)
+        {
+           @item.Role.Note
+        }
+        </td>
+        <td>
+            @String.Format("{0:g}", item.CreateDate)
+        </td>
+
+
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(@ViewBag,"datatable","/UserRole/Index")
+

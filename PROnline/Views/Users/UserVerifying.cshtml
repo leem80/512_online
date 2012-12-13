@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PROnline.Models.Users.User>
+@using PROnline.Models.Users
+
+@{
+    ViewBag.Title = "注册用户审核";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+}
+
+<table id="tablelist">
+<thead align="center">
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            用户类型
+        </th>
+        <th>
+            审核
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    
+    <tr>
+        <td align="center">
+            @Html.ActionLink(item.UserName, "UserInfo", new { id = item.Id })
+        </td>
+        <td align="center">   
+            @if (item.RoleId == UserType.VOLUNTEER)
+            {
+                <span>志愿者</span>
+            }
+            else if (item.RoleId == UserType.SUPERVISOR)
+            {
+                <span>督导专家</span>
+            }
+            else if (item.RoleId == UserType.DONATOR)
+            {
+                <span>爱心人士</span>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("通过", "Verifying", new { id = item.Id, verify = "accept" }) |
+            @Html.ActionLink("拒绝", "Verifying", new { id = item.Id, verify = "refuse" })
+        </td>
+    </tr>
+}
+</tbody>
+
+    
+</table>
+@Tools.table("tablelist")

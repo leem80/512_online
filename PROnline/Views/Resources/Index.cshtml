@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PROnline.Models.Resources.Resource>
+
+@{
+    ViewBag.Title = "我的资源";
+    Layout = "~/Views/Shared/Space/_List.cshtml";
+    String UserType = ViewBag.UserType;
+}
+
+<p class="btn">
+    @Html.ActionLink("发布新资源", "Create")
+</p>
+<table id="table">
+<thead>
+    <tr>
+        <th>
+            标题
+        </th>
+        @if(UserType!="admin"&&UserType!="manage"){
+        <th style="width:100px">
+            审核状态
+        </th>
+        }
+        <th style="width:100px">
+            发布日期
+        </th>
+        <th style="width:200px">
+            操作
+        </th>
+    </tr>
+</thead>
+<tfoot><tr><td colspan="5"><div class="navbar"></div></td></tr></tfoot>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id = item.ResourceID })
+        </td>
+        @if (UserType != "admin" &&  UserType != "manage")
+        {
+        <td>
+            @Html.DisplayFor(modelItem => item.VerifyState.Note)
+        </td>
+        }
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+      
+            <td>
+                @if (item.VerifyStateId != PROnline.Models.VerifyState.SUCCESS
+                    && item.VerifyStateId != PROnline.Models.VerifyState.SUBMIT)
+                {
+                    @Html.ActionLink("提交审核", "Submit", new { id = item.ResourceID })<span>|</span> 
+                }
+                
+                    @Html.ActionLink("修改", "Edit", new { id = item.ResourceID })<span>|</span>                          
+                    @Html.ActionLink("删除", "Delete", new { id = item.ResourceID,t="i" })
+            </td>
+        
+    </tr>
+}
+</tbody>
+</table>
+@Tools.table(ViewBag,"table","/Resources/Index")
